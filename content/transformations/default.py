@@ -1,0 +1,2 @@
+"""Default"""
+print("Hello World!")
