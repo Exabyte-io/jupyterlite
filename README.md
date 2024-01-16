@@ -21,6 +21,62 @@ JupyterLite is being tested against modern web browsers:
 
 Check out the guide on the JupyterLite documentation: https://jupyterlite.readthedocs.io/en/latest/quickstart/deploy.html
 
+## Development of Extensions
+### To develop extension:
+
+```
+cd jupyter-lite
+mkdir extensions
+```
+
+Create virtual environment for development and install cookiecutter
+```
+virtualenv .venv
+source .venv/bin/activate  
+pip install cookiecutter
+cookiecutter https://github.com/jupyterlab/extension-cookiecutter-ts
+```
+
+Create extension
+```
+cd extensions
+mkdir jupyterlab-iframe-bridge-example
+cd jupyterlab-iframe-bridge-example
+jupyter labextension develop --overwrite .
+```
+
+Build the Jupyter Lab extension
+```
+jlpm run build
+```
+
+List available extensions
+```
+jupyter labextension list
+```
+
+If successful, you should see the following output:
+```
+jupyterlab-iframe-bridge-example v0.1.0 enabled OK (python, jupyterlab_iframe_bridge_example)
+```
+
+###  To run extension:
+Specify path to custom extension pyproject.toml in requirements.txt and install dependencies
+
+```
+pip install -r requirements.txt
+```
+
+Build jupyterlite
+```
+jupyter lite build --contents content --output-dir dist
+```
+
+Serve jupyterlite on localhost
+```
+python -m http.server -b localhost -d ./dist
+```
+
 ## Further Information and Updates
 
 For more info, keep an eye on the JupyterLite documentation:
