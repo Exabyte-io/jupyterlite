@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@jupyterlab/application": "^4.0.11",
+    "jupyterlab-iframe-bridge-example": "https://github.com/Exabyte-io/jupyter-lite-extensions"
+  }
+}

@@ -1,0 +1,65 @@
+10394  cd jupyter-lite
+10396  source .venv/bin/activate
+10397  pip install -r requirements.txt
+10398  jupyter lite build --contents content --output-dir dist
+10399  python -m http.server -b localhost
+10400  ls -tlhra
+10401  mkdir extensions
+10402  cd extensions
+10403  mkdir jupyterlab-iframe-bridge-example
+10404  ls -tlhra
+10405  cd jupyterlab-iframe-bridge-example
+10406  jupyter labextension develop --overwrite .
+10407  ls -tlhra
+10408  cd ..
+10409  ls -tlhra
+10410  rm -rf jupyterlab-iframe-bridge-example
+10411  cookiecutter https://github.com/jupyterlab/extension-cookiecutter-ts
+10412  pip install cookiecutter
+10413  cookiecutter https://github.com/jupyterlab/extension-cookiecutter-ts
+10414  ls -tlhra
+10415  cd jupyterlab-iframe-bridge-example
+10416  ls -tlhra
+10417  jupyter labextension develop --overwrite .
+10418  jlpm
+10419  jlpm run build
+10420  jupyter labextension list
+10421  cd ..
+10422  cd jupyterlab-iframe-bridge-example
+10423  ls -tlhra
+10424  cd ..
+10425  pip install -r requirements.txt
+10426  jupyter lite build --contents content --output-dir dist
+10427  jupyter labextension list
+10428  jupyter lite build --contents content --output-dir dist
+10429  python -m http.server -b localhost ./dist
+10430  python -m http.server -b localhost -d ./dist
+10431  jupyter lite build --contents content --output-dir dist
+10432  python -m http.server -b localhost -d ./dist
+10433  jupyter lite build --contents content --output-dir dist
+10434  python -m http.server -b localhost -d ./dist
+10435  jupyter lite build --contents content --output-dir dist
+10436  ls -tlhra
+10437  jupyter lite build --contents content --output-dir dist
+10438  python -m http.server -b localhost -d ./dist
+10439  ls -tlhra
+10440  rm -rf dist
+10441  jupyter lite build --contents content --output-dir dist
+10442  python -m http.server -b localhost -d ./dist
+10443  jupyter labextension list
+10444  jupyter lite build --contents content --output-dir dist
+10445  python -m http.server -b localhost -d ./dist
+10446  git status
+10447  vim .gitignore
+10448  gs
+10449  git status
+10450  git add -A .gitignore
+10451  git commit -m "chore: update gitignore"
+10452  gs
+10453  git status
+10454  cat requirements.txt
+10455  ls -tlhta
+10456  source .venv/bin/activate
+10457  rm -rf dist
+10458  pip install -r requirements.txt
+10459  jupyter lite build --contents content --output-dir dist
