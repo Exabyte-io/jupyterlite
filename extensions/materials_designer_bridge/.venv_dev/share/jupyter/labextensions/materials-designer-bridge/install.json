@@ -1,5 +1,0 @@
-{
-  "packageManager": "python",
-  "packageName": "materials_designer_bridge",
-  "uninstallInstructions": "Use your Python package manager (pip, conda, etc.) to uninstall the package materials_designer_bridge"
-}
