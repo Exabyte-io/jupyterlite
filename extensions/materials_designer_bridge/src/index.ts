@@ -12,6 +12,24 @@ const plugin: JupyterFrontEndPlugin<void> = {
   autoStart: true,
   activate: (app: JupyterFrontEnd) => {
     console.log('JupyterLab extension materials-designer-bridge is activated!');
+  
+    /* Incoming messages management */
+    window.addEventListener('message', event => {
+      if (event.data.type === 'from-host-to-iframe') {
+        console.log('Message received in the iframe:', event.data);
+      }
+    });
+
+    /* Outgoing messages management */
+    // @ts-ignore
+    const sendMaterialsData = (): void => {
+      const message = {
+        type: 'from-iframe-to-host',
+        materials: "supposed to be materials data"
+      };
+      window.parent.postMessage(message, '*');
+      console.log('Message sent to the host:', message);
+    }
   }
 };
 
