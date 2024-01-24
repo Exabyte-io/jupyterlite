@@ -1,6 +1,10 @@
 {
+  "scripts": {
+    "build": "pip install -r requirements.txt; jupyter lite build --contents content --output-dir dist",
+    "start": "python -m http.server -b localhost -d ./dist",
+    "restart": "npm run build && npm run start"
+  },
   "dependencies": {
-    "@jupyterlab/application": "^4.0.11",
-    "jupyterlab-iframe-bridge-example": "https://github.com/Exabyte-io/jupyter-lite-extensions"
+    "@jupyterlab/application": "^4.0.11"
   }
 }
