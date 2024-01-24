@@ -3,55 +3,86 @@ import {
   JupyterFrontEndPlugin
 } from '@jupyterlab/application';
 
+declare global {
+  interface Window {
+    pyodide: any;
+  }
+}
+
+const PYODIDE_CDN_URL =
+  'https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js';
+
 /**
  * Initialization data for the materials-designer-bridge extension.
  */
 const plugin: JupyterFrontEndPlugin<void> = {
   id: 'materials-designer-bridge:plugin',
-  description: 'Extension to pass materials data between Materials Designer and Jupyter Lite instance',
+  description:
+    'Extension to pass materials data between Materials Designer and Jupyter Lite instance',
   autoStart: true,
   activate: (app: JupyterFrontEnd) => {
-    console.log('MD Extension. JupyterLab extension materials-designer-bridge is activated!');
+    console.log(
+      'MD Extension. JupyterLab extension materials-designer-bridge is activated!'
+    );
 
-    // Define a command that sends data to the kernel
-    const commandId = 'my-extension:send-data-to-kernel';
+    // Load Pyodide
+    if (!window.pyodide) {
+      const script = document.createElement('script');
+      script.src = PYODIDE_CDN_URL;
+      script.async = true;
+      script.onload = async () => {
+        // Initialize Pyodide after the script is loaded
+        // @ts-ignore
+        window.pyodide = await window.loadPyodide();
 
-    app.commands.addCommand(commandId, {
-      execute: () => {
-        // Get the current kernel 
-        const kernel = app.serviceManager.sessions.findByPath('debugging_jl.ipynb');
-        console.log('MD Extension. Kernel:', kernel);
-        // Send a message to the kernel
-        kernel.then(session => {
-          // @ts-ignore
-          session.kernel.requestExecute({ code: `get_materials(${JSON.stringify(window.materials)})` });
-        });
-      }
-    });
+        console.log('MD Extension. Pyodide initialized successfully.');
+      };
+      script.onerror = () => {
+        console.error('MD Extension. There was an error loading Pyodide.');
+      };
+      document.head.appendChild(script);
+    }
 
     /* Incoming messages management */
     window.addEventListener('message', event => {
       console.log('MD Extension. Event received from the host:', event);
       if (event.data.type === 'from-host-to-iframe') {
-        console.log('MD Extension. Message received in the iframe:', event.data);
         let materials = event.data.materials;
-        console.log('MD Extension. Materials received in the iframe:', materials);
+        console.log(
+          'MD Extension. Materials received in the iframe:',
+          materials
+        );
         // @ts-ignore
         window.materials = materials;
-        // @ts-ignore
-        console.log('MD Extension. Materials stored in the iframe:', window.materials);
+        localStorage.setItem('materials', JSON.stringify(materials));
 
-
-        // TODO: reserve in case previous approach doesn't work
-        // const kernel = app.serviceManager.sessions.findByPath('path-to-your-notebook');
-        // kernel.then(session => {
-        //   let materials = event.data.materials;
-        //   session.kernel.requestExecute({ code: `your_python_function(${JSON.stringify(materials)})` });
-        // });
-
-
-        // Execute the command to send data to the kernel
-        app.commands.execute(commandId);
+        // Send materials to Pyodide Python environment
+        if (
+          window.pyodide &&
+          typeof window.pyodide.runPythonAsync === 'function'
+        ) {
+          window.pyodide
+            .runPythonAsync(
+              `
+              import json
+              materials = json.loads('${JSON.stringify(materials)}')
+              print('MD Extension. Materials received in the Python environment:', materials)
+              # function defined in the Python notebook
+              get_materials(materials)
+            `
+            )
+            .then(() => {
+              console.log('MD Extension. Python code executed successfully.');
+            })
+            .catch((err: any) => {
+              console.error(
+                'MD Extension. There was an error executing Python code:',
+                err
+              );
+            });
+        } else {
+          console.error('MD Extension. Pyodide is not available.');
+        }
       }
     });
 
@@ -60,11 +91,14 @@ const plugin: JupyterFrontEndPlugin<void> = {
     const sendMaterialsData = (): void => {
       const message = {
         type: 'from-iframe-to-host',
-        materials: "MD Extension. supposed to be materials data"
+        materials: 'MD Extension. supposed to be materials data'
       };
       window.parent.postMessage(message, '*');
       console.log('MD Extension. Message sent to the host:', message);
-    }
+    };
+
+    // Example usage of sendMaterialsData function
+    // sendMaterialsData();
   }
 };
 
