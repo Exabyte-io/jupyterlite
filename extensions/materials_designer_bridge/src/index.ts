@@ -2,15 +2,7 @@ import {
   JupyterFrontEnd,
   JupyterFrontEndPlugin
 } from '@jupyterlab/application';
-
-declare global {
-  interface Window {
-    pyodide: any;
-  }
-}
-
-const PYODIDE_CDN_URL =
-  'https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js';
+import { KernelManager, KernelSpecManager } from '@jupyterlab/services';
 
 /**
  * Initialization data for the materials-designer-bridge extension.
@@ -20,31 +12,25 @@ const plugin: JupyterFrontEndPlugin<void> = {
   description:
     'Extension to pass materials data between Materials Designer and Jupyter Lite instance',
   autoStart: true,
-  activate: (app: JupyterFrontEnd) => {
+  activate: async (app: JupyterFrontEnd) => {
     console.log(
       'MD Extension. JupyterLab extension materials-designer-bridge is activated!'
     );
 
-    // Load Pyodide
-    if (!window.pyodide) {
-      const script = document.createElement('script');
-      script.src = PYODIDE_CDN_URL;
-      script.async = true;
-      script.onload = async () => {
-        // Initialize Pyodide after the script is loaded
-        // @ts-ignore
-        window.pyodide = await window.loadPyodide();
+    const kernelManager = new KernelManager();
+    const kernelSpecManager = new KernelSpecManager();
+    await kernelSpecManager.ready;
 
-        console.log('MD Extension. Pyodide initialized successfully.');
-      };
-      script.onerror = () => {
-        console.error('MD Extension. There was an error loading Pyodide.');
-      };
-      document.head.appendChild(script);
-    }
+    // Start a new kernel session
+    const specs = kernelSpecManager.specs;
+    // @ts-ignore
+    const defaultSpecName = specs.default;
+    const session = await kernelManager.startNew({
+      name: defaultSpecName
+    });
+    console.log('MD Extension. Kernel session started.');
 
-    /* Incoming messages management */
-    window.addEventListener('message', event => {
+    window.addEventListener('message', async event => {
       console.log('MD Extension. Event received from the host:', event);
       if (event.data.type === 'from-host-to-iframe') {
         let materials = event.data.materials;
@@ -52,53 +38,35 @@ const plugin: JupyterFrontEndPlugin<void> = {
           'MD Extension. Materials received in the iframe:',
           materials
         );
-        // @ts-ignore
-        window.materials = materials;
-        localStorage.setItem('materials', JSON.stringify(materials));
 
-        // Send materials to Pyodide Python environment
-        if (
-          window.pyodide &&
-          typeof window.pyodide.runPythonAsync === 'function'
-        ) {
-          window.pyodide
-            .runPythonAsync(
-              `
-              import json
-              materials = json.loads('${JSON.stringify(materials)}')
-              print('MD Extension. Materials received in the Python environment:', materials)
-              # function defined in the Python notebook
-              get_materials(materials)
-            `
-            )
-            .then(() => {
-              console.log('MD Extension. Python code executed successfully.');
-            })
-            .catch((err: any) => {
-              console.error(
-                'MD Extension. There was an error executing Python code:',
-                err
-              );
-            });
-        } else {
-          console.error('MD Extension. Pyodide is not available.');
-        }
+        // @ts-ignore
+        const future = session.kernel.requestExecute({
+          code: `
+            import json
+            global materials
+            materials = json.loads('${JSON.stringify(materials)}')
+            print(materials)
+          `
+        });
+
+        future.done
+          .then(() => {
+            console.log('MD Extension. Code executed in Python kernel.');
+          })
+          // @ts-ignore
+          .catch(err => {
+            console.error(
+              'MD Extension. Error executing code in Python kernel:',
+              err
+            );
+          });
+
+        // Clean up after execution
+        future.done.finally(() => {
+          session.dispose();
+        });
       }
     });
-
-    /* Outgoing messages management */
-    // @ts-ignore
-    const sendMaterialsData = (): void => {
-      const message = {
-        type: 'from-iframe-to-host',
-        materials: 'MD Extension. supposed to be materials data'
-      };
-      window.parent.postMessage(message, '*');
-      console.log('MD Extension. Message sent to the host:', message);
-    };
-
-    // Example usage of sendMaterialsData function
-    // sendMaterialsData();
   }
 };
 
