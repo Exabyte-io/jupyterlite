@@ -18,12 +18,35 @@ const plugin: JupyterFrontEndPlugin<void> = {
       'MD Extension. JupyterLab extension materials-designer-bridge is activated!'
     );
 
+    console.log(app.shell);
+
+    // @ts-ignore
+    window.sendDataToHost = (materials: any) => {
+      window.parent.postMessage(
+        {
+          type: 'from-iframe-to-host',
+          materials: materials
+        },
+        '*'
+      );
+    };
+
+    // @ts-ignore
+    window.requestMaterialsFromHost = () => {
+      window.parent.postMessage(
+        {
+          type: 'from-iframe-to-host',
+          requestMaterials: true
+        },
+        '*'
+      );
+    };
+
+    //TODO: set type for materials
     window.addEventListener('message', async event => {
-      console.log('MD Extension. Event received from the host:', event);
       if (event.data.type === 'from-host-to-iframe') {
         let materials = event.data.materials;
         const materialsJson = JSON.stringify(materials);
-
         const code = `
 import json
 materials = json.loads('${materialsJson}')
