@@ -34,8 +34,13 @@ const plugin: JupyterFrontEndPlugin<void> = {
           window.materials
         );
 
-        const code = `globals()['materials'] = ${JSON.stringify(materials[0])}
-        print('Materials stored in the kernel globals')`;
+        const code = `
+import json
+materials = json.loads('${JSON.stringify(materials[0])
+          .replace(/'/g, "\\'")
+          .replace(/"/g, '\\"')}')
+print('Materials stored in the kernel globals')
+`;
 
         // Assigns materials to globals in the pyodide kernel
         const currentWidget = app.shell.currentWidget;
