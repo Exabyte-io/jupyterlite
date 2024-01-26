@@ -22,38 +22,20 @@ const plugin: JupyterFrontEndPlugin<void> = {
       console.log('MD Extension. Event received from the host:', event);
       if (event.data.type === 'from-host-to-iframe') {
         let materials = event.data.materials;
-        console.log(
-          'MD Extension. Materials received in the iframe:',
-          materials
-        );
-        // @ts-ignore
-        window.materials = materials;
-        console.log(
-          'MD Extension. Materials stored in the window object.',
-          // @ts-ignore
-          window.materials
-        );
-
         const materialsJson = JSON.stringify(materials);
 
         const code = `
 import json
 materials = json.loads('${materialsJson}')
-print('Materials stored in the kernel globals as an array')
 `;
 
-        // Assigns materials to globals in the pyodide kernel
         const currentWidget = app.shell.currentWidget;
-        console.log('MD Extension. Current widget:', currentWidget);
-        // Check if the current widget is a notebook
+
         if (currentWidget instanceof NotebookPanel) {
-          const notebookPanel = currentWidget as NotebookPanel;
+          const notebookPanel = currentWidget;
           const kernel = notebookPanel.sessionContext.session?.kernel;
-          console.log('MD Extension. Current kernel:', kernel);
           if (kernel) {
-            // Execute the code in the kernel
             kernel.requestExecute({ code: code });
-            console.log('MD Extension. Executed code in the kernel:', code);
           } else {
             console.error('No active kernel found');
           }
