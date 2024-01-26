@@ -34,12 +34,12 @@ const plugin: JupyterFrontEndPlugin<void> = {
           window.materials
         );
 
+        const materialsJson = JSON.stringify(materials);
+
         const code = `
 import json
-materials = json.loads('${JSON.stringify(materials[0])
-          .replace(/'/g, "\\'")
-          .replace(/"/g, '\\"')}')
-print('Materials stored in the kernel globals')
+materials = json.loads('${materialsJson}')
+print('Materials stored in the kernel globals as an array')
 `;
 
         // Assigns materials to globals in the pyodide kernel
