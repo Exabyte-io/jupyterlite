@@ -85,4 +85,4 @@ jlpm run build
 jupyter labextension install .
 jupyter labextension list
 
-cd ../../
+cd ../../../
