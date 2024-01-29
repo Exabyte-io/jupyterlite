@@ -8,6 +8,7 @@ def submit(data):
     js_code = f"""
     (function() {{
         window.sendDataToHost({serialized_data})
+        console.log({serialized_data})
     }})();
     """
 
@@ -57,3 +58,51 @@ def to_pymatgen(material_data):
     )
 
     return structure
+
+
+def from_pymatgen(structure: Structure):
+    basis = {
+        "elements": [
+            {"id": i, "value": str(site.specie)}
+            for i, site in enumerate(structure.sites)
+        ],
+        "coordinates": [
+            {"id": i, "value": list(site.frac_coords)}
+            for i, site in enumerate(structure.sites)
+        ],
+        "units": "crystal",
+        "cell": structure.lattice.matrix.tolist(),
+        "constraints": [],  # Assuming there are no constraints
+    }
+
+    # Extract lattice information
+    lattice = {
+        "a": structure.lattice.a,
+        "b": structure.lattice.b,
+        "c": structure.lattice.c,
+        "alpha": structure.lattice.alpha,
+        "beta": structure.lattice.beta,
+        "gamma": structure.lattice.gamma,
+        "units": {"length": "angstrom", "angle": "degree"},
+        "type": "FCC",  # You need a way to determine the lattice type
+        "vectors": {
+            "a": structure.lattice.matrix[0].tolist(),
+            "b": structure.lattice.matrix[1].tolist(),
+            "c": structure.lattice.matrix[2].tolist(),
+            "alat": 1,  # This seems to be a scaling factor; adjust if necessary
+            "units": "angstrom",
+        },
+    }
+
+    # Combine into a material dictionary
+    material = {
+        "name": structure.formula,
+        "basis": basis,
+        "lattice": lattice,
+        "isNonPeriodic": not structure.is_ordered,
+        "_id": "",
+        "metadata": {"boundaryConditions": {"type": "bc2", "offset": 0}},
+        "isUpdated": True,
+    }
+
+    return material
