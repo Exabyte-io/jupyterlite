@@ -1,5 +1,5 @@
-PYTHON_VERSION="3.8.6"
-NODE_VERSION="14.19"
+PYTHON_VERSION="3.10"
+NODE_VERSION="18"
 EXTENSION_NAME="data_bridge"
 COOKIECUTTER_TEMPLATE_PATH="$HOME/.cookiecutters/extension-cookiecutter-ts"
 GITHUB_TEMPLATE_URL="https://github.com/jupyterlab/extension-cookiecutter-ts"
@@ -45,7 +45,7 @@ export NVM_DIR="$HOME/.nvm"
 nvm install $NODE_VERSION
 nvm use $NODE_VERSION
 
-pip install cookiecutter
+pip install cookiecutter jupyterlab==4 jupyterlite-core
 
 # Create directory if it doesn't exist
 if [ ! -d "extensions/dist" ]; then
@@ -58,7 +58,7 @@ if [ ! -d "$COOKIECUTTER_TEMPLATE_PATH" ]; then
     cookiecutter "${COOKIECUTTER_OPTIONS[@]}"
     echo "Created extension using cookiecutter template."
 else
-    COOKIECUTTER_OPTIONS[0]="$COOKIECUTTER_TEMPLATE_PATH"
+    # COOKIECUTTER_OPTIONS[0]="$COOKIECUTTER_TEMPLATE_PATH"  
     cookiecutter "${COOKIECUTTER_OPTIONS[@]}"
     echo "Created extension using cached cookiecutter template."
 fi
@@ -80,4 +80,7 @@ jlpm add @jupyterlab/notebook
 
 # Build the extension
 jlpm run build
+
+# Install the extension
+jupyter labextension install .
 jupyter labextension list
