@@ -6,26 +6,24 @@ import {
 import { NotebookPanel } from "@jupyterlab/notebook";
 
 /**
- * Initialization data for the materials-designer-bridge extension.
+ * Initialization data for the data-bridge extension.
  */
 const plugin: JupyterFrontEndPlugin<void> = {
-    id: "materials-designer-bridge:plugin",
+    id: "data-bridge:plugin",
     description:
-        "Extension to pass materials data between Materials Designer and Jupyter Lite instance",
+        "Extension to pass JSON data between host page and Jupyter Lite instance",
     autoStart: true,
     activate: async (app: JupyterFrontEnd) => {
-        console.log(
-            "MD Extension. JupyterLab extension materials-designer-bridge is activated!"
-        );
+        console.log("JupyterLab extension data-bridge is activated!");
 
         console.log(app.shell);
 
         // @ts-ignore
-        window.sendDataToHost = (materials: any) => {
+        window.sendDataToHost = (data: any) => {
             window.parent.postMessage(
                 {
                     type: "from-iframe-to-host",
-                    materials: materials,
+                    data: data,
                 },
                 "*"
             );
@@ -42,14 +40,14 @@ const plugin: JupyterFrontEndPlugin<void> = {
             );
         };
 
-        //TODO: set type for materials
+        //TODO: set type for data
         window.addEventListener("message", async (event) => {
             if (event.data.type === "from-host-to-iframe") {
-                let materials = event.data.materials;
-                const materialsJson = JSON.stringify(materials);
+                let data = event.data.data;
+                const dataJson = JSON.stringify(data);
                 const code = `
   import json
-  materials = json.loads('${materialsJson}')
+  data = json.loads('${dataJson}')
   `;
 
                 const currentWidget = app.shell.currentWidget;
