@@ -71,3 +71,13 @@ if [ -f "$SRC_FILE" ] && [ -d "$DEST_DIR" ]; then
 else
     echo "Source file or destination directory not found. Skipping copy."
 fi
+
+cd $EXTENSION_NAME
+
+# Install dependencies
+jlpm add @jupyterlab/application
+jlpm add @jupyterlab/notebook
+
+# Build the extension
+jlpm run build
+jupyter labextension list
