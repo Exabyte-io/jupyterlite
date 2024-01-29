@@ -24,6 +24,9 @@ pyenv local $PYTHON_VERSION
 python -m venv .venv
 source .venv/bin/activate
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
 nvm install $NODE_VERSION
 nvm use $NODE_VERSION
 
