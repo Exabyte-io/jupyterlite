@@ -15,6 +15,21 @@ has_binder=n
 test=n
 repository="https://github.com/exabyte-io/jupyter-lite"
 
+COOKIECUTTER_OPTIONS=(
+    "$GITHUB_TEMPLATE_URL"
+    "--no-input"
+    "kind=$kind"
+    "author_name=$author_name"
+    "author_email=$author_email"
+    "labextension_name=$labextension_name"
+    "python_name=$python_name"
+    "project_short_description=\"$project_short_description\""
+    "has_settings=$has_settings"
+    "has_binder=$has_binder"
+    "test=$test"
+    "repository=$repository"
+)
+
 # Ensure Python and Node.js are installed and switch to the correct versions
 if [ ! -d "$HOME/.pyenv/versions/$PYTHON_VERSION" ]; then
     pyenv install $PYTHON_VERSION
@@ -38,38 +53,21 @@ if [ ! -d "extensions/dist" ]; then
 fi
 cd extensions/dist
 
+# Use cookiecutter with the template path if it exists, otherwise use the URL
 if [ ! -d "$COOKIECUTTER_TEMPLATE_PATH" ]; then
-
-    cookiecutter $GITHUB_TEMPLATE_URL\
-        kind="$kind" \
-        author_name="$author_name" \
-        author_email="$author_email" \
-        labextension_name="$labextension_name" \
-        python_name="$python_name" \
-        project_short_description="$project_short_description" \
-        has_settings="$has_settings" \
-        has_binder="$has_binder" \
-        test="$test" \
-        repository="$repository"
+    cookiecutter "${COOKIECUTTER_OPTIONS[@]}"
     echo "Created extension using cookiecutter template."
 else
-    cookiecutter $COOKIECUTTER_TEMPLATE_PATH \
-        kind="$kind" \
-        author_name="$author_name" \
-        author_email="$author_email" \
-        labextension_name="$labextension_name" \
-        python_name="$python_name" \
-        project_short_description="$project_short_description" \
-        has_settings="$has_settings" \
-        has_binder="$has_binder" \
-        test="$test" \
-        repository="$repository"
+    COOKIECUTTER_OPTIONS[0]="$COOKIECUTTER_TEMPLATE_PATH"
+    cookiecutter "${COOKIECUTTER_OPTIONS[@]}"
     echo "Created extension using cached cookiecutter template."
 fi
 
-# Ensure the source and destination directories for copying exist
-if [ -f "../src/$EXTENSION_NAME/index.ts" ] && [ -d "./$EXTENSION_NAME/src" ]; then
-    cp "../src/$EXTENSION_NAME/index.ts" "./$EXTENSION_NAME/src/index.ts"
+# Copy the index.ts file if both source and destination directories exist
+SRC_FILE="../src/$EXTENSION_NAME/index.ts"
+DEST_DIR="./$EXTENSION_NAME/src"
+if [ -f "$SRC_FILE" ] && [ -d "$DEST_DIR" ]; then
+    cp "$SRC_FILE" "$DEST_DIR/index.ts"
 else
     echo "Source file or destination directory not found. Skipping copy."
 fi
