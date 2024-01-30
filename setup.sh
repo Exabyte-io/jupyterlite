@@ -73,6 +73,8 @@ else
 fi
 
 cd $EXTENSION_NAME
+pip install -ve .
+jupyter labextension develop --overwrite .
 
 # Install dependencies
 jlpm add @jupyterlab/application
@@ -85,4 +87,6 @@ jlpm run build
 cd ../../../
 
 # add to requirements.txt
-echo "./extensions/dist/$EXTENSION_NAME" >> requirements.txt
+LINE="./extensions/dist/$EXTENSION_NAME"
+FILE='requirements.txt'
+grep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
