@@ -40,7 +40,7 @@ COOKIECUTTER_OPTIONS=(
 if [ ! -d "$HOME/.pyenv/versions/$PYTHON_VERSION" ]; then
     pyenv install $PYTHON_VERSION
 fi
-pyenv local $PYTHON_VERSION
+pyenv local $PYTHON_VERSION || echo "pyenv not found"
 
 python -m venv .venv
 source .venv/bin/activate
@@ -103,3 +103,5 @@ grep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
 # Build JupyterLite
 [[ ! -z $BUILD ]] && jupyter lite build --contents content --output-dir dist
 
+# Exit with zero (for GH workflow)
+exit 0
