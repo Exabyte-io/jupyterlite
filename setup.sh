@@ -85,7 +85,6 @@ jupyter labextension develop --overwrite .
 # Install dependencies
 jlpm add @jupyterlab/application
 jlpm add @jupyterlab/notebook
-jlpm add @exabyte-io/code.js
 
 # Build the extension
 jlpm run build
