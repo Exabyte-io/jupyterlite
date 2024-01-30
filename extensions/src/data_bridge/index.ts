@@ -38,7 +38,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
             );
         };
 
-        //TODO: set type for data
+        // TODO: set type for data
         window.addEventListener("message", async (event) => {
             if (event.data.type === "from-host-to-iframe") {
                 let data = event.data.data;
