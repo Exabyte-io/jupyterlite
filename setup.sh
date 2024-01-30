@@ -77,12 +77,12 @@ cd $EXTENSION_NAME
 # Install dependencies
 jlpm add @jupyterlab/application
 jlpm add @jupyterlab/notebook
+jlpm add @exabyte-io/code.js
 
 # Build the extension
 jlpm run build
 
-# Install the extension
-jupyter labextension install .
-jupyter labextension list
-
 cd ../../../
+
+# add to requirements.txt
+echo "./extensions/dist/$EXTENSION_NAME" >> requirements.txt
