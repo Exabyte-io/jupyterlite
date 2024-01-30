@@ -27,3 +27,12 @@ For more info, keep an eye on the JupyterLite documentation:
 
 - How-to Guides: https://jupyterlite.readthedocs.io/en/latest/howto/index.html
 - Reference: https://jupyterlite.readthedocs.io/en/latest/reference/index.html
+
+## Additional Notes
+
+From Team Mat3ra:
+
+- `data_bridge` extensions is built using the `setup.sh`
+- pass `INSTALL=1 BUILD=1` to also build and install the jupyter lite with extension
+- `requirements.txt` is updated as part of the above to include the extension
+- requires `pyenv` and `npm` installed
