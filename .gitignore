@@ -23,8 +23,6 @@ __pycache__/
 build/
 develop-eggs/
 dist/
-# To commit the pre-buit extension sources
-!extensions/dist/
 downloads/
 eggs/
 .eggs/
