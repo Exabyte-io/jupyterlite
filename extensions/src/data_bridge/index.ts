@@ -7,6 +7,7 @@ import { NotebookPanel } from "@jupyterlab/notebook";
 
 /**
  * Initialization data for the data-bridge extension.
+ * Similar to https://jupyterlite.readthedocs.io/en/latest/howto/configure/advanced/iframe.html
  */
 const plugin: JupyterFrontEndPlugin<void> = {
     id: "data-bridge:plugin",
@@ -47,7 +48,8 @@ const plugin: JupyterFrontEndPlugin<void> = {
   import json
   data = json.loads('${dataJson}')
   `;
-
+                // Similar to https://jupyterlab.readthedocs.io/en/stable/api/classes/application.LabShell.html#currentWidget
+                // https://jupyterlite.readthedocs.io/en/latest/reference/api/ts/interfaces/jupyterlite_application.ISingleWidgetShell.html#currentwidget
                 const currentWidget = app.shell.currentWidget;
 
                 if (currentWidget instanceof NotebookPanel) {
