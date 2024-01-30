@@ -34,4 +34,5 @@ From Team Mat3ra:
 
 -   `data_bridge` extensions is built using the `setup.sh`
 -   pass `INSTALL=1 BUILD=1` to also build and install the jupyter lite with extension
+-   `requirements.txt` is updated as part of the above to include the extension
 -   requires `pyenv` and `npm` installed
