@@ -16,8 +16,6 @@ const plugin: JupyterFrontEndPlugin<void> = {
     activate: async (app: JupyterFrontEnd) => {
         console.log("JupyterLab extension data-bridge is activated!");
 
-        console.log(app.shell);
-
         // @ts-ignore
         window.sendDataToHost = (data: any) => {
             window.parent.postMessage(
@@ -30,11 +28,11 @@ const plugin: JupyterFrontEndPlugin<void> = {
         };
 
         // @ts-ignore
-        window.requestMaterialsFromHost = () => {
+        window.requestDataFromHost = () => {
             window.parent.postMessage(
                 {
                     type: "from-iframe-to-host",
-                    requestMaterials: true,
+                    requestData: true,
                 },
                 "*"
             );
