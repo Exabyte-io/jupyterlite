@@ -1,3 +1,9 @@
+#!/bin/bash
+# This script creates a JupyterLab extension using the cookiecutter template
+# and updates the requirements.txt file to make it installable in the current 
+# JupyterLab environment.
+# It assumes that pyenv and nvm are installed and configured correctly.
+
 PYTHON_VERSION="3.10"
 NODE_VERSION="18"
 EXTENSION_NAME="data_bridge"
@@ -90,3 +96,10 @@ cd ../../../
 LINE="./extensions/dist/$EXTENSION_NAME"
 FILE='requirements.txt'
 grep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
+
+# Install extension
+[[ ! -z $INSTALL ]] && python -m pip install -r requirements.txt
+
+# Build JupyterLite
+[[ ! -z $BUILD ]] && jupyter lite build --contents content --output-dir dist
+
