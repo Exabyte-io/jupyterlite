@@ -14,8 +14,8 @@ JupyterLite deployed as a static site to GitHub Pages, for demo purposes.
 
 JupyterLite is being tested against modern web browsers:
 
-- Firefox 90+
-- Chromium 89+
+-   Firefox 90+
+-   Chromium 89+
 
 ## Deploy your JupyterLite website on GitHub Pages
 
@@ -25,14 +25,21 @@ Check out the guide on the JupyterLite documentation: https://jupyterlite.readth
 
 For more info, keep an eye on the JupyterLite documentation:
 
-- How-to Guides: https://jupyterlite.readthedocs.io/en/latest/howto/index.html
-- Reference: https://jupyterlite.readthedocs.io/en/latest/reference/index.html
+-   How-to Guides: https://jupyterlite.readthedocs.io/en/latest/howto/index.html
+-   Reference: https://jupyterlite.readthedocs.io/en/latest/reference/index.html
 
 ## Additional Notes
 
 From Team Mat3ra:
 
-- `data_bridge` extensions is built using the `setup.sh`
-- pass `INSTALL=1 BUILD=1` to also build and install the jupyter lite with extension
-- `requirements.txt` is updated as part of the above to include the extension
-- requires `pyenv` and `npm` installed
+-   `data_bridge` extensions is built using the `setup.sh`
+-   pass `INSTALL=1 BUILD=1` to also build and install the jupyter lite with extension
+-   `requirements.txt` is updated as part of the above to include the extension
+-   requires `pyenv` and `npm` installed
+
+-   content is populated with:
+
+```shell
+cd content
+git clone https://github.com/exabyte-io/api-examples.git api-examples
+```
