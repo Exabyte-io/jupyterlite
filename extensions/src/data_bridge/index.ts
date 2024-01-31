@@ -63,8 +63,8 @@ const plugin: JupyterFrontEndPlugin<void> = {
                 let data = event.data.data;
                 const dataJson = JSON.stringify(data);
                 const code = `
-    import json
-    data = json.loads('${dataJson}')
+import json
+data = json.loads('${dataJson}')
     `;
                 // Similar to https://jupyterlab.readthedocs.io/en/stable/api/classes/application.LabShell.html#currentWidget
                 // https://jupyterlite.readthedocs.io/en/latest/reference/api/ts/interfaces/jupyterlite_application.ISingleWidgetShell.html#currentwidget
