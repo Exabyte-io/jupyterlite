@@ -14,10 +14,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          submodules: 'true'
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
+      # - name: Clone API-examples
+      #   run: |
+      #     cd content
+      #     git clone https://github.com/exabyte-io/api-examples.git api-examples
+      #     cd -
       - name: Setup extension
         run: |
           bash ./setup.sh
