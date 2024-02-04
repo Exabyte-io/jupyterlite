@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start": "python -m http.server -b localhost -d ./dist",
-    "build": "python -m pip install -r requirements.txt; jupyter lite build --contents content --output-dir dist",
+    "build": "python -m pip install -r requirements.txt; cp -rL content content-resolved; jupyter lite build --contents content-resolved --output-dir dist",
     "install": "cd content; git clone https://github.com/exabyte-io/api-examples.git?=feature/SOF-7232 api-examples; cd -"
   }
 }
