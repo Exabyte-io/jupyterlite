@@ -62,7 +62,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
         window.addEventListener("message", async (event) => {
             if (event.data.type === "from-host-to-iframe") {
                 let data = event.data.data;
-                let variableName = event.data.variableName;
+                let variableName = event.data.variableName || "data";
                 const dataJson = JSON.stringify(data);
                 const code = `
   import json
