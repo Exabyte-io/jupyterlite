@@ -48,11 +48,12 @@ const plugin: JupyterFrontEndPlugin<void> = {
         };
 
         // @ts-ignore
-        window.requestDataFromHost = () => {
+        window.requestDataFromHost = (variableName = "data") => {
             window.parent.postMessage(
                 {
                     type: "from-iframe-to-host",
                     requestData: true,
+                    variableName,
                 },
                 "*"
             );
@@ -61,11 +62,12 @@ const plugin: JupyterFrontEndPlugin<void> = {
         window.addEventListener("message", async (event) => {
             if (event.data.type === "from-host-to-iframe") {
                 let data = event.data.data;
+                let variableName = event.data.variableName;
                 const dataJson = JSON.stringify(data);
                 const code = `
-import json
-data = json.loads('${dataJson}')
-    `;
+  import json
+  ${variableName} = json.loads('${dataJson}')
+      `;
                 // Similar to https://jupyterlab.readthedocs.io/en/stable/api/classes/application.LabShell.html#currentWidget
                 // https://jupyterlite.readthedocs.io/en/latest/reference/api/ts/interfaces/jupyterlite_application.ISingleWidgetShell.html#currentwidget
                 const currentWidget = app.shell.currentWidget;
