@@ -79,6 +79,7 @@ else
 fi
 
 cd $EXTENSION_NAME
+touch yarn.lock
 pip install -ve .
 jupyter labextension develop --overwrite .
 
