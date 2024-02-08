@@ -117,3 +117,6 @@ _output
 .idea
 .venv
 .yarn
+
+# mat3ra-specific
+content-resolved/
