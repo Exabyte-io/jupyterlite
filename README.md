@@ -37,9 +37,17 @@ From Team Mat3ra:
 -   `requirements.txt` is updated as part of the above to include the extension
 -   requires `pyenv` and `npm` installed
 
--   content is populated with:
+-   content is populated with a submodule of `exabyte-io/api-examples`:
 
 ```shell
 cd content
-git clone https://github.com/exabyte-io/api-examples.git api-examples
+git submodule add https://github.com/exabyte-io/api-examples.git api-examples
+```
+
+-   The `api-examples` repository utilizes symbolic links (symlinks) for certain folder structures. During the build process, we create an intermediary `content-resolved` folder using the `cp -rL` command. This command copies the `content` directory and resolves all symlinks to their referenced files or directories. This step ensures that the symlinks function correctly within JupyterLite.
+
+Here's the command we use for the build process:
+
+```shell
+cp -rL content content-resolved; jupyter lite build --contents content-resolved --output-dir dist
 ```
