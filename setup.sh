@@ -78,6 +78,7 @@ else
     echo "Source file or destination directory not found. Skipping copy."
 fi
 
+# The extension is a separate package so it requires to have a yarn.lock file
 cd $EXTENSION_NAME
 touch yarn.lock
 pip install -ve .
