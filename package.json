@@ -3,4 +3,5 @@
     "start": "python -m http.server -b localhost -d ./dist",
     "build": "python -m pip install -r requirements.txt; cp -rL content content-resolved; jupyter lite build --contents content-resolved --output-dir dist"
   }
+  
 }
