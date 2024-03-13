@@ -3,7 +3,8 @@ import {
     JupyterFrontEndPlugin,
 } from "@jupyterlab/application";
 
-import { NotebookPanel, INotebookTracker } from "@jupyterlab/notebook";
+import {NotebookPanel, INotebookTracker} from "@jupyterlab/notebook";
+import {JupyterliteMessageSchema} from "@mat3ra/esse/lib/js/types";
 
 /**
  * Initialization data for the data-bridge extension.
@@ -29,7 +30,9 @@ const plugin: JupyterFrontEndPlugin<void> = {
                 window.parent.postMessage(
                     {
                         type: "from-iframe-to-host",
-                        path: currentPath,
+                        payload: {
+                            data: currentPath,
+                        },
                     },
                     "*"
                 );
@@ -41,7 +44,9 @@ const plugin: JupyterFrontEndPlugin<void> = {
             window.parent.postMessage(
                 {
                     type: "from-iframe-to-host",
-                    data: data,
+                    payload: {
+                        data: data,
+                    },
                 },
                 "*"
             );
@@ -52,17 +57,19 @@ const plugin: JupyterFrontEndPlugin<void> = {
             window.parent.postMessage(
                 {
                     type: "from-iframe-to-host",
-                    requestData: true,
-                    variableName,
+                    payload: {
+                        requestData: true,
+                        variableName,
+                    },
                 },
                 "*"
             );
         };
 
-        window.addEventListener("message", async (event) => {
+        window.addEventListener("message", async (event: MessageEvent<JupyterliteMessageSchema>) => {
             if (event.data.type === "from-host-to-iframe") {
-                let data = event.data.data;
-                let variableName = event.data.variableName || "data";
+                let data = event.data.payload.data;
+                let variableName = event.data.payload.variableName || "data";
                 const dataJson = JSON.stringify(data);
                 const code = `
   import json
@@ -76,7 +83,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
                     const notebookPanel = currentWidget;
                     const kernel = notebookPanel.sessionContext.session?.kernel;
                     if (kernel) {
-                        kernel.requestExecute({ code: code });
+                        kernel.requestExecute({code: code});
                     } else {
                         console.error("No active kernel found");
                     }
