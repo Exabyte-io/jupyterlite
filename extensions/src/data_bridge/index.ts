@@ -30,6 +30,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
                 window.parent.postMessage(
                     {
                         type: "from-iframe-to-host",
+                        action: "set-data",
                         payload: {
                             data: currentPath,
                         },
@@ -44,6 +45,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
             window.parent.postMessage(
                 {
                     type: "from-iframe-to-host",
+                    action: "set-data",
                     payload: {
                         data: data,
                     },
@@ -54,11 +56,12 @@ const plugin: JupyterFrontEndPlugin<void> = {
 
         // @ts-ignore
         window.requestDataFromHost = (variableName = "data") => {
+            console.log("requestDataFromHost", variableName);
             window.parent.postMessage(
                 {
                     type: "from-iframe-to-host",
+                    action: "get-data",
                     payload: {
-                        requestData: true,
                         variableName,
                     },
                 },
