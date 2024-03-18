@@ -28,6 +28,18 @@ const plugin: JupyterFrontEndPlugin<void> = {
         // @ts-ignore
         app.dataFromHost = "";
 
+        // On JupyterLite startup send get-data message to the host to request data
+        // @ts-ignore
+        window.parent.postMessage(
+            {
+                type: "from-iframe-to-host",
+                action: "get-data",
+                payload: {}
+            },
+            "*"
+        );
+
+
         /**
          * Listen for the current notebook being changed, and on kernel status change load the data into the kernel
          */
@@ -40,7 +52,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
 
                 sessionContext.session?.kernel?.statusChanged.connect((kernel, status) => {
                     // @ts-ignore
-                    console.debug(status, kernel.id);
+                    console.debug(status, kernel.id, kernel.dataFromHost);
                     // @ts-ignore
                     if (kernel.status === 'idle' && kernel.dataFromHost !== app.dataFromHost) {
                         // @ts-ignore
@@ -56,14 +68,12 @@ const plugin: JupyterFrontEndPlugin<void> = {
          * @param data
          */
         // @ts-ignore
-        window.sendDataToHost = (data: any) => {
+        window.sendDataToHost = (data: object) => {
             window.parent.postMessage(
                 {
                     type: "from-iframe-to-host",
                     action: "set-data",
-                    payload: {
-                        data: data,
-                    },
+                    payload: data
                 },
                 "*"
             );
@@ -76,10 +86,8 @@ const plugin: JupyterFrontEndPlugin<void> = {
         // @ts-ignore
         window.addEventListener("message", async (event: MessageEvent<IframeMessageSchema>) => {
             if (event.data.type === "from-host-to-iframe") {
-                let data = event.data.payload.data;
-                const dataJson = JSON.stringify(data);
                 // @ts-ignore
-                app.dataFromHost = dataJson;
+                app.dataFromHost = JSON.stringify(event.data.payload);
                 //@ts-ignore
                 console.debug("Data from host received. app:", app.dataFromHost);
                 // Execute code in the kernel
@@ -87,9 +95,9 @@ const plugin: JupyterFrontEndPlugin<void> = {
                 await notebookPanel.sessionContext.ready;
                 const sessionContext = notebookPanel.sessionContext;
                 const kernel = sessionContext.session?.kernel;
-                loadData(kernel, data);
+                // @ts-ignore
+                loadData(kernel, app.dataFromHost);
             }
-
         });
 
         /**
@@ -99,7 +107,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
          */
         const loadData = (kernel: IKernelConnection, data: JSON) => {
             const dataFromHostString = JSON.stringify(data);
-            const code = `import json\ndata = json.loads(${dataFromHostString})`;
+            const code = `import json\ndata_from_host = json.loads(${dataFromHostString})`;
             // @ts-ignore
             const result = kernel.requestExecute({code: code});
             // @ts-ignore
