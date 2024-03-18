@@ -43,39 +43,21 @@ const plugin: JupyterFrontEndPlugin<void> = {
                 sessionContext.session?.kernel?.statusChanged.connect((_, status) => {
                     console.log("Kernel status changed", status);
                     console.log("_", _);
+                    // @ts-ignore
+                    if (_.status === 'idle' && !_.isInitated) {
+                        console.log("Kernel is idle");
+                        // @ts-ignore
+                        console.log("dataFromHost", app.dataFromHost);
+                        // @ts-ignore
+                        _.isInitated = true;
+                        const kernel = sessionContext.session?.kernel;
+                        console.log("kernel", kernel);
+                        loadData(kernel);
+                    }
                 });
 
-                if (notebookPanel.sessionContext.session?.kernel?.status === 'idle') {
-                    console.log("Kernel is idle");
-                    const kernel = notebookPanel.sessionContext.session.kernel;
-                    // @ts-ignore
-                    console.log("dataFromHost", app.dataFromHost);
-                    // @ts-ignore
-                    kernel.requestExecute({ code: `data = ${app.dataFromHost}` });
-                }
             }
         });
-
-
-        // Similar to https://jupyterlab.readthedocs.io/en/stable/api/classes/application.LabShell.html#currentWidget
-        // https://jupyterlite.readthedocs.io/en/latest/reference/api/ts/interfaces/jupyterlite_application.ISingleWidgetShell.html#currentwidget
-        const currentWidget = app.shell.currentWidget;
-        if (currentWidget instanceof NotebookPanel) {
-            const notebookPanel = currentWidget;
-            const sessionContext = notebookPanel.sessionContext;
-            sessionContext.kernelChanged.connect((_, kernel) => {
-                console.log("Kernel changed", kernel);
-            });
-            const kernel = notebookPanel.sessionContext.session?.kernel;
-            if (kernel) {
-                // @ts-ignore
-                kernel.requestExecute(`data = ${app.dataFromHost}`);
-            } else {
-                console.error("No active kernel found");
-            }
-        } else {
-            console.error("Current active widget is not a notebook");
-        }
 
         // @ts-ignore
         window.sendDataToHost = (data: any) => {
@@ -101,9 +83,23 @@ const plugin: JupyterFrontEndPlugin<void> = {
                 app.dataFromHost = dataJson;
                 //@ts-ignore
                 console.log("Data from host received. app:", app.dataFromHost);
+                // Execute code in the kernel
+                const notebookPanel = notebookTracker.currentWidget;
+                await notebookPanel.sessionContext.ready;
+                const sessionContext = notebookPanel.sessionContext;
+                const kernel = sessionContext.session?.kernel;
+                loadData(kernel);
             }
 
         });
+
+        const loadData = (kernel: any) => {
+            const dataFromHostString = JSON.stringify(app.dataFromHost);
+            // @ts-ignore
+            const result = kernel.requestExecute({code: `import json\ndata = json.loads(${dataFromHostString})`});
+// @ts-ignore
+            console.log("Execution result", result, app.dataFromHost);
+        }
     },
 };
 
