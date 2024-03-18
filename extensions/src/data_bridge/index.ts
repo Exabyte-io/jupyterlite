@@ -35,27 +35,16 @@ const plugin: JupyterFrontEndPlugin<void> = {
                 await notebookPanel.sessionContext.ready;
                 const sessionContext = notebookPanel.sessionContext;
 
-                sessionContext.kernelChanged.connect((_, kernel) => {
-                    console.log("Kernel changed", kernel);
-                    console.log("sessionContext.kernel", sessionContext);
-                });
-
-                sessionContext.session?.kernel?.statusChanged.connect((_, status) => {
-                    console.log("Kernel status changed", status);
-                    console.log("_", _);
+                sessionContext.session?.kernel?.statusChanged.connect((kernel, status) => {
                     // @ts-ignore
-                    if (_.status === 'idle' && !_.isInitated) {
-                        console.log("Kernel is idle");
+                    console.log( status, kernel.id);
+                    // @ts-ignore
+                    if (kernel.status === 'idle' && kernel.dataFromHost !== app.dataFromHost) {
                         // @ts-ignore
-                        console.log("dataFromHost", app.dataFromHost);
-                        // @ts-ignore
-                        _.isInitated = true;
-                        const kernel = sessionContext.session?.kernel;
-                        console.log("kernel", kernel);
-                        loadData(kernel);
+                        kernel.dataFromHost = app.dataFromHost;
+                        loadData(kernel, app.dataFromHost);
                     }
                 });
-
             }
         });
 
@@ -88,16 +77,18 @@ const plugin: JupyterFrontEndPlugin<void> = {
                 await notebookPanel.sessionContext.ready;
                 const sessionContext = notebookPanel.sessionContext;
                 const kernel = sessionContext.session?.kernel;
-                loadData(kernel);
+                loadData(kernel, data);
             }
 
         });
 
-        const loadData = (kernel: any) => {
-            const dataFromHostString = JSON.stringify(app.dataFromHost);
+        const loadData = (kernel: any, data: any) => {
+            const dataFromHostString = JSON.stringify(data);
+
+            const code = `import json\ndata = json.loads(${dataFromHostString})`;
             // @ts-ignore
-            const result = kernel.requestExecute({code: `import json\ndata = json.loads(${dataFromHostString})`});
-// @ts-ignore
+            const result = kernel.requestExecute({code: code});
+            // @ts-ignore
             console.log("Execution result", result, app.dataFromHost);
         }
     },
