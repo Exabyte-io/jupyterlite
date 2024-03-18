@@ -28,16 +28,19 @@ const plugin: JupyterFrontEndPlugin<void> = {
         // @ts-ignore
         app.dataFromHost = "";
 
+        /**
+         * Listen for the current notebook being changed, and on kernel status change load the data into the kernel
+         */
         // @ts-ignore
         notebookTracker.currentChanged.connect(async (sender, notebookPanel: NotebookPanel) => {
             if (notebookPanel) {
-                console.log("Notebook opened", notebookPanel.context.path);
+                console.debug("Notebook opened", notebookPanel.context.path);
                 await notebookPanel.sessionContext.ready;
                 const sessionContext = notebookPanel.sessionContext;
 
                 sessionContext.session?.kernel?.statusChanged.connect((kernel, status) => {
                     // @ts-ignore
-                    console.log( status, kernel.id);
+                    console.debug(status, kernel.id);
                     // @ts-ignore
                     if (kernel.status === 'idle' && kernel.dataFromHost !== app.dataFromHost) {
                         // @ts-ignore
@@ -48,6 +51,10 @@ const plugin: JupyterFrontEndPlugin<void> = {
             }
         });
 
+        /**
+         * Send data to the host page
+         * @param data
+         */
         // @ts-ignore
         window.sendDataToHost = (data: any) => {
             window.parent.postMessage(
@@ -62,7 +69,10 @@ const plugin: JupyterFrontEndPlugin<void> = {
             );
         };
 
-
+        /**
+         * Listen for messages from the host page, and update the data in the kernel
+         * @param event MessageEvent
+         */
         // @ts-ignore
         window.addEventListener("message", async (event: MessageEvent<IframeMessageSchema>) => {
             if (event.data.type === "from-host-to-iframe") {
@@ -71,7 +81,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
                 // @ts-ignore
                 app.dataFromHost = dataJson;
                 //@ts-ignore
-                console.log("Data from host received. app:", app.dataFromHost);
+                console.debug("Data from host received. app:", app.dataFromHost);
                 // Execute code in the kernel
                 const notebookPanel = notebookTracker.currentWidget;
                 await notebookPanel.sessionContext.ready;
@@ -82,14 +92,18 @@ const plugin: JupyterFrontEndPlugin<void> = {
 
         });
 
-        const loadData = (kernel: any, data: any) => {
+        /**
+         * Load the data into the kernel by executing code
+         * @param kernel
+         * @param data
+         */
+        const loadData = (kernel: IKernelConnection, data: JSON) => {
             const dataFromHostString = JSON.stringify(data);
-
             const code = `import json\ndata = json.loads(${dataFromHostString})`;
             // @ts-ignore
             const result = kernel.requestExecute({code: code});
             // @ts-ignore
-            console.log("Execution result", result, app.dataFromHost);
+            console.debug("Execution result", result, app.dataFromHost);
         }
     },
 };
