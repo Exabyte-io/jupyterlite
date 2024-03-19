@@ -24,17 +24,19 @@ const plugin: JupyterFrontEndPlugin<void> = {
     ) => {
         console.log("JupyterLab extension data-bridge is activated!");
 
-        // Variable to hold the data from the host page, accessible from any notebook and kernel
+        // Reusing the `app` variable to hold the data from the host page, accessible from any notebook and kernel
         // @ts-ignore
         app.dataFromHost = "";
 
+        const MESSAGE_GET_DATA_CONTENT = {
+            type: "from-iframe-to-host",
+            action: "get-data",
+            payload: {}
+        };
+
         // On JupyterLite startup send get-data message to the host to request data
         window.parent.postMessage(
-            {
-                type: "from-iframe-to-host",
-                action: "get-data",
-                payload: {}
-            },
+            MESSAGE_GET_DATA_CONTENT,
             "*"
         );
 
@@ -51,10 +53,8 @@ const plugin: JupyterFrontEndPlugin<void> = {
 
                 sessionContext.session?.kernel?.statusChanged.connect((kernel, status) => {
                     // @ts-ignore
-                    console.debug(status, kernel.id, kernel.dataFromHost);
-                    // @ts-ignore
                     if (status === 'idle' && kernel.dataFromHost !== app.dataFromHost) {
-                        // Custom flag to prevent from loading the same data multiple times
+                        // Save previous data inside the current kernel to avoid reloading the same data
                         // @ts-ignore
                         kernel.dataFromHost = app.dataFromHost;
                         loadData(kernel, app.dataFromHost);
@@ -73,12 +73,13 @@ const plugin: JupyterFrontEndPlugin<void> = {
          */
         // @ts-ignore
         window.sendDataToHost = (data: object) => {
+            const MESSAGE_SET_DATA_CONTENT = {
+                type: "from-iframe-to-host",
+                action: "set-data",
+                payload: data
+            };
             window.parent.postMessage(
-                {
-                    type: "from-iframe-to-host",
-                    action: "set-data",
-                    payload: data
-                },
+                MESSAGE_SET_DATA_CONTENT,
                 "*"
             );
         };
@@ -92,8 +93,6 @@ const plugin: JupyterFrontEndPlugin<void> = {
             if (event.data.type === "from-host-to-iframe") {
                 // @ts-ignore
                 app.dataFromHost = JSON.stringify(event.data.payload);
-                //@ts-ignore
-                console.debug("Data from host received. app:", app.dataFromHost);
                 // Execute code in the kernel
                 const notebookPanel = notebookTracker.currentWidget;
                 await notebookPanel.sessionContext.ready;
