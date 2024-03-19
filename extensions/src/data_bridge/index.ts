@@ -93,7 +93,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
             'message',
             async (event: MessageEvent<IframeMessageSchema>) => {
                 if (event.data.type === 'from-host-to-iframe') {
-                    extendedApp.dataFromHost = event.data.payload;
+                    extendedApp.dataFromHost = JSON.stringify(event.data.payload);
                     const notebookPanel = notebookTracker.currentWidget;
                     await notebookPanel?.sessionContext.ready;
                     const sessionContext = notebookPanel?.sessionContext;
