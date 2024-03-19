@@ -89,12 +89,11 @@ const plugin: JupyterFrontEndPlugin<void> = {
          * Listen for messages from the host page, and update the data in the kernel
          * @param event MessageEvent
          */
-        // @ts-ignore
         window.addEventListener(
             'message',
             async (event: MessageEvent<IframeMessageSchema>) => {
                 if (event.data.type === 'from-host-to-iframe') {
-                    extendedApp.dataFromHost = JSON.stringify(event.data.payload);
+                    extendedApp.dataFromHost = event.data.payload;
                     const notebookPanel = notebookTracker.currentWidget;
                     await notebookPanel?.sessionContext.ready;
                     const sessionContext = notebookPanel?.sessionContext;
