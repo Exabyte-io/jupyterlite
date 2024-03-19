@@ -111,6 +111,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
          * @param data string representation of JSON
          */
         const loadData = (kernel: IKernelConnection, data: string) => {
+            // Stringify the data again to escape quotes and other special characters, so that this string can be used directly in Python code
             const dataFromHostString = JSON.stringify(data);
             const code = `import json\ndata_from_host = json.loads(${dataFromHostString})`;
             const result = kernel.requestExecute({ code: code });
