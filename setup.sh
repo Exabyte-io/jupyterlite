@@ -1,6 +1,6 @@
 #!/bin/bash
 # This script creates a JupyterLab extension using the cookiecutter template
-# and updates the requirements.txt file to make it installable in the current 
+# and updates the requirements.txt file to make it installable in the current
 # JupyterLab environment.
 # It assumes that pyenv and nvm are installed and configured correctly.
 
@@ -64,7 +64,7 @@ if [ ! -d "$COOKIECUTTER_TEMPLATE_PATH" ]; then
     cookiecutter "${COOKIECUTTER_OPTIONS[@]}"
     echo "Created extension using cookiecutter template."
 else
-    # COOKIECUTTER_OPTIONS[0]="$COOKIECUTTER_TEMPLATE_PATH"  
+    # COOKIECUTTER_OPTIONS[0]="$COOKIECUTTER_TEMPLATE_PATH"
     cookiecutter "${COOKIECUTTER_OPTIONS[@]}"
     echo "Created extension using cached cookiecutter template."
 fi
@@ -78,7 +78,7 @@ else
     echo "Source file or destination directory not found. Skipping copy."
 fi
 
-# The extension is a separate package so it requires to have a yarn.lock file
+# The extension is treated here as a separate package so it requires to have a yarn.lock file
 cd $EXTENSION_NAME
 touch yarn.lock
 pip install -ve .
@@ -87,6 +87,9 @@ jupyter labextension develop --overwrite .
 # Install dependencies
 jlpm add @jupyterlab/application
 jlpm add @jupyterlab/notebook
+
+# Install mat3ra specific dependencies
+jlpm add @mat3ra/esse
 
 # Build the extension
 jlpm run build
