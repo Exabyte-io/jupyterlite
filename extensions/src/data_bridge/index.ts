@@ -24,12 +24,11 @@ const plugin: JupyterFrontEndPlugin<void> = {
     ) => {
         console.log("JupyterLab extension data-bridge is activated!");
 
-        // variable to hold the data from the host page
+        // Variable to hold the data from the host page, accessible from any notebook and kernel
         // @ts-ignore
         app.dataFromHost = "";
 
         // On JupyterLite startup send get-data message to the host to request data
-        // @ts-ignore
         window.parent.postMessage(
             {
                 type: "from-iframe-to-host",
@@ -54,10 +53,15 @@ const plugin: JupyterFrontEndPlugin<void> = {
                     // @ts-ignore
                     console.debug(status, kernel.id, kernel.dataFromHost);
                     // @ts-ignore
-                    if (kernel.status === 'idle' && kernel.dataFromHost !== app.dataFromHost) {
+                    if (status === 'idle' && kernel.dataFromHost !== app.dataFromHost) {
+                        // Custom flag to prevent from loading the same data multiple times
                         // @ts-ignore
                         kernel.dataFromHost = app.dataFromHost;
                         loadData(kernel, app.dataFromHost);
+                    }
+                    // Reset the flag when the kernel is restarting, since this flag is not affected by the kernel restart
+                    if (status === 'restarting') {
+                        kernel.dataFromHost = "";
                     }
                 });
             }
@@ -111,8 +115,9 @@ const plugin: JupyterFrontEndPlugin<void> = {
             // @ts-ignore
             const result = kernel.requestExecute({code: code});
             // @ts-ignore
-            console.debug("Execution result", result, app.dataFromHost);
+            console.debug("Execution result", result);
         }
+
     },
 };
 
