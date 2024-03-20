@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-no-check
+// @ts-nocheck
 import {
     JupyterFrontEnd,
     JupyterFrontEndPlugin
