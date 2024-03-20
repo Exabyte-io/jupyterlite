@@ -53,9 +53,9 @@ const plugin: JupyterFrontEndPlugin<void> = {
                                 status === 'idle' &&
                                 kernelsDataFromHost[kernel.id] !== dataFromHost
                             ) {
+                                loadData(kernel, dataFromHost);
                                 // Save data for the current kernel to avoid reloading the same data
                                 kernelsDataFromHost[kernel.id] = dataFromHost;
-                                loadData(kernel, dataFromHost);
                             }
                             // Reset the data when the kernel is restarting, since the loaded data is lost
                             if (status === 'restarting') {
@@ -107,9 +107,9 @@ const plugin: JupyterFrontEndPlugin<void> = {
          * @param data string representation of JSON
          */
         const loadData = (kernel: IKernelConnection, data: string) => {
-            const code = `import json\ndata_from_host = json.loads(${data})`;
+            const code = `import json\ndata_from_host = json.loads('${data}')`;
             const result = kernel.requestExecute({ code: code });
-            console.debug('Execution result', result);
+            console.debug('Execution result:', result);
         };
     }
 };
