@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-nocheck
 import {
     JupyterFrontEnd,
     JupyterFrontEndPlugin
@@ -8,10 +7,6 @@ import {
 import { IKernelConnection } from '@jupyterlab/services/lib/kernel/kernel';
 import { NotebookPanel, INotebookTracker } from '@jupyterlab/notebook';
 import { IframeMessageSchema } from '@mat3ra/esse/lib/js/types';
-
-interface IExtendedJupyterFrontEnd extends JupyterFrontEnd {
-    dataFromHost: string;
-}
 
 /**
  * Initialization data for the data-bridge extension.
@@ -25,9 +20,11 @@ const plugin: JupyterFrontEndPlugin<void> = {
     requires: [INotebookTracker],
     activate: async (app: JupyterFrontEnd, notebookTracker: INotebookTracker) => {
         console.log('JupyterLab extension data-bridge is activated!');
-        const extendedApp = app as IExtendedJupyterFrontEnd;
-        // Reusing the `app` variable to hold the data from the host page, accessible from any notebook and kernel
-        extendedApp.dataFromHost = '';
+
+        // Variable to hold the data from the host page
+        let dataFromHost = '';
+        // When data is loaded into the kernel, save it into this object to later check it to avoid reloading the same data
+        const kernelsDataFromHost: { [id: string]: string } = {};
 
         const MESSAGE_GET_DATA_CONTENT = {
             type: 'from-iframe-to-host',
@@ -53,18 +50,15 @@ const plugin: JupyterFrontEndPlugin<void> = {
                         (kernel, status) => {
                             if (
                                 status === 'idle' &&
-                                // @ts-ignore
-                                kernel.dataFromHost !== extendedApp.dataFromHost
+                                kernelsDataFromHost[kernel.id] !== dataFromHost
                             ) {
-                                // Save previous data inside the current kernel to avoid reloading the same data
-                                // @ts-ignore
-                                kernel.dataFromHost = extendedApp.dataFromHost;
-                                loadData(kernel, extendedApp.dataFromHost);
+                                // Save data for the current kernel to avoid reloading the same data
+                                kernelsDataFromHost[kernel.id] = dataFromHost;
+                                loadData(kernel, dataFromHost);
                             }
-                            // Reset the flag when the kernel is restarting, since this flag is not affected by the kernel restart
+                            // Reset the data when the kernel is restarting, since the loaded data is lost
                             if (status === 'restarting') {
-                                // @ts-ignore
-                                kernel.dataFromHost = '';
+                                kernelsDataFromHost[kernel.id] = '';
                             }
                         }
                     );
@@ -94,13 +88,13 @@ const plugin: JupyterFrontEndPlugin<void> = {
             'message',
             async (event: MessageEvent<IframeMessageSchema>) => {
                 if (event.data.type === 'from-host-to-iframe') {
-                    extendedApp.dataFromHost = JSON.stringify(event.data.payload);
+                    dataFromHost = JSON.stringify(event.data.payload);
                     const notebookPanel = notebookTracker.currentWidget;
                     await notebookPanel?.sessionContext.ready;
                     const sessionContext = notebookPanel?.sessionContext;
                     const kernel = sessionContext?.session?.kernel;
                     if (kernel) {
-                        loadData(kernel, extendedApp.dataFromHost);
+                        loadData(kernel, dataFromHost);
                     }
                 }
             }
@@ -112,9 +106,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
          * @param data string representation of JSON
          */
         const loadData = (kernel: IKernelConnection, data: string) => {
-            // Stringify the data again to escape quotes and other special characters, so that this string can be used directly in Python code
-            const dataFromHostString = JSON.stringify(data);
-            const code = `import json\ndata_from_host = json.loads(${dataFromHostString})`;
+            const code = `import json\ndata_from_host = json.loads(${data})`;
             const result = kernel.requestExecute({ code: code });
             console.debug('Execution result', result);
         };
