@@ -28,16 +28,23 @@ For more info, keep an eye on the JupyterLite documentation:
 -   How-to Guides: https://jupyterlite.readthedocs.io/en/latest/howto/index.html
 -   Reference: https://jupyterlite.readthedocs.io/en/latest/reference/index.html
 
-## Additional Notes
+## Development Notes
 
-From Team Mat3ra:
-
--   `data_bridge` extensions is built using the `setup.sh`
--   pass `INSTALL=1 BUILD=1` to also build and install the jupyter lite with extension
+To build and run the JupyterLite server with extension, we use the following steps:
+-   check that `pyenv` and `npm` are installed
+-   run `npm install` to install the required packages and setup the `data_bridge` extension
+-   run `npm install INSTALL=1 BUILD=1` to also build and install the jupyter lite with extension
 -   `requirements.txt` is updated as part of the above to include the extension
--   requires `pyenv` and `npm` installed
+-   run `npm run start -p=8000` to start the server (specify the port if needed)
+-   content is populated with a submodule of `exabyte-io/api-examples`
 
--   content is populated with a submodule of `exabyte-io/api-examples`:
+To develop the extension:
+-   run `npm install` or `sh setup.sh` to create the extension
+-   change code in `extensions/dist/data_bridge/src/index.ts`
+-   run `npm run restart` or `sh update.sh` to build the extension, install it, and restart the server with it
+
+To publish:
+-   commit changes to the `extensions/src/data_bridge/index.ts` file
 
 ```shell
 cd content
