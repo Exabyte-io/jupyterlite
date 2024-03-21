@@ -1,9 +1,13 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import {
     JupyterFrontEnd,
-    JupyterFrontEndPlugin,
+    JupyterFrontEndPlugin
 } from "@jupyterlab/application";
 
+import { IKernelConnection } from "@jupyterlab/services/lib/kernel/kernel";
 import { NotebookPanel, INotebookTracker } from "@jupyterlab/notebook";
+import { IframeMessageSchema } from "@mat3ra/esse/lib/js/types";
 
 /**
  * Initialization data for the data-bridge extension.
@@ -15,77 +19,99 @@ const plugin: JupyterFrontEndPlugin<void> = {
         "Extension to pass JSON data between host page and Jupyter Lite instance",
     autoStart: true,
     requires: [INotebookTracker],
-    activate: async (
-        app: JupyterFrontEnd,
-        notebookTracker: INotebookTracker
-    ) => {
+    activate: async (app: JupyterFrontEnd, notebookTracker: INotebookTracker) => {
         console.log("JupyterLab extension data-bridge is activated!");
 
-        // Send path of the currently opened notebook to the host page when the notebook is opened
-        notebookTracker.currentChanged.connect((sender, notebookPanel) => {
-            if (notebookPanel) {
-                const currentPath = notebookPanel.context.path;
+        // Variable to hold the data from the host page
+        let dataFromHost = "";
+        // When data is loaded into the kernel, save it into this object to later check it to avoid reloading the same data
+        const kernelsDataFromHost: { [id: string]: string } = {};
 
-                window.parent.postMessage(
-                    {
-                        type: "from-iframe-to-host",
-                        path: currentPath,
-                    },
-                    "*"
-                );
-            }
-        });
-
-        // @ts-ignore
-        window.sendDataToHost = (data: any) => {
-            window.parent.postMessage(
-                {
-                    type: "from-iframe-to-host",
-                    data: data,
-                },
-                "*"
-            );
+        const MESSAGE_GET_DATA_CONTENT = {
+            type: "from-iframe-to-host",
+            action: "get-data",
+            payload: {}
         };
 
-        // @ts-ignore
-        window.requestDataFromHost = (variableName = "data") => {
-            window.parent.postMessage(
-                {
-                    type: "from-iframe-to-host",
-                    requestData: true,
-                    variableName,
-                },
-                "*"
-            );
-        };
+        // On JupyterLite startup send get-data message to the host to request data
+        window.parent.postMessage(MESSAGE_GET_DATA_CONTENT, "*");
 
-        window.addEventListener("message", async (event) => {
-            if (event.data.type === "from-host-to-iframe") {
-                let data = event.data.data;
-                let variableName = event.data.variableName || "data";
-                const dataJson = JSON.stringify(data);
-                const code = `
-  import json
-  ${variableName} = json.loads('${dataJson}')
-      `;
-                // Similar to https://jupyterlab.readthedocs.io/en/stable/api/classes/application.LabShell.html#currentWidget
-                // https://jupyterlite.readthedocs.io/en/latest/reference/api/ts/interfaces/jupyterlite_application.ISingleWidgetShell.html#currentwidget
-                const currentWidget = app.shell.currentWidget;
+        /**
+         * Listen for the current notebook being changed, and on kernel status change load the data into the kernel
+         */
+        notebookTracker.currentChanged.connect(
+            // @ts-ignore
+            async (sender, notebookPanel: NotebookPanel) => {
+                if (notebookPanel) {
+                    console.debug("Notebook opened", notebookPanel.context.path);
+                    await notebookPanel.sessionContext.ready;
+                    const sessionContext = notebookPanel.sessionContext;
 
-                if (currentWidget instanceof NotebookPanel) {
-                    const notebookPanel = currentWidget;
-                    const kernel = notebookPanel.sessionContext.session?.kernel;
-                    if (kernel) {
-                        kernel.requestExecute({ code: code });
-                    } else {
-                        console.error("No active kernel found");
-                    }
-                } else {
-                    console.error("Current active widget is not a notebook");
+                    sessionContext.session?.kernel?.statusChanged.connect(
+                        (kernel, status) => {
+                            if (
+                                status === "idle" &&
+                                kernelsDataFromHost[kernel.id] !== dataFromHost
+                            ) {
+                                loadData(kernel, dataFromHost);
+                                // Save data for the current kernel to avoid reloading the same data
+                                kernelsDataFromHost[kernel.id] = dataFromHost;
+                            }
+                            // Reset the data when the kernel is restarting, since the loaded data is lost
+                            if (status === "restarting") {
+                                kernelsDataFromHost[kernel.id] = "";
+                            }
+                        }
+                    );
                 }
             }
-        });
-    },
+        );
+
+        /**
+         * Send data to the host page
+         * @param data
+         */
+        // @ts-ignore
+        window.sendDataToHost = (data: object) => {
+            const MESSAGE_SET_DATA_CONTENT = {
+                type: "from-iframe-to-host",
+                action: "set-data",
+                payload: data
+            };
+            window.parent.postMessage(MESSAGE_SET_DATA_CONTENT, "*");
+        };
+
+        /**
+         * Listen for messages from the host page, and update the data in the kernel
+         * @param event MessageEvent
+         */
+        window.addEventListener(
+            "message",
+            async (event: MessageEvent<IframeMessageSchema>) => {
+                if (event.data.type === "from-host-to-iframe") {
+                    dataFromHost = JSON.stringify(event.data.payload);
+                    const notebookPanel = notebookTracker.currentWidget;
+                    await notebookPanel?.sessionContext.ready;
+                    const sessionContext = notebookPanel?.sessionContext;
+                    const kernel = sessionContext?.session?.kernel;
+                    if (kernel) {
+                        loadData(kernel, dataFromHost);
+                    }
+                }
+            }
+        );
+
+        /**
+         * Load the data into the kernel by executing code
+         * @param kernel
+         * @param data string representation of JSON
+         */
+        const loadData = (kernel: IKernelConnection, data: string) => {
+            const code = `import json\ndata_from_host = json.loads('${data}')`;
+            const result = kernel.requestExecute({ code: code });
+            console.debug("Execution result:", result);
+        };
+    }
 };
 
 export default plugin;
