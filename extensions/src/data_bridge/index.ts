@@ -107,7 +107,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
          * @param data string representation of JSON
          */
         const loadData = (kernel: IKernelConnection, data: string) => {
-            const code = `import json\ndata_from_host = json.loads('${data}')`;
+            const code = `import json\ndata_from_host = json.loads(r'''${data}''')`;
             const result = kernel.requestExecute({ code: code });
             console.debug("Execution result:", result);
         };
