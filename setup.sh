@@ -85,6 +85,7 @@ pip install -ve .
 jupyter labextension develop --overwrite .
 
 # Install dependencies
+jlpm add typescript@latest --dev
 jlpm add @jupyterlab/application
 jlpm add @jupyterlab/notebook
 
