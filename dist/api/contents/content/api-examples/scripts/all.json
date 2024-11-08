@@ -1,0 +1,57 @@
+{
+  "content": [
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.955904Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-08T01:26:04.407453Z",
+      "mimetype": "application/x-sh",
+      "name": "change-branch-in-urls.sh",
+      "path": "content/api-examples/scripts/change-branch-in-urls.sh",
+      "size": 1669,
+      "type": "file",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.957140Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-08T01:26:04.407913Z",
+      "mimetype": "application/x-sh",
+      "name": "render-notebooks.sh",
+      "path": "content/api-examples/scripts/render-notebooks.sh",
+      "size": 2267,
+      "type": "file",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.956415Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-08T01:26:04.408286Z",
+      "mimetype": "application/x-sh",
+      "name": "env.sh",
+      "path": "content/api-examples/scripts/env.sh",
+      "size": 1253,
+      "type": "file",
+      "writable": true
+    }
+  ],
+  "created": "2024-11-08T01:26:20.956834Z",
+  "format": "json",
+  "hash": null,
+  "hash_algorithm": null,
+  "last_modified": "2024-11-08T01:26:20.956834Z",
+  "mimetype": null,
+  "name": "scripts",
+  "path": "content/api-examples/scripts",
+  "size": null,
+  "type": "directory",
+  "writable": true
+}

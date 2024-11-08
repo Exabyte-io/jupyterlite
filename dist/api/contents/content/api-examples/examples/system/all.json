@@ -1,0 +1,43 @@
+{
+  "content": [
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.869924Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-08T01:26:04.395903Z",
+      "mimetype": "text/x-python",
+      "name": "get_authentication_params.py",
+      "path": "content/api-examples/examples/system/get_authentication_params.py",
+      "size": 1996,
+      "type": "file",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.869310Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-08T01:26:04.396383Z",
+      "mimetype": null,
+      "name": "get_authentication_params.ipynb",
+      "path": "content/api-examples/examples/system/get_authentication_params.ipynb",
+      "size": 4669,
+      "type": "notebook",
+      "writable": true
+    }
+  ],
+  "created": "2024-11-08T01:26:20.869705Z",
+  "format": "json",
+  "hash": null,
+  "hash_algorithm": null,
+  "last_modified": "2024-11-08T01:26:20.869705Z",
+  "mimetype": null,
+  "name": "system",
+  "path": "content/api-examples/examples/system",
+  "size": null,
+  "type": "directory",
+  "writable": true
+}

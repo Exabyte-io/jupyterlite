@@ -1,0 +1,66 @@
+# This manifest file is used to install the required packages for the corresponding notebook.
+# The following types of kernels are supported:
+# 1. python
+# 2. pyodide
+# Accordingly, the packages are installed using the kernel type, e.g., packages_pyodide.
+# The default packages are installed for all the notebooks.
+default:
+  packages_common:
+    - pandas==1.5.3
+    - ase==3.22.1
+    - ipywidgets
+  packages_python:
+    - pymatgen==2024.4.13
+  packages_pyodide:
+    - lzma
+    - sqlite3
+    - emfs:/drive/api-examples/packages/pymatgen-2024.4.13-py3-none-any.whl
+    - emfs:/drive/api-examples/packages/spglib-2.0.2-py3-none-any.whl
+    - emfs:/drive/api-examples/packages/ruamel.yaml-0.17.32-py3-none-any.whl
+    - emfs:/drive/api-examples/packages/pydantic_core-2.18.2-py3-none-any.whl
+    - emfs:/drive/api-examples/packages/pydantic-2.7.1-py3-none-any.whl
+    - annotated_types>=0.6.0
+    - networkx==3.2.1
+    - monty==2023.11.3
+    - scipy==1.11.2
+    - tabulate==0.9.0
+    - sympy==1.12
+    - uncertainties==3.1.6
+    - jinja2
+    - pymatgen-analysis-defects<=2024.4.23
+notebooks:
+  - name: create_interface_with_min_strain_zsl.ipynb
+    packages_common:
+      - plotly==5.18
+      - nbformat>=4.2.0
+    packages_python:
+    packages_pyodide:
+      - mat3ra-esse
+      - mat3ra-made
+  - name: import_material_from_jarvis_db_entry.ipynb
+    packages_common:
+      - express-py==2024.2.2.post2
+      - mat3ra-esse
+      - jarvis-tools
+      - munch
+      - setuptools
+    packages_python:
+    packages_pyodide:
+      - emfs:/drive/api-examples/packages/paginate-0.5.6-py3-none-any.whl
+      - emfs:/drive/api-examples/packages/watchdog-2.3.1-py3-none-any.whl
+  - name: import_materials_from_files.ipynb
+    packages_common:
+      - express-py==2024.2.2.post2
+      - mat3ra-esse
+      - munch
+      - setuptools
+    packages_python:
+    packages_pyodide:
+      - emfs:/drive/api-examples/packages/paginate-0.5.6-py3-none-any.whl
+      - emfs:/drive/api-examples/packages/watchdog-2.3.1-py3-none-any.whl
+  - name: create_point_defect.ipynb
+    packages_common:
+    packages_python:
+    packages_pyodide:
+      - mat3ra-esse
+      - mat3ra-made

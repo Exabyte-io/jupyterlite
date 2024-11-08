@@ -1,0 +1,43 @@
+{
+  "content": [
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.964127Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-08T01:26:04.387662Z",
+      "mimetype": "text/css",
+      "name": "renderjson.css",
+      "path": "content/api-examples/utils/web/renderjson.css",
+      "size": 477,
+      "type": "file",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.964655Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-08T01:26:04.388171Z",
+      "mimetype": "application/javascript",
+      "name": "renderjson.js",
+      "path": "content/api-examples/utils/web/renderjson.js",
+      "size": 10845,
+      "type": "file",
+      "writable": true
+    }
+  ],
+  "created": "2024-11-08T01:26:20.964450Z",
+  "format": "json",
+  "hash": null,
+  "hash_algorithm": null,
+  "last_modified": "2024-11-08T01:26:20.964450Z",
+  "mimetype": null,
+  "name": "web",
+  "path": "content/api-examples/utils/web",
+  "size": null,
+  "type": "directory",
+  "writable": true
+}

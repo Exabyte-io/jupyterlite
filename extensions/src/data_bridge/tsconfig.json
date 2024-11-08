@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "lib": ["esnext", "dom", "es2020.intl"],
+        "target": "es6",
+        "module": "commonjs",
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true  // Use this if library type checking causes errors
+    }
+}

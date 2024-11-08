@@ -1,0 +1,71 @@
+{
+  "content": [
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.834047Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-08T01:26:04.403125Z",
+      "mimetype": null,
+      "name": "Si.pz-vbc.UPF",
+      "path": "content/api-examples/examples/assets/Si.pz-vbc.UPF",
+      "size": 74553,
+      "type": "file",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.835639Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-08T01:26:04.403623Z",
+      "mimetype": null,
+      "name": "mp-978534.poscar",
+      "path": "content/api-examples/examples/assets/mp-978534.poscar",
+      "size": 357,
+      "type": "file",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.832807Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-08T01:26:04.404008Z",
+      "mimetype": "text/markdown",
+      "name": "README.md",
+      "path": "content/api-examples/examples/assets/README.md",
+      "size": 437,
+      "type": "file",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.834883Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-08T01:26:04.404491Z",
+      "mimetype": "application/json",
+      "name": "bash_workflow_template.json",
+      "path": "content/api-examples/examples/assets/bash_workflow_template.json",
+      "size": 4003,
+      "type": "file",
+      "writable": true
+    }
+  ],
+  "created": "2024-11-08T01:26:20.835391Z",
+  "format": "json",
+  "hash": null,
+  "hash_algorithm": null,
+  "last_modified": "2024-11-08T01:26:20.835391Z",
+  "mimetype": null,
+  "name": "assets",
+  "path": "content/api-examples/examples/assets",
+  "size": null,
+  "type": "directory",
+  "writable": true
+}

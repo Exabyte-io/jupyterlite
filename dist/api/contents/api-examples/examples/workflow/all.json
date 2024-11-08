@@ -1,0 +1,71 @@
+{
+  "content": [
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.733070Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-06T19:52:24.614856Z",
+      "mimetype": "text/x-python",
+      "name": "get_workflows.py",
+      "path": "api-examples/examples/workflow/get_workflows.py",
+      "size": 3683,
+      "type": "file",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.733794Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-06T19:52:24.615118Z",
+      "mimetype": null,
+      "name": "qe_scf_calculation.ipynb",
+      "path": "api-examples/examples/workflow/qe_scf_calculation.ipynb",
+      "size": 12576,
+      "type": "notebook",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.732400Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-06T19:52:24.615413Z",
+      "mimetype": null,
+      "name": "get_workflows.ipynb",
+      "path": "api-examples/examples/workflow/get_workflows.ipynb",
+      "size": 7598,
+      "type": "notebook",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.734602Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-06T19:52:24.615769Z",
+      "mimetype": "text/x-python",
+      "name": "qe_scf_calculation.py",
+      "path": "api-examples/examples/workflow/qe_scf_calculation.py",
+      "size": 6954,
+      "type": "file",
+      "writable": true
+    }
+  ],
+  "created": "2024-11-08T01:26:20.734269Z",
+  "format": "json",
+  "hash": null,
+  "hash_algorithm": null,
+  "last_modified": "2024-11-08T01:26:20.734269Z",
+  "mimetype": null,
+  "name": "workflow",
+  "path": "api-examples/examples/workflow",
+  "size": null,
+  "type": "directory",
+  "writable": true
+}

@@ -1,0 +1,29 @@
+{
+  "content": [
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.873651Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-08T01:26:20.873651Z",
+      "mimetype": null,
+      "name": "css",
+      "path": "content/api-examples/extra/css",
+      "size": null,
+      "type": "directory",
+      "writable": true
+    }
+  ],
+  "created": "2024-11-08T01:26:20.873426Z",
+  "format": "json",
+  "hash": null,
+  "hash_algorithm": null,
+  "last_modified": "2024-11-08T01:26:20.873426Z",
+  "mimetype": null,
+  "name": "extra",
+  "path": "content/api-examples/extra",
+  "size": null,
+  "type": "directory",
+  "writable": true
+}

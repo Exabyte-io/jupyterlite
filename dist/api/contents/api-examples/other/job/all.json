@@ -1,0 +1,43 @@
+{
+  "content": [
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.754645Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-06T19:52:24.597622Z",
+      "mimetype": "text/x-python",
+      "name": "Smiles_Generation_Markov_Chain.py",
+      "path": "api-examples/other/job/Smiles_Generation_Markov_Chain.py",
+      "size": 11316,
+      "type": "file",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.753761Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-06T19:52:24.597932Z",
+      "mimetype": null,
+      "name": "Smiles_Generation_Markov_Chain.ipynb",
+      "path": "api-examples/other/job/Smiles_Generation_Markov_Chain.ipynb",
+      "size": 131,
+      "type": "notebook",
+      "writable": true
+    }
+  ],
+  "created": "2024-11-08T01:26:20.754083Z",
+  "format": "json",
+  "hash": null,
+  "hash_algorithm": null,
+  "last_modified": "2024-11-08T01:26:20.754083Z",
+  "mimetype": null,
+  "name": "job",
+  "path": "api-examples/other/job",
+  "size": null,
+  "type": "directory",
+  "writable": true
+}

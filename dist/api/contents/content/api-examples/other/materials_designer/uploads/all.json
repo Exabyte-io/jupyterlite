@@ -1,0 +1,57 @@
+{
+  "content": [
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.914814Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-08T01:26:04.361725Z",
+      "mimetype": null,
+      "name": "README",
+      "path": "content/api-examples/other/materials_designer/uploads/README",
+      "size": 92,
+      "type": "file",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.914015Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-08T01:26:04.362385Z",
+      "mimetype": "application/json",
+      "name": "1-Graphene.json",
+      "path": "content/api-examples/other/materials_designer/uploads/1-Graphene.json",
+      "size": 1421,
+      "type": "file",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.913188Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-08T01:26:04.363061Z",
+      "mimetype": "application/json",
+      "name": "0-Ni.json",
+      "path": "content/api-examples/other/materials_designer/uploads/0-Ni.json",
+      "size": 1270,
+      "type": "file",
+      "writable": true
+    }
+  ],
+  "created": "2024-11-08T01:26:20.914627Z",
+  "format": "json",
+  "hash": null,
+  "hash_algorithm": null,
+  "last_modified": "2024-11-08T01:26:20.914627Z",
+  "mimetype": null,
+  "name": "uploads",
+  "path": "content/api-examples/other/materials_designer/uploads",
+  "size": null,
+  "type": "directory",
+  "writable": true
+}

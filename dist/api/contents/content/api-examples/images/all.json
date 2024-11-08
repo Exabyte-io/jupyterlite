@@ -1,0 +1,29 @@
+{
+  "content": [
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.874870Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-08T01:26:04.333096Z",
+      "mimetype": "image/png",
+      "name": "reusable-kernel.png",
+      "path": "content/api-examples/images/reusable-kernel.png",
+      "size": 413869,
+      "type": "file",
+      "writable": true
+    }
+  ],
+  "created": "2024-11-08T01:26:20.874413Z",
+  "format": "json",
+  "hash": null,
+  "hash_algorithm": null,
+  "last_modified": "2024-11-08T01:26:20.874413Z",
+  "mimetype": null,
+  "name": "images",
+  "path": "content/api-examples/images",
+  "size": null,
+  "type": "directory",
+  "writable": true
+}

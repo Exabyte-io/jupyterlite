@@ -1,0 +1,43 @@
+{
+  "content": [
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.885849Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-08T01:26:04.350800Z",
+      "mimetype": "text/x-python",
+      "name": "utils.py",
+      "path": "content/api-examples/other/experiments/src/utils.py",
+      "size": 12447,
+      "type": "file",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.885297Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-08T01:26:04.351427Z",
+      "mimetype": "text/x-python",
+      "name": "pymatgen_coherent_interface_builder.py",
+      "path": "content/api-examples/other/experiments/src/pymatgen_coherent_interface_builder.py",
+      "size": 12017,
+      "type": "file",
+      "writable": true
+    }
+  ],
+  "created": "2024-11-08T01:26:20.885651Z",
+  "format": "json",
+  "hash": null,
+  "hash_algorithm": null,
+  "last_modified": "2024-11-08T01:26:20.885651Z",
+  "mimetype": null,
+  "name": "src",
+  "path": "content/api-examples/other/experiments/src",
+  "size": null,
+  "type": "directory",
+  "writable": true
+}

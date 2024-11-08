@@ -1,0 +1,43 @@
+{
+  "content": [
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.887914Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-08T01:26:04.376924Z",
+      "mimetype": null,
+      "name": "import_material_from_jarvis_db_entry.ipynb",
+      "path": "content/api-examples/other/jarvis/import_material_from_jarvis_db_entry.ipynb",
+      "size": 3615,
+      "type": "notebook",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.888587Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-08T01:26:04.377595Z",
+      "mimetype": null,
+      "name": "run_job_using_material_from_jarvis_db.ipynb",
+      "path": "content/api-examples/other/jarvis/run_job_using_material_from_jarvis_db.ipynb",
+      "size": 15663,
+      "type": "notebook",
+      "writable": true
+    }
+  ],
+  "created": "2024-11-08T01:26:20.888391Z",
+  "format": "json",
+  "hash": null,
+  "hash_algorithm": null,
+  "last_modified": "2024-11-08T01:26:20.888391Z",
+  "mimetype": null,
+  "name": "jarvis",
+  "path": "content/api-examples/other/jarvis",
+  "size": null,
+  "type": "directory",
+  "writable": true
+}

@@ -1,0 +1,43 @@
+{
+  "content": [
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.751248Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-06T19:52:24.577343Z",
+      "mimetype": "application/json",
+      "name": "Ni.json",
+      "path": "api-examples/other/experiments/uploads/Ni.json",
+      "size": 730,
+      "type": "file",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.750701Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-06T19:52:24.577897Z",
+      "mimetype": "application/json",
+      "name": "Gr.json",
+      "path": "api-examples/other/experiments/uploads/Gr.json",
+      "size": 774,
+      "type": "file",
+      "writable": true
+    }
+  ],
+  "created": "2024-11-08T01:26:20.750983Z",
+  "format": "json",
+  "hash": null,
+  "hash_algorithm": null,
+  "last_modified": "2024-11-08T01:26:20.750983Z",
+  "mimetype": null,
+  "name": "uploads",
+  "path": "api-examples/other/experiments/uploads",
+  "size": null,
+  "type": "directory",
+  "writable": true
+}

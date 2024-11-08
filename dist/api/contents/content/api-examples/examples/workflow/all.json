@@ -1,0 +1,71 @@
+{
+  "content": [
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.871526Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-08T01:26:04.397248Z",
+      "mimetype": "text/x-python",
+      "name": "get_workflows.py",
+      "path": "content/api-examples/examples/workflow/get_workflows.py",
+      "size": 3683,
+      "type": "file",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.872270Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-08T01:26:04.397607Z",
+      "mimetype": null,
+      "name": "qe_scf_calculation.ipynb",
+      "path": "content/api-examples/examples/workflow/qe_scf_calculation.ipynb",
+      "size": 12576,
+      "type": "notebook",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.870682Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-08T01:26:04.397978Z",
+      "mimetype": null,
+      "name": "get_workflows.ipynb",
+      "path": "content/api-examples/examples/workflow/get_workflows.ipynb",
+      "size": 7598,
+      "type": "notebook",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2024-11-08T01:26:20.872964Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-11-08T01:26:04.398428Z",
+      "mimetype": "text/x-python",
+      "name": "qe_scf_calculation.py",
+      "path": "content/api-examples/examples/workflow/qe_scf_calculation.py",
+      "size": 6954,
+      "type": "file",
+      "writable": true
+    }
+  ],
+  "created": "2024-11-08T01:26:20.872709Z",
+  "format": "json",
+  "hash": null,
+  "hash_algorithm": null,
+  "last_modified": "2024-11-08T01:26:20.872709Z",
+  "mimetype": null,
+  "name": "workflow",
+  "path": "content/api-examples/examples/workflow",
+  "size": null,
+  "type": "directory",
+  "writable": true
+}
