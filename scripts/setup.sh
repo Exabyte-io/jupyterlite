@@ -25,11 +25,11 @@ create_extension_template "${COOKIECUTTER_OPTIONS[@]}"
 build_extension ${EXTENSION_NAME} ${PACKAGE_ROOT_PATH}
 #
 ## Build JupiterLite with extension
-#cd "${PACKAGE_ROOT_PATH}" || exit 1
-#add_line_to_file_if_not_present "${BUILD_DIR_PATH}/$EXTENSION_NAME" "requirements.txt"
-## Pass ${INSTALL} and ${BUILD} as environment variables to enable the steps
-#[[ ! -z ${INSTALL} ]] && python -m pip install -r requirements.txt
-#[[ ! -z ${BUILD} ]] && jupyter lite build --contents content --output-dir dist
+cd "${PACKAGE_ROOT_PATH}" || exit 1
+# Pass ${UPDATE_REQUIREMENTS} ${INSTALL} and ${BUILD} as environment variables to enable the steps
+[[ ! -z ${UPDATE_REQUIREMENTS} ]] && add_line_to_file_if_not_present "${BUILD_DIR_PATH}/$EXTENSION_NAME" "requirements.txt"
+[[ ! -z ${INSTALL} ]] && python -m pip install -r requirements.txt
+[[ ! -z ${BUILD} ]] && jupyter lite build --contents content --output-dir dist
 
 # Exit with zero (for GH workflow)
 exit 0
