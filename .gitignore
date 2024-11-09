@@ -115,7 +115,7 @@ dmypy.json
 *.doit.db
 _output
 .idea
-.venv
+.venv*
 .yarn
 
 # mat3ra-specific
