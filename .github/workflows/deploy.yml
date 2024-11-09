@@ -23,6 +23,7 @@ jobs:
           python-version: '3.10'
       - name: Setup extension
         run: |
+          export UPDATE_REQUIREMENTS=true
           bash ./scripts/setup.sh
       - name: Install the dependencies
         run: |
