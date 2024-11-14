@@ -8,7 +8,7 @@ PACKAGE_ROOT_PATH="${THIS_SCRIPT_DIR_PATH}/../"
 BUILD_DIR_PATH="${PACKAGE_ROOT_PATH}/extensions/dist"
 
 # Remove JupyterLite dist folder containing built extension
-rm -rf ${PACKAGE_ROOT_PATH}/dist/extensions/${EXTENSION_NAME}
+rm -rf "${PACKAGE_ROOT_PATH}"/dist/extensions/${EXTENSION_NAME}
 
 # Rebuild the extension
 cd "${BUILD_DIR_PATH}"/${EXTENSION_NAME} || exit 1
