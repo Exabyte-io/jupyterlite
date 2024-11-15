@@ -11,6 +11,7 @@ PACKAGE_ROOT_PATH="$(realpath "${THIS_SCRIPT_DIR_PATH}/../")"
 BUILD_DIR_PATH="${PACKAGE_ROOT_PATH}/extensions/dist"
 EXTENSION_PATH="./extensions/dist/${EXTENSION_NAME}"
 
+source "${THIS_SCRIPT_DIR_PATH}"/cookiecutter_setup.sh
 source "${THIS_SCRIPT_DIR_PATH}"/functions.sh
 
 
