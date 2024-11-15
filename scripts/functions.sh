@@ -45,9 +45,12 @@ create_extension_template() {
 build_extension() {
     local EXTENSION_NAME=$1
     local PACKAGE_ROOT_PATH=$2
-    # Copy the extension source file to the correct location
-    SRC_FILE="${PACKAGE_ROOT_PATH}/src/${EXTENSION_NAME}/index.ts"
-    DEST_DIR="./${EXTENSION_NAME}/src"
+    # Following https://github.com/jupyterlite/jupyterlite/blob/dee7a211ec0fc3f18f4d39b1b9fce9b508d4d0df/docs/howto/configure/advanced/iframe.md
+    # Our extension is treated as a separate package in ./extensions/src directory
+    # Copy the extension source file that we changed to the cookiecutter template in ./extensions/dist directory
+    # It places the source file in the dist/EXTENSION_NAME/src file that will be used for the build
+    SRC_FILE="${PACKAGE_ROOT_PATH}/extensions/src/${EXTENSION_NAME}/index.ts"
+    DEST_DIR="${PACKAGE_ROOT_PATH}/extensions/dist/${EXTENSION_NAME}/src"
 
     if [ -f "$SRC_FILE" ] && [ -d "$DEST_DIR" ]; then
         cp "$SRC_FILE" "$DEST_DIR/index.ts"
