@@ -9,7 +9,7 @@ EXTENSION_NAME="data_bridge"
 THIS_SCRIPT_DIR_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 PACKAGE_ROOT_PATH="${THIS_SCRIPT_DIR_PATH}/../"
 BUILD_DIR_PATH="${PACKAGE_ROOT_PATH}/extensions/dist"
-EXTENSION_PATH=$(realpath "${BUILD_DIR_PATH}/${EXTENSION_NAME}")
+EXTENSION_PATH="./extensions/dist/${EXTENSION_NAME}"
 
 source "${THIS_SCRIPT_DIR_PATH}"/cookiecutter_setup.sh
 source "${THIS_SCRIPT_DIR_PATH}"/functions.sh
