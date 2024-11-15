@@ -51,6 +51,9 @@ build_extension() {
     # It places the source file in the dist/EXTENSION_NAME/src file that will be used for the build
     SRC_FILE="${PACKAGE_ROOT_PATH}/extensions/src/${EXTENSION_NAME}/index.ts"
     DEST_FILE="${PACKAGE_ROOT_PATH}/extensions/dist/${EXTENSION_NAME}/src/index.ts"
+    echo "DEBUG: copying $SRC_FILE to $DEST_FILE"
+    echo SRC_FILE
+    echo DEST_FILE
 
     if [ -f "$SRC_FILE" ] && [ -d "$DEST_FILE" ]; then
         cp "$SRC_FILE" "$DEST_FILE"
