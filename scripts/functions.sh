@@ -50,15 +50,15 @@ build_extension() {
     # Copy the extension source file that we changed to the cookiecutter template in ./extensions/dist directory
     # It places the source file in the dist/EXTENSION_NAME/src file that will be used for the build
     SRC_FILE="${PACKAGE_ROOT_PATH}/extensions/src/${EXTENSION_NAME}/index.ts"
-    DEST_DIR="${PACKAGE_ROOT_PATH}/extensions/dist/${EXTENSION_NAME}/src"
+    DEST_FILE="${PACKAGE_ROOT_PATH}/extensions/dist/${EXTENSION_NAME}/src/index.ts"
 
-    if [ -f "$SRC_FILE" ] && [ -d "$DEST_DIR" ]; then
-        cp "$SRC_FILE" "$DEST_DIR/index.ts"
+    if [ -f "$SRC_FILE" ] && [ -d "$DEST_FILE" ]; then
+        cp "$SRC_FILE" "$DEST_FILE"
     else
         echo "Source file or destination directory not found. Skipping copy."
     fi
 
-    cd "${EXTENSION_NAME}" || exit 1
+    cd "${PACKAGE_ROOT_PATH}/extensions/src/${EXTENSION_NAME}" || exit 1
 
     # To avoid 'Intl' has no exported member named 'ResolvedRelativeTimeFormatOptions'.
     # node_modules/@jupyterlab/coreutils/lib/time.d.ts:5:28
