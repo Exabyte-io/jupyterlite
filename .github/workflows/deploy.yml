@@ -12,6 +12,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Set current date as env variable
+        run: echo "DATE_NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
       - name: Checkout
         uses: actions/checkout@v3
         with:
@@ -36,6 +38,11 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
+          path: ./dist
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-${{ env.DATE_NOW }}
           path: ./dist
 
   deploy:
