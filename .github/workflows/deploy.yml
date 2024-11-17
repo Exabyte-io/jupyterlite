@@ -28,6 +28,7 @@ jobs:
         with:
           node-version: '18'
       - name: Build the JupyterLite with Extension
+        shell: bash
         run: |
           npm install
       - name: Upload pages artifact
