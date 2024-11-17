@@ -25,13 +25,14 @@ mkdir -p "${BUILD_DIR_PATH}" && cd "${BUILD_DIR_PATH}" || exit 1
 create_extension_template "${COOKIECUTTER_OPTIONS[@]}"
 build_extension ${EXTENSION_NAME} "${PACKAGE_ROOT_PATH}"
 #
-## Build JupiterLite with extension
+## Build JupyterLite with extension
 cd "${PACKAGE_ROOT_PATH}" || exit 1
 # We follow the steps from https://github.com/jupyterlite/jupyterlite/blob/dee7a211ec0fc3f18f4d39b1b9fce9b508d4d0df/docs/howto/configure/advanced/iframe.md
 # And installing extension and building the JupyterLite server as guided here, during the setup
 # Pass ${UPDATE_REQUIREMENTS} ${INSTALL} and ${BUILD} as environment variables to enable the steps
 [[ -n ${UPDATE_REQUIREMENTS} ]] && add_line_to_file_if_not_present "${EXTENSION_PATH}" "requirements.txt"
 [[ -n ${INSTALL} ]] && python -m pip install -r requirements.txt
+[[ -n ${COPY} ]] && cp -rL content content-resolved
 [[ -n ${BUILD} ]] && jupyter lite build --contents content --output-dir dist
 
 # Exit with zero (for GH workflow)

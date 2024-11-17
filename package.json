@@ -1,8 +1,7 @@
 {
   "scripts": {
-    "install": "sh scripts/setup.sh",
+    "install": "UPDATE_REQUIREMENTS=t INSTALL=t COPY=t BUILD=t sh scripts/setup.sh",
     "start": "python -m http.server -b localhost -d ./dist",
-    "build": "python -m pip install -r requirements.txt; cp -rL content content-resolved; jupyter lite build --contents content-resolved --output-dir dist",
     "restart": "sh scripts/update.sh"
   }
 }
