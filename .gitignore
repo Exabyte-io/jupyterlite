@@ -123,3 +123,6 @@ content-resolved/
 
 # not using package.json to install, just to use scripts
 package-lock.json
+
+# Tmp files
+requirements-tmp.txt
