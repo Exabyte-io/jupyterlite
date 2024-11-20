@@ -37,7 +37,7 @@ if [[ -n ${UPDATE_CONTENT} ]]; then
     # Copy other required files
     cp -r ${RESOLVED_CONTENT_DIR}/{packages,utils,config.yml,README*} ${CONTENT_DIR}/
     # Update path references in README*
-    sed -i "s/examples\//api\//g" README.*
+    sed -i "s/examples\//api\//g" ${CONTENT_DIR}/README.*
 fi
 
 [[ -n ${BUILD} ]] && jupyter lite build --contents ${CONTENT_DIR} --output-dir dist
