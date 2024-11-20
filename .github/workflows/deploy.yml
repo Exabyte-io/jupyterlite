@@ -1,6 +1,7 @@
 name: Build and Deploy
 
 on:
+  workflow_dispatch: # This adds a manual trigger
   push:
     branches:
       - main
