@@ -1,3 +1,0 @@
-[submodule "content/api-examples"]
-	path = content/api-examples
-	url = git@github.com:Exabyte-io/api-examples.git
