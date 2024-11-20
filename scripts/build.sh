@@ -31,7 +31,11 @@ if [[ -n ${UPDATE_CONTENT} ]]; then
     cd "${PACKAGE_ROOT_PATH}" || exit 1
     RESOLVED_CONTENT_DIR="tmp/${REPO_NAME}-resolved"
     rm -rf ${CONTENT_DIR} && mkdir -p ${CONTENT_DIR}
-    cp -r ${RESOLVED_CONTENT_DIR}/* ${CONTENT_DIR}
+    # Copy the notebooks
+    cp -r ${RESOLVED_CONTENT_DIR}/examples ${CONTENT_DIR}/api
+    cp -r ${RESOLVED_CONTENT_DIR}/other/materials_designer ${CONTENT_DIR}/made
+    # Copy other required files
+    cp -r ${RESOLVED_CONTENT_DIR}/{packages,utils,config.yml} ${CONTENT_DIR}/
 fi
 
 [[ -n ${BUILD} ]] && jupyter lite build --contents ${CONTENT_DIR} --output-dir dist
