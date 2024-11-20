@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "install": "UPDATE_REQUIREMENTS=1 INSTALL=1 COPY=1 BUILD=1 bash scripts/setup.sh",
+    "install": "UPDATE_REQUIREMENTS=1 INSTALL=1 COPY=1 BUILD=1 bash scripts/install.sh",
+    "build": "UPDATE_REQUIREMENTS=1 INSTALL=1 COPY=1 BUILD=1 bash scripts/build.sh",
     "start": "python -m http.server -b localhost -d ./dist",
     "restart": "bash scripts/update.sh"
   }
