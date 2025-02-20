@@ -18,10 +18,12 @@ cd "${PACKAGE_ROOT_PATH}" || exit 1
 if [[ -n ${UPDATE_CONTENT} ]]; then
     mkdir -p ${TMP_DIR} && cd ${TMP_DIR} || exit 1
     REPO_NAME="api-examples"
+    API_EXAMPLES_COMMIT="0861ca87f632e1e505dfd10c413dd4570a17de3d"
     # Clone repository if it doesn't exist
     [[ ! -e "${REPO_NAME}" ]] && git clone https://github.com/Exabyte-io/${REPO_NAME}.git
     cd ${REPO_NAME} || exit 1
-    git checkout main || git checkout dev && git pull
+    git fetch
+    git checkout ${API_EXAMPLES_COMMIT}
     git --no-pager log --decorate=short --pretty=oneline -n1
     cd - || exit 1
     # Resolve links inside the ${REPO_NAME}
