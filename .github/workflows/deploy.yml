@@ -12,9 +12,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      artifact_name: ${{ steps.set_artifact_name.outputs.name }}
     steps:
       - name: Set current date as env variable
-        run: echo "DATE_NOW=$(date +'%Y-%m-%dT%H-%M-%S')" >> $GITHUB_ENV
+        id: set_artifact_name
+        run: |
+          echo "DATE_NOW=$(date +'%Y-%m-%dT%H-%M-%S')" >> $GITHUB_ENV
+          echo "name=dist-$(date +'%Y-%m-%dT%H-%M-%S')" >> $GITHUB_OUTPUT
       - name: Checkout
         uses: actions/checkout@v3
         with:
@@ -67,7 +72,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: dist-${{ env.DATE_NOW }}
+          name: ${{ needs.build.outputs.artifact_name }}
           path: ./dist
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v2.0
