@@ -1,7 +1,7 @@
 {
   "scripts": {
     "install": "UPDATE_REQUIREMENTS=1 INSTALL=1 COPY=1 BUILD=1 bash scripts/install.sh",
-    "build": "API_EXAMPLES_COMMIT=0861ca87f632e1e505dfd10c413dd4570a17de3d INSTALL=1 UPDATE_CONTENT=1 BUILD=1 bash scripts/build.sh",
+    "build": "INSTALL=1 UPDATE_CONTENT=1 BUILD=1 bash scripts/build.sh",
     "start": "python -m http.server -b localhost -d ./dist"
   }
 }
