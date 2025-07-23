@@ -128,3 +128,6 @@ package-lock.json
 requirements-tmp.txt
 content/*
 tmp
+
+# Local Netlify folder
+.netlify
