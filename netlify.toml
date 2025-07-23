@@ -5,3 +5,4 @@
 [build.environment]
   PYTHON_VERSION = "3.10"
   NODE_VERSION = "20"
+  SKIP_JUPYTER_BUILDER = "1"
