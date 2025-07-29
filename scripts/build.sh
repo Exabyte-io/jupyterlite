@@ -18,11 +18,12 @@ cd "${PACKAGE_ROOT_PATH}" || exit 1
 if [[ -n ${UPDATE_CONTENT} ]]; then
     mkdir -p ${TMP_DIR} && cd ${TMP_DIR} || exit 1
     REPO_NAME="api-examples"
-    BRANCH_NAME="feature/SOF-7686" # "dev"
+    BRANCH_NAME="feature/SOF-7686" # "main"
+    BRANCH_NAME_FALLBACK ="feature/SOF-7686" # "dev"
     # Clone repository if it doesn't exist
     [[ ! -e "${REPO_NAME}" ]] && git clone https://github.com/Exabyte-io/${REPO_NAME}.git
     cd ${REPO_NAME} || exit 1
-    git checkout main || git checkout ${BRANCH_NAME} && git pull
+    git checkout ${BRANCH_NAME} || git checkout ${BRANCH_NAME_FALLBACK} && git pull
     git --no-pager log --decorate=short --pretty=oneline -n1
     cd - || exit 1
     # Resolve links inside the ${REPO_NAME}
