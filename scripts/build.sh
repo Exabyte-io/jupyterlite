@@ -24,6 +24,7 @@ if [[ -n ${UPDATE_CONTENT} ]]; then
     [[ ! -e "${REPO_NAME}" ]] && git clone https://github.com/Exabyte-io/${REPO_NAME}.git
     cd ${REPO_NAME} || exit 1
     git checkout ${BRANCH_NAME} || git checkout ${BRANCH_NAME_FALLBACK} && git pull
+    git lfs pull
     git --no-pager log --decorate=short --pretty=oneline -n1
     cd - || exit 1
     # Resolve links inside the ${REPO_NAME}
