@@ -20,6 +20,7 @@ if [[ -n ${UPDATE_CONTENT} ]]; then
     REPO_NAME="api-examples"
     BRANCH_NAME="feature/SOF-7686" # "main"
     BRANCH_NAME_FALLBACK ="feature/SOF-7686" # "dev"
+
     # Clone repository if it doesn't exist
     [[ ! -e "${REPO_NAME}" ]] && git clone https://github.com/Exabyte-io/${REPO_NAME}.git
     cd ${REPO_NAME} || exit 1
