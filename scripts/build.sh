@@ -18,8 +18,9 @@ cd "${PACKAGE_ROOT_PATH}" || exit 1
 if [[ -n ${UPDATE_CONTENT} ]]; then
     mkdir -p ${TMP_DIR} && cd ${TMP_DIR} || exit 1
     REPO_NAME="api-examples"
+    BRANCH_NAME="feature/SOF-7686"
     # Clone repository if it doesn't exist
-    [[ ! -e "${REPO_NAME}" ]] && git clone https://github.com/Exabyte-io/${REPO_NAME}.git
+    [[ ! -e "${REPO_NAME}" ]] && git clone https://github.com/Exabyte-io/${REPO_NAME}.git${BRANCH_NAME}
     cd ${REPO_NAME} || exit 1
     git checkout main || git checkout dev && git pull
     git --no-pager log --decorate=short --pretty=oneline -n1
