@@ -18,7 +18,7 @@ JupyterLite deployed as a static site to GitHub Pages, for demo purposes.
 
 ### Extensions
 
-The environment using the [data-bridge extension](https://github.com/Exabyte-io/mat3ra-jupyterlite-extension-data-bridge) (see [requirements.txt](requirements.txt)).
+The environment using the [data-bridge extension](https://github.com/Exabyte-io/mat3ra-jupyterlite-extension-data-bridge) (see [requirements.txt](dependencies/requirements.txt)).
 
 ### Content
 

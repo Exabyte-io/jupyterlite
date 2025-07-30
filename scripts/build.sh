@@ -3,7 +3,7 @@
 # NODE_VERSION="18"
 THIS_SCRIPT_DIR_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 PACKAGE_ROOT_PATH="$(realpath "${THIS_SCRIPT_DIR_PATH}/../")"
-REQUIREMENTS_FILENAME="requirements.txt"
+REQUIREMENTS_FILENAME="dependencies/requirements.txt"
 TMP_DIR="tmp"
 CONTENT_DIR="content"
 
