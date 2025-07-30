@@ -13,6 +13,7 @@ source "${THIS_SCRIPT_DIR_PATH}"/functions.sh
 cd "${PACKAGE_ROOT_PATH}" || exit 1
 
 [[ -n ${INSTALL} ]] && python -m pip install -r ${REQUIREMENTS_FILENAME}
+pip list
 
 # Update the content dir to latest commit
 if [[ -n ${UPDATE_CONTENT} ]]; then
