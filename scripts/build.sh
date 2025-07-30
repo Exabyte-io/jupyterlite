@@ -46,17 +46,7 @@ if [[ -n ${UPDATE_CONTENT} ]]; then
     sed -i "s/examples\//api\//g" ${CONTENT_DIR}/README.*
 fi
 
-if [[ -n ${BUILD} ]]; then
-    echo "Building JupyterLite..."
-    python -m jupyter lite build --contents ${CONTENT_DIR} --output-dir dist
-    
-    # DEBUG: Show final package status
-    echo "=== Build completed ==="
-    echo "=== Final Python packages ==="
-    python -m pip list | grep -i bridge || echo "No bridge extension found"
-    echo "=== Final JupyterLab extensions ==="
-    python -m jupyter labextension list || echo "No labextensions found"
-fi
+[[ -n ${BUILD} ]] && jupyter lite build --contents ${CONTENT_DIR} --output-dir dist
 
 # Exit with zero (for GH workflow)
 exit 0
