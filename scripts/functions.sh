@@ -25,6 +25,7 @@ create_virtualenv() {
         python -m venv ${VENV_NAME}
     fi
     source ${VENV_NAME}/bin/activate
+    echo "Virtual environment created and activated: ${VENV_NAME}"
 }
 
 create_extension_template() {
