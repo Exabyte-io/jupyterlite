@@ -74,8 +74,7 @@ build_extension() {
 
     jupyter labextension develop --overwrite .
 
-    # Install dependencies
-    jlpm add @jupyterlab/application@~4.0.0 @jupyterlab/notebook@~4.0.0 @mat3ra/esse
+    jlpm add @jupyterlab/application@~4.0.6 @jupyterlab/notebook@~4.0.6 @mat3ra/esse
 
     # Build the extension
     jlpm run build
