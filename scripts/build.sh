@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e  # Exit on any error
+trap 'echo "❌ Build failed at line $LINENO with exit code $?" >&2' ERR
 # PYTHON_VERSION="3.10.12"
 # NODE_VERSION="18"
 THIS_SCRIPT_DIR_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
@@ -10,6 +12,8 @@ CONTENT_DIR="content"
 source "${THIS_SCRIPT_DIR_PATH}"/functions.sh
 
 ## Build JupyterLite with extension(s)
+echo "🚀 Starting build process..."
+echo "📁 Changing to package root: ${PACKAGE_ROOT_PATH}"
 cd "${PACKAGE_ROOT_PATH}" || exit 1
 
 if [[ -n ${INSTALL} ]]; then
@@ -26,6 +30,7 @@ fi
 
 # Update the content dir to latest commit
 if [[ -n ${UPDATE_CONTENT} ]]; then
+    echo "📥 Updating content from repository..."
     mkdir -p ${TMP_DIR} && cd ${TMP_DIR} || exit 1
     REPO_NAME="api-examples"
     BRANCH_NAME="feature/SOF-7686" # "main"
@@ -52,11 +57,12 @@ if [[ -n ${UPDATE_CONTENT} ]]; then
     cp -r ${RESOLVED_CONTENT_DIR}/other/materials_designer ${CONTENT_DIR}/made
     # Copy other required files
     cp -r ${RESOLVED_CONTENT_DIR}/{packages,utils,config.yml,README*} ${CONTENT_DIR}/
-    # Update path references in README*
-    sed -i "s/examples\//api\//g" ${CONTENT_DIR}/README.*
+    # Update path references in README* files (only text files, skip .ipynb)
+    find ${CONTENT_DIR} -name "README*" -type f ! -name "*.ipynb" -exec perl -pi -e 's/examples\//api\//g' {} \;
 fi
 
 if [[ -n ${BUILD} ]]; then
+    echo "🏗️  Building JupyterLite..."
     echo "=== Building JupyterLite ==="
     jupyter lite build --contents ${CONTENT_DIR} --output-dir dist
     
