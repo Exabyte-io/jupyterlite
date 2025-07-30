@@ -12,31 +12,7 @@ source "${THIS_SCRIPT_DIR_PATH}"/functions.sh
 ## Build JupyterLite with extension(s)
 cd "${PACKAGE_ROOT_PATH}" || exit 1
 
-# Configure git for private repo access if running in CI
-if [[ -n "${GITHUB_TOKEN}" ]]; then
-    echo "Setting up git credentials for private repositories..."
-    git config --global credential.helper store
-    echo "https://x-access-token:${GITHUB_TOKEN}@github.com" > ~/.git-credentials
-fi
-
-# Install dependencies and show debug info
-if [[ -n ${INSTALL} ]]; then
-    echo "Installing Python dependencies..."
-    python -m pip install -r ${REQUIREMENTS_FILENAME}
-    
-    # Ensure jupyter commands are available in PATH
-    export PATH="$(python -m site --user-base)/bin:$PATH"
-
-    # Fix data-bridge compatibility with JupyterLab 4.0.x
-    BRIDGE_DIR=$(python -c "import data_bridge; import os; print(os.path.dirname(data_bridge.__file__))" 2>/dev/null)
-    [[ -n "$BRIDGE_DIR" ]] && find "$BRIDGE_DIR" -name "package.json" -exec sed -i.bak -e 's/"@jupyterlab\/application":[[:space:]]*"[^"]*"/"@jupyterlab\/application": "~4.0.6"/g' -e 's/"@jupyterlab\/notebook":[[:space:]]*"[^"]*"/"@jupyterlab\/notebook": "~4.0.6"/g' {} \;
-    
-    # DEBUG: Show installed packages
-    echo "=== Python packages after install ==="
-    python -m pip list | grep -i bridge || echo "No bridge extension found"
-    echo "=== JupyterLab extensions after install ==="
-    python -m jupyter labextension list || echo "No labextensions found"
-fi
+[[ -n ${INSTALL} ]] && python -m pip install -r ${REQUIREMENTS_FILENAME}
 
 # Update the content dir to latest commit
 if [[ -n ${UPDATE_CONTENT} ]]; then
