@@ -11,4 +11,4 @@ echo "Creating virtual environment"
 
 create_virtualenv "${PACKAGE_ROOT_PATH}/.venv-${PYTHON_VERSION}"
 
-INSTALL=1 UPDATE_CONTENT=1 BUILD=1 bash ./build.sh
+INSTALL=1 UPDATE_CONTENT=1 BUILD=1 bash "${THIS_SCRIPT_DIR_PATH}"/build.sh
