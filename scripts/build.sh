@@ -38,7 +38,7 @@ if [[ -n ${UPDATE_CONTENT} ]]; then
     # Clone repository if it doesn't exist
     [[ ! -e "${REPO_NAME}" ]] && git clone https://github.com/Exabyte-io/${REPO_NAME}.git
     cd ${REPO_NAME} || exit 1
-    git checkout ${BRANCH_NAME} || git checkout ${BRANCH_NAME_FALLBACK} && git pull
+    (git checkout ${BRANCH_NAME} || git checkout ${BRANCH_NAME_FALLBACK}) && git pull
 
     # Install git-lfs and pull LFS files
     git lfs install && git lfs pull
