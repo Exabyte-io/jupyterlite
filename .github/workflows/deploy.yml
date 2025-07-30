@@ -30,8 +30,24 @@ jobs:
           node-version: '18'
       - name: Build the JupyterLite with Extension(s)
         shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # Configure git to use token for private repo access
+          git config --global url."https://$GH_TOKEN@github.com/".insteadOf "https://github.com/"
+          
+          # TODO: Remove when done. DEBUG: Show installed packages before build
+          echo "=== Python packages before build ==="
+          python -m pip list | grep -i bridge || echo "No bridge extension found"
+          echo "=== JupyterLab extensions before build ==="
+          jupyter labextension list || echo "No labextensions found"
+          # Run the build
           npm run build
+          # DEBUG: Show installed packages after build
+          echo "=== Python packages after build ==="
+          python -m pip list | grep -i bridge || echo "No bridge extension found"
+          echo "=== JupyterLab extensions after build ==="
+          jupyter labextension list || echo "No labextensions found"
       - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
