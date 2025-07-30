@@ -12,7 +12,17 @@ source "${THIS_SCRIPT_DIR_PATH}"/functions.sh
 ## Build JupyterLite with extension(s)
 cd "${PACKAGE_ROOT_PATH}" || exit 1
 
-[[ -n ${INSTALL} ]] && python -m pip install -r ${REQUIREMENTS_FILENAME}
+if [[ -n ${INSTALL} ]]; then
+    echo "=== Installing Python dependencies ==="
+    python -m pip install -r ${REQUIREMENTS_FILENAME}
+    
+    echo "=== Checking data-bridge installation ==="
+    python -m pip list | grep -i bridge || echo "❌ No bridge extension found"
+    python -c "import data_bridge; print(f'✅ data_bridge found at: {data_bridge.__file__}')" || echo "❌ data_bridge import failed"
+    
+    echo "=== Checking JupyterLab extensions ==="
+    python -m jupyter labextension list || echo "❌ labextension list failed"
+fi
 
 # Update the content dir to latest commit
 if [[ -n ${UPDATE_CONTENT} ]]; then
@@ -46,7 +56,14 @@ if [[ -n ${UPDATE_CONTENT} ]]; then
     sed -i "s/examples\//api\//g" ${CONTENT_DIR}/README.*
 fi
 
-[[ -n ${BUILD} ]] && jupyter lite build --contents ${CONTENT_DIR} --output-dir dist
+if [[ -n ${BUILD} ]]; then
+    echo "=== Building JupyterLite ==="
+    jupyter lite build --contents ${CONTENT_DIR} --output-dir dist
+    
+    echo "=== Checking built extensions ==="
+    ls -la dist/extensions/ 2>/dev/null | head -20 || echo "❌ No extensions directory found"
+    find dist/ -name "*data*bridge*" -o -name "*bridge*" 2>/dev/null | head -10 || echo "❌ No data-bridge files found in dist"
+fi
 
 # Exit with zero (for GH workflow)
 exit 0
