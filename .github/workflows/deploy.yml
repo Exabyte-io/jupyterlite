@@ -30,8 +30,6 @@ jobs:
           node-version: '18'
       - name: Build the JupyterLite with Extension(s)
         shell: bash
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npm run build
       - name: Upload pages artifact
