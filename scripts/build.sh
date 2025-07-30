@@ -12,14 +12,34 @@ source "${THIS_SCRIPT_DIR_PATH}"/functions.sh
 ## Build JupyterLite with extension(s)
 cd "${PACKAGE_ROOT_PATH}" || exit 1
 
-[[ -n ${INSTALL} ]] && python -m pip install -r ${REQUIREMENTS_FILENAME}
+# Configure git for private repo access if running in CI
+if [[ -n "${GITHUB_TOKEN}" ]]; then
+    echo "Setting up git credentials for private repositories..."
+    git config --global credential.helper store
+    echo "https://x-access-token:${GITHUB_TOKEN}@github.com" > ~/.git-credentials
+fi
+
+# Install dependencies and show debug info
+if [[ -n ${INSTALL} ]]; then
+    echo "Installing Python dependencies..."
+    python -m pip install -r ${REQUIREMENTS_FILENAME}
+    
+    # Ensure jupyter commands are available in PATH
+    export PATH="$(python -m site --user-base)/bin:$PATH"
+    
+    # DEBUG: Show installed packages
+    echo "=== Python packages after install ==="
+    python -m pip list | grep -i bridge || echo "No bridge extension found"
+    echo "=== JupyterLab extensions after install ==="
+    python -m jupyter labextension list || echo "No labextensions found"
+fi
 
 # Update the content dir to latest commit
 if [[ -n ${UPDATE_CONTENT} ]]; then
     mkdir -p ${TMP_DIR} && cd ${TMP_DIR} || exit 1
     REPO_NAME="api-examples"
     BRANCH_NAME="feature/SOF-7686" # "main"
-    BRANCH_NAME_FALLBACK ="feature/SOF-7686" # "dev"
+    BRANCH_NAME_FALLBACK="feature/SOF-7686" # "dev"
 
     # Clone repository if it doesn't exist
     [[ ! -e "${REPO_NAME}" ]] && git clone https://github.com/Exabyte-io/${REPO_NAME}.git
@@ -46,7 +66,17 @@ if [[ -n ${UPDATE_CONTENT} ]]; then
     sed -i "s/examples\//api\//g" ${CONTENT_DIR}/README.*
 fi
 
-[[ -n ${BUILD} ]] && jupyter lite build --contents ${CONTENT_DIR} --output-dir dist
+if [[ -n ${BUILD} ]]; then
+    echo "Building JupyterLite..."
+    python -m jupyter lite build --contents ${CONTENT_DIR} --output-dir dist
+    
+    # DEBUG: Show final package status
+    echo "=== Build completed ==="
+    echo "=== Final Python packages ==="
+    python -m pip list | grep -i bridge || echo "No bridge extension found"
+    echo "=== Final JupyterLab extensions ==="
+    python -m jupyter labextension list || echo "No labextensions found"
+fi
 
 # Exit with zero (for GH workflow)
 exit 0
