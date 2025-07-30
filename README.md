@@ -33,7 +33,7 @@ To build and run the environment locally:
 1. check that `npm` is installed
 2. run:
 ```bash
-npm setup
+npm install
 npm run build
 npm start
 ```
