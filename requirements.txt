@@ -30,4 +30,4 @@ ipyleaflet
 plotly>=5,<6
 bqplot
 # Commit with JupyterLab 4.0.6, JupyterLite 0.1.3:
-git+https://github.com/Exabyte-io/mat3ra-jupyterlite-extension-data-bridge.git#444b5abce28ee6213401c825aeaf645c7e524ebe
+git+https://github.com/Exabyte-io/mat3ra-jupyterlite-extension-data-bridge.git#33e95fa1349e6886157d517d84806a95fc1932d3
