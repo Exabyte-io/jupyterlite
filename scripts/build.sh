@@ -12,19 +12,6 @@ source "${THIS_SCRIPT_DIR_PATH}"/functions.sh
 ## Build JupyterLite with extension(s)
 cd "${PACKAGE_ROOT_PATH}" || exit 1
 
-export PIP_VERSION=24.3.1
-export SETUPTOOLS_VERSION=75.8.0
-export WHEEL_VERSION=0.37.1
-export BUILD_VERSION=0.7.0
-export TWINE_VERSION=3.7.1
-
-pip install --upgrade \
-  pip==$PIP_VERSION \
-  setuptools==$SETUPTOOLS_VERSION \
-  wheel==$WHEEL_VERSION \
-  build==$BUILD_VERSION \
-  twine==$TWINE_VERSION
-
 [[ -n ${INSTALL} ]] && python -m pip install -r ${REQUIREMENTS_FILENAME}
 pip list
 
