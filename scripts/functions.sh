@@ -2,12 +2,13 @@
 
 ensure_python_version_installed() {
   # TODO: make work with pyenv with Netlify
-#    local PYTHON_VERSION=$1
-#    if ! pyenv versions | grep -q $PYTHON_VERSION; then
-#        echo "Python $PYTHON_VERSION not found. Installing..."
-#        pyenv install $PYTHON_VERSION
-#    fi
-#    pyenv local $PYTHON_VERSION
+  #    local PYTHON_VERSION=$1
+  #    if ! pyenv versions | grep -q $PYTHON_VERSION; then
+  #        echo "Python $PYTHON_VERSION not found. Installing..."
+  #        pyenv install $PYTHON_VERSION
+  #    fi
+  #    pyenv local $PYTHON_VERSION
+  true
 }
 
 ensure_node_version_installed() {
