@@ -3,6 +3,6 @@
   publish = "dist/"
 
 [build.environment]
-  PYTHON_VERSION = "3.10"
+  PYTHON_VERSION = "3.10.12"
   NODE_VERSION = "20"
   SKIP_JUPYTER_BUILDER = "1"
