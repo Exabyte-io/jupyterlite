@@ -1,6 +1,6 @@
 # Core modules (mandatory)
 jupyterlite-core==0.1.3
-jupyterlab==4.0.6
+jupyterlab~=4.0.6
 
 # Python kernel (optional)
 jupyterlite-pyodide-kernel==0.1.3
@@ -29,5 +29,4 @@ ipyleaflet
 # Python: plotting libraries (optional)
 plotly>=5,<6
 bqplot
-# Use feature/SOF-7686 branch with JupyterLab 4.0.6 compatibility:
-git+https://github.com/Exabyte-io/mat3ra-jupyterlite-extension-data-bridge.git@feature/SOF-7686
+git+https://github.com/Exabyte-io/mat3ra-jupyterlite-extension-data-bridge@b76c9076b8c76a196354b092a417c0a0b9b7b4ab
