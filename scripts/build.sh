@@ -26,6 +26,10 @@ if [[ -n ${INSTALL} ]]; then
     
     # Ensure jupyter commands are available in PATH
     export PATH="$(python -m site --user-base)/bin:$PATH"
+
+    # Fix data-bridge compatibility with JupyterLab 4.0.x
+    BRIDGE_DIR=$(python -c "import data_bridge; import os; print(os.path.dirname(data_bridge.__file__))" 2>/dev/null)
+    [[ -n "$BRIDGE_DIR" ]] && find "$BRIDGE_DIR" -name "package.json" -exec sed -i.bak -e 's/"@jupyterlab\/application":[[:space:]]*"[^"]*"/"@jupyterlab\/application": "~4.0.6"/g' -e 's/"@jupyterlab\/notebook":[[:space:]]*"[^"]*"/"@jupyterlab\/notebook": "~4.0.6"/g' {} \;
     
     # DEBUG: Show installed packages
     echo "=== Python packages after install ==="
