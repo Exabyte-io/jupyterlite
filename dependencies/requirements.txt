@@ -29,4 +29,4 @@ ipyleaflet
 # Python: plotting libraries (optional)
 plotly>=5,<6
 bqplot
-git+https://github.com/Exabyte-io/mat3ra-jupyterlite-extension-data-bridge@b76c9076b8c76a196354b092a417c0a0b9b7b4ab
+https://github.com/Exabyte-io/mat3ra-jupyterlite-extension-data-bridge/releases/download/2025.7.29-0-rc-0/data_bridge-0.1.0-py3-none-any.whl

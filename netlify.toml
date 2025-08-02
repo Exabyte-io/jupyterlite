@@ -1,8 +1,7 @@
 [build]
-  command = "npm run build"
+  command = "bash scripts/build_on_netlify.sh"
   publish = "dist/"
 
 [build.environment]
   PYTHON_VERSION = "3.10.12"
-  NODE_VERSION = "20"
-  # SKIP_JUPYTER_BUILDER = "1"
+  NODE_VERSION = "18"
