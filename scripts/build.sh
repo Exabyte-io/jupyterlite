@@ -3,7 +3,7 @@
 # NODE_VERSION="18"
 THIS_SCRIPT_DIR_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 PACKAGE_ROOT_PATH="$(realpath "${THIS_SCRIPT_DIR_PATH}/../")"
-REQUIREMENTS_FILENAME="requirements.txt"
+REQUIREMENTS_FILENAME="dependencies/requirements.txt"
 TMP_DIR="tmp"
 CONTENT_DIR="content"
 
@@ -12,16 +12,36 @@ source "${THIS_SCRIPT_DIR_PATH}"/functions.sh
 ## Build JupyterLite with extension(s)
 cd "${PACKAGE_ROOT_PATH}" || exit 1
 
+export PIP_VERSION=24.3.1
+export SETUPTOOLS_VERSION=75.8.0
+export WHEEL_VERSION=0.37.1
+export BUILD_VERSION=0.7.0
+export TWINE_VERSION=3.7.1
+
+pip install --upgrade \
+  pip==$PIP_VERSION \
+  setuptools==$SETUPTOOLS_VERSION \
+  wheel==$WHEEL_VERSION \
+  build==$BUILD_VERSION \
+  twine==$TWINE_VERSION
+
 [[ -n ${INSTALL} ]] && python -m pip install -r ${REQUIREMENTS_FILENAME}
+pip list
 
 # Update the content dir to latest commit
 if [[ -n ${UPDATE_CONTENT} ]]; then
     mkdir -p ${TMP_DIR} && cd ${TMP_DIR} || exit 1
     REPO_NAME="api-examples"
+    BRANCH_NAME= "main"
+    BRANCH_NAME_FALLBACK="dev"
+
     # Clone repository if it doesn't exist
     [[ ! -e "${REPO_NAME}" ]] && git clone https://github.com/Exabyte-io/${REPO_NAME}.git
     cd ${REPO_NAME} || exit 1
-    git checkout main || git checkout dev && git pull
+    (git checkout ${BRANCH_NAME} || git checkout ${BRANCH_NAME_FALLBACK}) && git pull
+
+    # Install git-lfs and pull LFS files
+    git lfs install && git lfs pull
     git --no-pager log --decorate=short --pretty=oneline -n1
     cd - || exit 1
     # Resolve links inside the ${REPO_NAME}
