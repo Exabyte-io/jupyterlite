@@ -32,8 +32,8 @@ pip list
 if [[ -n ${UPDATE_CONTENT} ]]; then
     mkdir -p ${TMP_DIR} && cd ${TMP_DIR} || exit 1
     REPO_NAME="api-examples"
-    BRANCH_NAME= "main"
-    BRANCH_NAME_FALLBACK="dev"
+    BRANCH_NAME="feature/SOF-7685"
+    BRANCH_NAME_FALLBACK="feature/SOF-7685"
 
     # Clone repository if it doesn't exist
     [[ ! -e "${REPO_NAME}" ]] && git clone https://github.com/Exabyte-io/${REPO_NAME}.git
