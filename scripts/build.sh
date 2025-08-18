@@ -51,6 +51,8 @@ if [[ -n ${UPDATE_CONTENT} ]]; then
     cd "${PACKAGE_ROOT_PATH}" || exit 1
     RESOLVED_CONTENT_DIR="tmp/${REPO_NAME}-resolved"
     rm -rf ${CONTENT_DIR} && mkdir -p ${CONTENT_DIR}
+    # Copy startup script
+    cp startup.py ${CONTENT_DIR}/
     # Copy the notebooks
     cp -r ${RESOLVED_CONTENT_DIR}/examples ${CONTENT_DIR}/api
     cp -r ${RESOLVED_CONTENT_DIR}/other/materials_designer ${CONTENT_DIR}/made
@@ -60,7 +62,7 @@ if [[ -n ${UPDATE_CONTENT} ]]; then
     sed -i "s/examples\//api\//g" ${CONTENT_DIR}/README.*
 fi
 
-[[ -n ${BUILD} ]] && jupyter lite build --contents ${CONTENT_DIR} --output-dir dist
+[[ -n ${BUILD} ]] && jupyter lite build --contents ${CONTENT_DIR} --output-dir dist --config jupyter_lite_config.json
 
 # Exit with zero (for GH workflow)
 exit 0

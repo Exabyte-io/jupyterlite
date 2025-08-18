@@ -9,8 +9,8 @@ jupyterlite-pyodide-kernel==0.1.3
 jupyterlite-javascript-kernel==0.1.3
 
 # Language support (optional)
-jupyterlab-language-pack-fr-FR
-jupyterlab-language-pack-zh-CN
+jupyterlab-language-pack-ja-JP
+
 
 # JupyterLab: dark theme
 jupyterlab-night
