@@ -32,13 +32,12 @@ pip list
 if [[ -n ${UPDATE_CONTENT} ]]; then
     mkdir -p ${TMP_DIR} && cd ${TMP_DIR} || exit 1
     REPO_NAME="api-examples"
-    BRANCH_NAME= "main"
-    BRANCH_NAME_FALLBACK="dev"
+    BRANCH_NAME= "dev"
 
     # Clone repository if it doesn't exist
     [[ ! -e "${REPO_NAME}" ]] && git clone https://github.com/Exabyte-io/${REPO_NAME}.git
     cd ${REPO_NAME} || exit 1
-    (git checkout ${BRANCH_NAME} || git checkout ${BRANCH_NAME_FALLBACK}) && git pull
+    git checkout ${BRANCH_NAME} && git pull
 
     # Install git-lfs and pull LFS files
     git lfs install && git lfs pull
@@ -56,6 +55,10 @@ if [[ -n ${UPDATE_CONTENT} ]]; then
     cp -r ${RESOLVED_CONTENT_DIR}/other/materials_designer ${CONTENT_DIR}/made
     # Copy other required files
     cp -r ${RESOLVED_CONTENT_DIR}/{packages,utils,config.yml,README*} ${CONTENT_DIR}/
+    
+    # Override utils/__init__.py with auto-installer
+    cp utils_autoinstall.py ${CONTENT_DIR}/utils/__init__.py
+    
     # Update path references in README*
     sed -i "s/examples\//api\//g" ${CONTENT_DIR}/README.*
 fi
