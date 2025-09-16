@@ -35,13 +35,16 @@ if [[ -n ${UPDATE_CONTENT} ]]; then
     BRANCH_NAME="main"
     BRANCH_NAME_FALLBACK="dev"
 
+    # Install git-lfs before cloning the repository
+    git lfs install
+
     # Clone repository if it doesn't exist
     [[ ! -e "${REPO_NAME}" ]] && git clone https://github.com/Exabyte-io/${REPO_NAME}.git
     cd ${REPO_NAME} || exit 1
     (git checkout ${BRANCH_NAME} || git checkout ${BRANCH_NAME_FALLBACK}) && git pull
 
-    # Install git-lfs and pull LFS files
-    git lfs install && git lfs pull
+    #  Pull LFS files
+    git lfs pull
     git --no-pager log --decorate=short --pretty=oneline -n1
     cd - || exit 1
     # Resolve links inside the ${REPO_NAME}
