@@ -36,14 +36,20 @@ if [[ -n ${UPDATE_CONTENT} ]]; then
     BRANCH_NAME_FALLBACK="dev"
 
     # Clone repository if it doesn't exist
-    [[ ! -e "${REPO_NAME}" ]] && git clone https://github.com/Exabyte-io/${REPO_NAME}.git
+    if [[ ! -e "${REPO_NAME}" ]]; then 
+        echo "Attempting checkout and exiting if unsuccessful"
+        git clone https://github.com/Exabyte-io/${REPO_NAME}.git || exit 1
+    fi
+
+    # Pull all required files
     cd ${REPO_NAME} || exit 1
     git checkout ${BRANCH_NAME} || git checkout ${BRANCH_NAME_FALLBACK}
     git pull
-
     # Install git-lfs and pull LFS files
     git lfs install && git lfs pull
     git --no-pager log --decorate=short --pretty=oneline -n1
+
+    # Re-arrange resolved folders
     cd - || exit 1
     # Resolve links inside the ${REPO_NAME}
     rm -rf ${REPO_NAME}-resolved
