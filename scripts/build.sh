@@ -32,11 +32,11 @@ pip list
 if [[ -n ${UPDATE_CONTENT} ]]; then
     mkdir -p ${TMP_DIR} && cd ${TMP_DIR} || exit 1
     REPO_NAME="api-examples"
-    BRANCH_NAME="main"
-    BRANCH_NAME_FALLBACK="dev"
+    BRANCH_NAME="fix/edge_type"
+    BRANCH_NAME_FALLBACK="fix/edge_type"
 
     # Clone repository if it doesn't exist
-    if [[ ! -e "${REPO_NAME}" ]]; then 
+    if [[ ! -e "${REPO_NAME}" ]]; then
         echo "Attempting checkout and exiting if unsuccessful"
         git clone https://github.com/Exabyte-io/${REPO_NAME}.git || exit 1
     fi
