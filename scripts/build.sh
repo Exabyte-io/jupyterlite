@@ -65,6 +65,25 @@ if [[ -n ${UPDATE_CONTENT} ]]; then
     cp -r ${RESOLVED_CONTENT_DIR}/{packages,utils,config.yml,README*} ${CONTENT_DIR}/
     # Update path references in README*
     sed -i "s/examples\//api\//g" ${CONTENT_DIR}/README.*
+    # Ensure IPython stays on the Python 3.11-compatible 8.x series for Pyodide kernels.
+    CONFIG_FILE="${CONTENT_DIR}/config.yml"
+    if [[ -f "${CONFIG_FILE}" ]]; then
+        # Remove any existing pins/comments to avoid duplication
+        sed -i '/ipython<9/d' "${CONFIG_FILE}"
+        sed -i '/IPython 9.x requires Python 3.12+/d' "${CONFIG_FILE}"
+        # Insert the pin only for the default pyodide packages block
+        awk '
+            /default:/ {in_default=1}
+            /^notebooks:/ {in_default=0}
+            in_default && /packages_pyodide:/ {
+                print
+                print "    # IPython 9.x requires Python 3.12+, but Pyodide runs on Python 3.11"
+                print "    - ipython<9"
+                next
+            }
+            {print}
+        ' "${CONFIG_FILE}" > "${CONFIG_FILE}.tmp" && mv "${CONFIG_FILE}.tmp" "${CONFIG_FILE}"
+    fi
 fi
 
 [[ -n ${BUILD} ]] && jupyter lite build --contents ${CONTENT_DIR} --output-dir dist
