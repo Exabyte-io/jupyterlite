@@ -68,12 +68,9 @@ if [[ -n ${UPDATE_CONTENT} ]]; then
     # Ensure IPython stays on the Python 3.11-compatible 8.x series for Pyodide kernels.
     CONFIG_FILE="${CONTENT_DIR}/config.yml"
     if [[ -f "${CONFIG_FILE}" ]]; then
-        # Remove any existing pins/comments to avoid duplication
-        sed -i '/ipython<9/d' "${CONFIG_FILE}"
-        sed -i '/IPython 9.x requires Python 3.12+/d' "${CONFIG_FILE}"
-        # Insert the pin only for the default pyodide packages block
+        # Insert the pin only for the default pyodide packages block and avoid duplicating entries
         awk '
-            /default:/ {in_default=1}
+            /^default:/ {in_default=1}
             /^notebooks:/ {in_default=0}
             in_default && /packages_pyodide:/ {
                 print
@@ -81,6 +78,8 @@ if [[ -n ${UPDATE_CONTENT} ]]; then
                 print "    - ipython<9"
                 next
             }
+            in_default && /ipython<9/ {next}
+            in_default && /IPython 9\.x requires Python 3\.12\+/ {next}
             {print}
         ' "${CONFIG_FILE}" > "${CONFIG_FILE}.tmp" && mv "${CONFIG_FILE}.tmp" "${CONFIG_FILE}"
     fi
