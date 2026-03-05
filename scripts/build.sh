@@ -69,5 +69,13 @@ fi
 
 [[ -n ${BUILD} ]] && jupyter lite build --contents ${CONTENT_DIR} --output-dir dist
 
+# Pin the IPython version to 8.31.0 -- otherwise it resolves to the latest version requiring Python 3.12+
+if [[ -n ${BUILD} ]]; then
+    jupyter lite build --contents ${CONTENT_DIR} --output-dir dist
+    find dist/extensions/@jupyterlite/pyodide-kernel-extension/static -name "*.js" \
+        | xargs grep -l "install(\['ipython'\]" \
+        | xargs sed -i "s/install(\['ipython'\]/install(\['ipython==8.31.0'\]/g"
+fi
+
 # Exit with zero (for GH workflow)
 exit 0
