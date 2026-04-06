@@ -32,18 +32,17 @@ pip list
 if [[ -n ${UPDATE_CONTENT} ]]; then
     mkdir -p ${TMP_DIR} && cd ${TMP_DIR} || exit 1
     REPO_NAME="api-examples"
-    BRANCH_NAME="main"
-    BRANCH_NAME_FALLBACK="dev"
+    BRANCH_NAME="feature/mace-nb"
 
     # Clone repository if it doesn't exist
-    if [[ ! -e "${REPO_NAME}" ]]; then 
+    if [[ ! -e "${REPO_NAME}" ]]; then
         echo "Attempting checkout and exiting if unsuccessful"
         git clone https://github.com/Exabyte-io/${REPO_NAME}.git || exit 1
     fi
 
     # Pull all required files
     cd ${REPO_NAME} || exit 1
-    git checkout ${BRANCH_NAME} || git checkout ${BRANCH_NAME_FALLBACK}
+    git checkout ${BRANCH_NAME}
     git pull
     # Install git-lfs and pull LFS files
     git lfs install && git lfs pull
@@ -61,6 +60,7 @@ if [[ -n ${UPDATE_CONTENT} ]]; then
     # Copy the notebooks
     cp -r ${RESOLVED_CONTENT_DIR}/examples ${CONTENT_DIR}/api
     cp -r ${RESOLVED_CONTENT_DIR}/other/materials_designer ${CONTENT_DIR}/made
+    cp -r ${RESOLVED_CONTENT_DIR}/experiments/jupyterlite ${CONTENT_DIR}/experiments
     # Copy other required files
     cp -r ${RESOLVED_CONTENT_DIR}/{packages,utils,config.yml,README*} ${CONTENT_DIR}/
     # Update path references in README*
