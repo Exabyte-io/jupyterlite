@@ -32,7 +32,7 @@ pip list
 if [[ -n ${UPDATE_CONTENT} ]]; then
     mkdir -p ${TMP_DIR} && cd ${TMP_DIR} || exit 1
     REPO_NAME="api-examples"
-    BRANCH_NAME="feature/mace-nb"
+    BRANCH_NAME="main"
 
     # Clone repository if it doesn't exist
     if [[ ! -e "${REPO_NAME}" ]]; then
