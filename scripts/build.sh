@@ -6,6 +6,9 @@ PACKAGE_ROOT_PATH="$(realpath "${THIS_SCRIPT_DIR_PATH}/../")"
 REQUIREMENTS_FILENAME="dependencies/requirements.txt"
 TMP_DIR="tmp"
 CONTENT_DIR="content"
+PYODIDE_VERSION="0.24.1"
+PYODIDE_LOCAL_DIR="dist/pyodide"
+PYODIDE_LOCAL_URL="./pyodide/pyodide.js"
 
 source "${THIS_SCRIPT_DIR_PATH}"/functions.sh
 
@@ -74,6 +77,8 @@ if [[ -n ${BUILD} ]]; then
     find dist/extensions/@jupyterlite/pyodide-kernel-extension/static -name "*.js" \
         | xargs grep -l "install(\['ipython'\]" \
         | xargs perl -i -pe "s/install\(\['ipython'\]/install(\['ipython==8.31.0'\]/g"
+    download_pyodide "${PYODIDE_VERSION}" "${PYODIDE_LOCAL_DIR}"
+    patch_pyodide_url "dist/jupyter-lite.json" "${PYODIDE_LOCAL_URL}"
 fi
 
 # Exit with zero (for GH workflow)
