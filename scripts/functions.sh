@@ -5,6 +5,7 @@ PYTHON_VERSION="3.10.12"
 NODE_VERSION="18"
 PYODIDE_VERSION="0.24.1"
 IPYTHON_PINNED_VERSION="8.31.0"
+PYODIDE_ASSETS_DIR="assets/pyodide"
 
 ensure_python_version_installed() {
     local PYTHON_VERSION=$1

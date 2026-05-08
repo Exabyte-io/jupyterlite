@@ -9,8 +9,6 @@ CONTENT_DIR="content"
 AX_REPO_NAME="api-examples"
 AX_BRANCH_NAME="feature/SOF-7894"
 AX_SOURCE_DIR="${PACKAGE_ROOT_PATH}/../api-examples"
-PYODIDE_LOCAL_DIR="dist/pyodide"
-PYODIDE_LOCAL_URL="./pyodide/pyodide.js"
 
 source "${THIS_SCRIPT_DIR_PATH}/functions.sh"
 
@@ -30,15 +28,9 @@ run_jupyterlite_build() {
 RUN_INSTALL=false
 RUN_UPDATE_CONTENT=false
 RUN_BUILD=false
-RUN_DOWNLOAD_PACKAGES=false
 [[ "${INSTALL}" == "1" ]] && RUN_INSTALL=true
 [[ "${UPDATE_CONTENT}" == "1" ]] && RUN_UPDATE_CONTENT=true
 [[ "${BUILD}" == "1" ]] && RUN_BUILD=true
-[[ "${DOWNLOAD_PACKAGES}" == "1" ]] && RUN_DOWNLOAD_PACKAGES=true
-
-if ${RUN_INSTALL}; then
-    RUN_DOWNLOAD_PACKAGES=true
-fi
 
 if ${RUN_INSTALL}; then
     bash "${THIS_SCRIPT_DIR_PATH}/install.sh" || exit 1
@@ -83,13 +75,12 @@ if ! ${RUN_BUILD}; then
     exit 0
 fi
 
-bash "${THIS_SCRIPT_DIR_PATH}/download_pyodide.sh" || exit 1
-
-if ${RUN_DOWNLOAD_PACKAGES}; then
-    bash "${THIS_SCRIPT_DIR_PATH}/download_packages.sh" || exit 1
-fi
-
 cd "${PACKAGE_ROOT_PATH}" || exit 1
+
+# Copy Pyodide assets to dist
+mkdir -p dist/pyodide
+cp -R "${PYODIDE_ASSETS_DIR}"/* dist/pyodide/
+
 PIPLITE_ARGS=()
 for whl in "${CONTENT_DIR}/packages"/*.whl; do
     [[ -f "${whl}" ]] && PIPLITE_ARGS+=(--piplite-wheels "${whl}")
@@ -100,8 +91,7 @@ find dist/extensions/@jupyterlite/pyodide-kernel-extension/static -name "*.js" \
     | xargs rg -l "install\(\['ipython'\]" \
     | xargs perl -i -pe "s/install\(\['ipython'\]/install(\['ipython==${IPYTHON_PINNED_VERSION}'\]/g"
 
-download_pyodide "${PYODIDE_VERSION}" "${PYODIDE_LOCAL_DIR}"
-patch_pyodide_url "dist/jupyter-lite.json" "${PYODIDE_LOCAL_URL}"
+patch_pyodide_url "dist/jupyter-lite.json" "./pyodide/pyodide.js"
 patch_pyodide_startup_packages "dist/jupyter-lite.json"
 
 exit 0
