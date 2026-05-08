@@ -26,14 +26,12 @@ The content is based on the [api-examples](https://github.com/Exabyte-io/api-exa
 
 ### Build
 
-As below:
-
 To build and run the environment locally:
 
 1. check that `npm` is installed
 2. run:
 ```bash
-npm install
+npm run install
 npm run build
 npm start
 ```
@@ -45,9 +43,9 @@ See [github workflow](.github/workflows/deploy.yml) and [package.json](package.j
 Build logic is split by responsibility:
 
 - `scripts/install.sh`: local/CI dev environment setup (Python, Node, venv, python deps)
-- `scripts/build.sh`: content sync, pyodide download, wheel collection, and `jupyter lite build`
-- `scripts/download_pyodide.sh`: download fixed Pyodide version (`0.24.1`) into `dist/pyodide`
-- `scripts/download_packages.sh`: populate `content/packages` from `content/config.yml`
+- `scripts/build.sh`: content sync from api-examples and `jupyter lite build`
+- `scripts/download_pyodide.sh`: one-time download of fixed Pyodide version into `assets/pyodide` (commit to repo)
+- `scripts/download_packages.sh`: one-time population of `content/packages` from `content/config.yml` (commit to repo)
 
 ### Package Loading Strategy
 
@@ -61,9 +59,18 @@ Pyodide startup packages (for example `numpy`, `scipy`, `pandas`) are patched in
 ### Build Commands
 
 ```bash
-npm run setup                 # install.sh only
-npm run build                 # refresh content + download packages + build
-npm run build:refresh-content # refresh content + download packages + build
-npm run build:fast            # build only (no content refresh, no package download)
-npm run start                 # serve dist on localhost:8000
+npm run install          # Set up dev environment (venv, dependencies)
+npm run setup:pyodide    # One-time: download Pyodide to assets/pyodide (commit after)
+npm run setup:packages   # One-time: download wheels to content/packages (commit after)
+npm run build            # Build JupyterLite (syncs content from api-examples)
+npm run build:fast       # Build without syncing content
+npm run start            # Serve dist on localhost:8000
 ```
+
+### Initial Setup Workflow
+
+1. `npm run install` - set up environment
+2. `npm run setup:pyodide` - download Pyodide assets
+3. `npm run setup:packages` - download Python wheels
+4. Commit `assets/pyodide/` and `content/packages/` to repo
+5. CI/local builds just use `npm run build` (no downloads needed)

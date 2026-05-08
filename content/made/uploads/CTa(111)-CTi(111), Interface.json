@@ -1,0 +1,3464 @@
+{
+  "_id": "g5XduQrReY7rKAsMk",
+  "isNonPeriodic": false,
+  "metadata": {
+    "build": [
+      {
+        "configuration": {
+          "stack_components": [
+            {
+              "xy_supercell_matrix": [
+                [
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ]
+              ],
+              "strain_matrix": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "stack_components": [
+                {
+                  "termination_top": {
+                    "chemical_elements": "C",
+                    "space_group_symmetry_label": "R-3m_4"
+                  },
+                  "number_of_repetitions": 4,
+                  "miller_indices": [
+                    1,
+                    1,
+                    1
+                  ],
+                  "crystal": {
+                    "metadata": {
+                      "build": [],
+                      "boundaryConditions": {
+                        "type": "pbc",
+                        "offset": 0
+                      }
+                    },
+                    "name": "Ti4 C4",
+                    "isDefault": false,
+                    "basis": {
+                      "elements": [
+                        {
+                          "id": 0,
+                          "value": "Ti"
+                        },
+                        {
+                          "id": 1,
+                          "value": "Ti"
+                        },
+                        {
+                          "id": 2,
+                          "value": "Ti"
+                        },
+                        {
+                          "id": 3,
+                          "value": "Ti"
+                        },
+                        {
+                          "id": 4,
+                          "value": "C"
+                        },
+                        {
+                          "id": 5,
+                          "value": "C"
+                        },
+                        {
+                          "id": 6,
+                          "value": "C"
+                        },
+                        {
+                          "id": 7,
+                          "value": "C"
+                        }
+                      ],
+                      "coordinates": [
+                        {
+                          "id": 0,
+                          "value": [
+                            0,
+                            0,
+                            0
+                          ]
+                        },
+                        {
+                          "id": 1,
+                          "value": [
+                            0,
+                            0.5,
+                            0.5
+                          ]
+                        },
+                        {
+                          "id": 2,
+                          "value": [
+                            0.5,
+                            0,
+                            0.5
+                          ]
+                        },
+                        {
+                          "id": 3,
+                          "value": [
+                            0.5,
+                            0.5,
+                            0
+                          ]
+                        },
+                        {
+                          "id": 4,
+                          "value": [
+                            0.5,
+                            0,
+                            0
+                          ]
+                        },
+                        {
+                          "id": 5,
+                          "value": [
+                            0.5,
+                            0.5,
+                            0.5
+                          ]
+                        },
+                        {
+                          "id": 6,
+                          "value": [
+                            0,
+                            0,
+                            0.5
+                          ]
+                        },
+                        {
+                          "id": 7,
+                          "value": [
+                            0,
+                            0.5,
+                            0
+                          ]
+                        }
+                      ],
+                      "units": "crystal",
+                      "labels": [],
+                      "constraints": []
+                    },
+                    "lattice": {
+                      "a": 4.331437687,
+                      "b": 4.331437687,
+                      "c": 4.331437687,
+                      "alpha": 90,
+                      "beta": 90,
+                      "gamma": 90,
+                      "units": {
+                        "length": "angstrom",
+                        "angle": "degree"
+                      },
+                      "type": "TRI"
+                    },
+                    "isNonPeriodic": false,
+                    "schemaVersion": "2022.8.16"
+                  },
+                  "use_conventional_cell": true,
+                  "termination_bottom": {
+                    "chemical_elements": "C",
+                    "space_group_symmetry_label": "R-3m_4"
+                  }
+                },
+                {
+                  "direction": "z",
+                  "size": 0,
+                  "crystal": {
+                    "metadata": {
+                      "build": [
+                        {
+                          "configuration": {
+                            "termination_top": {
+                              "chemical_elements": "C",
+                              "space_group_symmetry_label": "R-3m_4"
+                            },
+                            "number_of_repetitions": 4,
+                            "miller_indices": [
+                              1,
+                              1,
+                              1
+                            ],
+                            "crystal": {
+                              "metadata": {
+                                "build": [],
+                                "boundaryConditions": {
+                                  "type": "pbc",
+                                  "offset": 0
+                                }
+                              },
+                              "name": "Ti4 C4",
+                              "isDefault": false,
+                              "basis": {
+                                "elements": [
+                                  {
+                                    "id": 0,
+                                    "value": "Ti"
+                                  },
+                                  {
+                                    "id": 1,
+                                    "value": "Ti"
+                                  },
+                                  {
+                                    "id": 2,
+                                    "value": "Ti"
+                                  },
+                                  {
+                                    "id": 3,
+                                    "value": "Ti"
+                                  },
+                                  {
+                                    "id": 4,
+                                    "value": "C"
+                                  },
+                                  {
+                                    "id": 5,
+                                    "value": "C"
+                                  },
+                                  {
+                                    "id": 6,
+                                    "value": "C"
+                                  },
+                                  {
+                                    "id": 7,
+                                    "value": "C"
+                                  }
+                                ],
+                                "coordinates": [
+                                  {
+                                    "id": 0,
+                                    "value": [
+                                      0,
+                                      0,
+                                      0
+                                    ]
+                                  },
+                                  {
+                                    "id": 1,
+                                    "value": [
+                                      0,
+                                      0.5,
+                                      0.5
+                                    ]
+                                  },
+                                  {
+                                    "id": 2,
+                                    "value": [
+                                      0.5,
+                                      0,
+                                      0.5
+                                    ]
+                                  },
+                                  {
+                                    "id": 3,
+                                    "value": [
+                                      0.5,
+                                      0.5,
+                                      0
+                                    ]
+                                  },
+                                  {
+                                    "id": 4,
+                                    "value": [
+                                      0.5,
+                                      0,
+                                      0
+                                    ]
+                                  },
+                                  {
+                                    "id": 5,
+                                    "value": [
+                                      0.5,
+                                      0.5,
+                                      0.5
+                                    ]
+                                  },
+                                  {
+                                    "id": 6,
+                                    "value": [
+                                      0,
+                                      0,
+                                      0.5
+                                    ]
+                                  },
+                                  {
+                                    "id": 7,
+                                    "value": [
+                                      0,
+                                      0.5,
+                                      0
+                                    ]
+                                  }
+                                ],
+                                "units": "crystal",
+                                "labels": [],
+                                "constraints": []
+                              },
+                              "lattice": {
+                                "a": 4.331437687,
+                                "b": 4.331437687,
+                                "c": 4.331437687,
+                                "alpha": 90,
+                                "beta": 90,
+                                "gamma": 90,
+                                "units": {
+                                  "length": "angstrom",
+                                  "angle": "degree"
+                                },
+                                "type": "TRI"
+                              },
+                              "isNonPeriodic": false,
+                              "schemaVersion": "2022.8.16"
+                            },
+                            "use_conventional_cell": true,
+                            "termination_bottom": {
+                              "chemical_elements": "C",
+                              "space_group_symmetry_label": "R-3m_4"
+                            }
+                          },
+                          "build_parameters": {}
+                        }
+                      ],
+                      "boundaryConditions": {
+                        "type": "pbc",
+                        "offset": 0
+                      }
+                    },
+                    "name": "CTi(111), termination C_R-3m_4",
+                    "isDefault": false,
+                    "formula": "CTi",
+                    "basis": {
+                      "elements": [
+                        {
+                          "id": 0,
+                          "value": "Ti"
+                        },
+                        {
+                          "id": 1,
+                          "value": "Ti"
+                        },
+                        {
+                          "id": 2,
+                          "value": "Ti"
+                        },
+                        {
+                          "id": 3,
+                          "value": "Ti"
+                        },
+                        {
+                          "id": 4,
+                          "value": "C"
+                        },
+                        {
+                          "id": 5,
+                          "value": "C"
+                        },
+                        {
+                          "id": 6,
+                          "value": "C"
+                        },
+                        {
+                          "id": 7,
+                          "value": "C"
+                        },
+                        {
+                          "id": 8,
+                          "value": "Ti"
+                        },
+                        {
+                          "id": 9,
+                          "value": "Ti"
+                        },
+                        {
+                          "id": 10,
+                          "value": "Ti"
+                        },
+                        {
+                          "id": 11,
+                          "value": "Ti"
+                        },
+                        {
+                          "id": 12,
+                          "value": "C"
+                        },
+                        {
+                          "id": 13,
+                          "value": "C"
+                        },
+                        {
+                          "id": 14,
+                          "value": "C"
+                        },
+                        {
+                          "id": 15,
+                          "value": "C"
+                        },
+                        {
+                          "id": 16,
+                          "value": "Ti"
+                        },
+                        {
+                          "id": 17,
+                          "value": "Ti"
+                        },
+                        {
+                          "id": 18,
+                          "value": "Ti"
+                        },
+                        {
+                          "id": 19,
+                          "value": "Ti"
+                        },
+                        {
+                          "id": 20,
+                          "value": "C"
+                        },
+                        {
+                          "id": 21,
+                          "value": "C"
+                        },
+                        {
+                          "id": 22,
+                          "value": "C"
+                        },
+                        {
+                          "id": 23,
+                          "value": "C"
+                        },
+                        {
+                          "id": 24,
+                          "value": "Ti"
+                        },
+                        {
+                          "id": 25,
+                          "value": "Ti"
+                        },
+                        {
+                          "id": 26,
+                          "value": "Ti"
+                        },
+                        {
+                          "id": 27,
+                          "value": "Ti"
+                        },
+                        {
+                          "id": 28,
+                          "value": "C"
+                        },
+                        {
+                          "id": 29,
+                          "value": "C"
+                        },
+                        {
+                          "id": 30,
+                          "value": "C"
+                        },
+                        {
+                          "id": 31,
+                          "value": "C"
+                        }
+                      ],
+                      "coordinates": [
+                        {
+                          "id": 0,
+                          "value": [
+                            0,
+                            0,
+                            0.000001
+                          ]
+                        },
+                        {
+                          "id": 1,
+                          "value": [
+                            0.5,
+                            0.5,
+                            0.000001
+                          ]
+                        },
+                        {
+                          "id": 2,
+                          "value": [
+                            0,
+                            0.5,
+                            0.000001
+                          ]
+                        },
+                        {
+                          "id": 3,
+                          "value": [
+                            0.5,
+                            0,
+                            0.000001
+                          ]
+                        },
+                        {
+                          "id": 4,
+                          "value": [
+                            0.5,
+                            0,
+                            0.125001
+                          ]
+                        },
+                        {
+                          "id": 5,
+                          "value": [
+                            0,
+                            0.5,
+                            0.125001
+                          ]
+                        },
+                        {
+                          "id": 6,
+                          "value": [
+                            0.5,
+                            0.5,
+                            0.125001
+                          ]
+                        },
+                        {
+                          "id": 7,
+                          "value": [
+                            0,
+                            0,
+                            0.125001
+                          ]
+                        },
+                        {
+                          "id": 8,
+                          "value": [
+                            0,
+                            0,
+                            0.250001
+                          ]
+                        },
+                        {
+                          "id": 9,
+                          "value": [
+                            0.5,
+                            0.5,
+                            0.250001
+                          ]
+                        },
+                        {
+                          "id": 10,
+                          "value": [
+                            0,
+                            0.5,
+                            0.250001
+                          ]
+                        },
+                        {
+                          "id": 11,
+                          "value": [
+                            0.5,
+                            0,
+                            0.250001
+                          ]
+                        },
+                        {
+                          "id": 12,
+                          "value": [
+                            0.5,
+                            0,
+                            0.375001
+                          ]
+                        },
+                        {
+                          "id": 13,
+                          "value": [
+                            0,
+                            0.5,
+                            0.375001
+                          ]
+                        },
+                        {
+                          "id": 14,
+                          "value": [
+                            0.5,
+                            0.5,
+                            0.375001
+                          ]
+                        },
+                        {
+                          "id": 15,
+                          "value": [
+                            0,
+                            0,
+                            0.375001
+                          ]
+                        },
+                        {
+                          "id": 16,
+                          "value": [
+                            0,
+                            0,
+                            0.500001
+                          ]
+                        },
+                        {
+                          "id": 17,
+                          "value": [
+                            0.5,
+                            0.5,
+                            0.500001
+                          ]
+                        },
+                        {
+                          "id": 18,
+                          "value": [
+                            0,
+                            0.5,
+                            0.500001
+                          ]
+                        },
+                        {
+                          "id": 19,
+                          "value": [
+                            0.5,
+                            0,
+                            0.500001
+                          ]
+                        },
+                        {
+                          "id": 20,
+                          "value": [
+                            0.5,
+                            0,
+                            0.625001
+                          ]
+                        },
+                        {
+                          "id": 21,
+                          "value": [
+                            0,
+                            0.5,
+                            0.625001
+                          ]
+                        },
+                        {
+                          "id": 22,
+                          "value": [
+                            0.5,
+                            0.5,
+                            0.625001
+                          ]
+                        },
+                        {
+                          "id": 23,
+                          "value": [
+                            0,
+                            0,
+                            0.625001
+                          ]
+                        },
+                        {
+                          "id": 24,
+                          "value": [
+                            0,
+                            0,
+                            0.750001
+                          ]
+                        },
+                        {
+                          "id": 25,
+                          "value": [
+                            0.5,
+                            0.5,
+                            0.750001
+                          ]
+                        },
+                        {
+                          "id": 26,
+                          "value": [
+                            0,
+                            0.5,
+                            0.750001
+                          ]
+                        },
+                        {
+                          "id": 27,
+                          "value": [
+                            0.5,
+                            0,
+                            0.750001
+                          ]
+                        },
+                        {
+                          "id": 28,
+                          "value": [
+                            0.5,
+                            0,
+                            0.875001
+                          ]
+                        },
+                        {
+                          "id": 29,
+                          "value": [
+                            0,
+                            0.5,
+                            0.875001
+                          ]
+                        },
+                        {
+                          "id": 30,
+                          "value": [
+                            0.5,
+                            0.5,
+                            0.875001
+                          ]
+                        },
+                        {
+                          "id": 31,
+                          "value": [
+                            0,
+                            0,
+                            0.875001
+                          ]
+                        }
+                      ],
+                      "units": "crystal",
+                      "labels": [],
+                      "constraints": []
+                    },
+                    "lattice": {
+                      "a": 6.125577922,
+                      "b": 6.125577922,
+                      "c": 17.325750748,
+                      "alpha": 90,
+                      "beta": 45,
+                      "gamma": 60,
+                      "units": {
+                        "length": "angstrom",
+                        "angle": "degree"
+                      },
+                      "type": "TRI"
+                    },
+                    "isNonPeriodic": false,
+                    "schemaVersion": "2022.8.16"
+                  },
+                  "type": "VacuumConfiguration"
+                }
+              ],
+              "direction": "z",
+              "gaps": [],
+              "type": "SlabConfiguration"
+            },
+            {
+              "xy_supercell_matrix": [
+                [
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ]
+              ],
+              "strain_matrix": [
+                [
+                  0.969479868909035,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0.9694798689090349,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "stack_components": [
+                {
+                  "termination_top": {
+                    "chemical_elements": "C",
+                    "space_group_symmetry_label": "R-3m_4"
+                  },
+                  "number_of_repetitions": 4,
+                  "miller_indices": [
+                    1,
+                    1,
+                    1
+                  ],
+                  "crystal": {
+                    "metadata": {
+                      "build": [],
+                      "boundaryConditions": {
+                        "type": "pbc",
+                        "offset": 0
+                      }
+                    },
+                    "name": "Ta4 C4",
+                    "isDefault": false,
+                    "basis": {
+                      "elements": [
+                        {
+                          "id": 0,
+                          "value": "Ta"
+                        },
+                        {
+                          "id": 1,
+                          "value": "Ta"
+                        },
+                        {
+                          "id": 2,
+                          "value": "Ta"
+                        },
+                        {
+                          "id": 3,
+                          "value": "Ta"
+                        },
+                        {
+                          "id": 4,
+                          "value": "C"
+                        },
+                        {
+                          "id": 5,
+                          "value": "C"
+                        },
+                        {
+                          "id": 6,
+                          "value": "C"
+                        },
+                        {
+                          "id": 7,
+                          "value": "C"
+                        }
+                      ],
+                      "coordinates": [
+                        {
+                          "id": 0,
+                          "value": [
+                            0,
+                            0,
+                            0
+                          ]
+                        },
+                        {
+                          "id": 1,
+                          "value": [
+                            0,
+                            0.5,
+                            0.5
+                          ]
+                        },
+                        {
+                          "id": 2,
+                          "value": [
+                            0.5,
+                            0,
+                            0.5
+                          ]
+                        },
+                        {
+                          "id": 3,
+                          "value": [
+                            0.5,
+                            0.5,
+                            0
+                          ]
+                        },
+                        {
+                          "id": 4,
+                          "value": [
+                            0.5,
+                            0,
+                            0
+                          ]
+                        },
+                        {
+                          "id": 5,
+                          "value": [
+                            0.5,
+                            0.5,
+                            0.5
+                          ]
+                        },
+                        {
+                          "id": 6,
+                          "value": [
+                            0,
+                            0,
+                            0.5
+                          ]
+                        },
+                        {
+                          "id": 7,
+                          "value": [
+                            0,
+                            0.5,
+                            0
+                          ]
+                        }
+                      ],
+                      "units": "crystal",
+                      "labels": [],
+                      "constraints": []
+                    },
+                    "lattice": {
+                      "a": 4.467795388,
+                      "b": 4.467795388,
+                      "c": 4.467795388,
+                      "alpha": 90,
+                      "beta": 90,
+                      "gamma": 90,
+                      "units": {
+                        "length": "angstrom",
+                        "angle": "degree"
+                      },
+                      "type": "TRI"
+                    },
+                    "isNonPeriodic": false,
+                    "schemaVersion": "2022.8.16"
+                  },
+                  "use_conventional_cell": true,
+                  "termination_bottom": {
+                    "chemical_elements": "C",
+                    "space_group_symmetry_label": "R-3m_4"
+                  }
+                },
+                {
+                  "direction": "z",
+                  "size": 0,
+                  "crystal": {
+                    "metadata": {
+                      "build": [
+                        {
+                          "configuration": {
+                            "termination_top": {
+                              "chemical_elements": "C",
+                              "space_group_symmetry_label": "R-3m_4"
+                            },
+                            "number_of_repetitions": 4,
+                            "miller_indices": [
+                              1,
+                              1,
+                              1
+                            ],
+                            "crystal": {
+                              "metadata": {
+                                "build": [],
+                                "boundaryConditions": {
+                                  "type": "pbc",
+                                  "offset": 0
+                                }
+                              },
+                              "name": "Ta4 C4",
+                              "isDefault": false,
+                              "basis": {
+                                "elements": [
+                                  {
+                                    "id": 0,
+                                    "value": "Ta"
+                                  },
+                                  {
+                                    "id": 1,
+                                    "value": "Ta"
+                                  },
+                                  {
+                                    "id": 2,
+                                    "value": "Ta"
+                                  },
+                                  {
+                                    "id": 3,
+                                    "value": "Ta"
+                                  },
+                                  {
+                                    "id": 4,
+                                    "value": "C"
+                                  },
+                                  {
+                                    "id": 5,
+                                    "value": "C"
+                                  },
+                                  {
+                                    "id": 6,
+                                    "value": "C"
+                                  },
+                                  {
+                                    "id": 7,
+                                    "value": "C"
+                                  }
+                                ],
+                                "coordinates": [
+                                  {
+                                    "id": 0,
+                                    "value": [
+                                      0,
+                                      0,
+                                      0
+                                    ]
+                                  },
+                                  {
+                                    "id": 1,
+                                    "value": [
+                                      0,
+                                      0.5,
+                                      0.5
+                                    ]
+                                  },
+                                  {
+                                    "id": 2,
+                                    "value": [
+                                      0.5,
+                                      0,
+                                      0.5
+                                    ]
+                                  },
+                                  {
+                                    "id": 3,
+                                    "value": [
+                                      0.5,
+                                      0.5,
+                                      0
+                                    ]
+                                  },
+                                  {
+                                    "id": 4,
+                                    "value": [
+                                      0.5,
+                                      0,
+                                      0
+                                    ]
+                                  },
+                                  {
+                                    "id": 5,
+                                    "value": [
+                                      0.5,
+                                      0.5,
+                                      0.5
+                                    ]
+                                  },
+                                  {
+                                    "id": 6,
+                                    "value": [
+                                      0,
+                                      0,
+                                      0.5
+                                    ]
+                                  },
+                                  {
+                                    "id": 7,
+                                    "value": [
+                                      0,
+                                      0.5,
+                                      0
+                                    ]
+                                  }
+                                ],
+                                "units": "crystal",
+                                "labels": [],
+                                "constraints": []
+                              },
+                              "lattice": {
+                                "a": 4.467795388,
+                                "b": 4.467795388,
+                                "c": 4.467795388,
+                                "alpha": 90,
+                                "beta": 90,
+                                "gamma": 90,
+                                "units": {
+                                  "length": "angstrom",
+                                  "angle": "degree"
+                                },
+                                "type": "TRI"
+                              },
+                              "isNonPeriodic": false,
+                              "schemaVersion": "2022.8.16"
+                            },
+                            "use_conventional_cell": true,
+                            "termination_bottom": {
+                              "chemical_elements": "C",
+                              "space_group_symmetry_label": "R-3m_4"
+                            }
+                          },
+                          "build_parameters": {}
+                        }
+                      ],
+                      "boundaryConditions": {
+                        "type": "pbc",
+                        "offset": 0
+                      }
+                    },
+                    "name": "CTa(111), termination C_R-3m_4",
+                    "isDefault": false,
+                    "formula": "CTa",
+                    "basis": {
+                      "elements": [
+                        {
+                          "id": 0,
+                          "value": "Ta"
+                        },
+                        {
+                          "id": 1,
+                          "value": "Ta"
+                        },
+                        {
+                          "id": 2,
+                          "value": "Ta"
+                        },
+                        {
+                          "id": 3,
+                          "value": "Ta"
+                        },
+                        {
+                          "id": 4,
+                          "value": "C"
+                        },
+                        {
+                          "id": 5,
+                          "value": "C"
+                        },
+                        {
+                          "id": 6,
+                          "value": "C"
+                        },
+                        {
+                          "id": 7,
+                          "value": "C"
+                        },
+                        {
+                          "id": 8,
+                          "value": "Ta"
+                        },
+                        {
+                          "id": 9,
+                          "value": "Ta"
+                        },
+                        {
+                          "id": 10,
+                          "value": "Ta"
+                        },
+                        {
+                          "id": 11,
+                          "value": "Ta"
+                        },
+                        {
+                          "id": 12,
+                          "value": "C"
+                        },
+                        {
+                          "id": 13,
+                          "value": "C"
+                        },
+                        {
+                          "id": 14,
+                          "value": "C"
+                        },
+                        {
+                          "id": 15,
+                          "value": "C"
+                        },
+                        {
+                          "id": 16,
+                          "value": "Ta"
+                        },
+                        {
+                          "id": 17,
+                          "value": "Ta"
+                        },
+                        {
+                          "id": 18,
+                          "value": "Ta"
+                        },
+                        {
+                          "id": 19,
+                          "value": "Ta"
+                        },
+                        {
+                          "id": 20,
+                          "value": "C"
+                        },
+                        {
+                          "id": 21,
+                          "value": "C"
+                        },
+                        {
+                          "id": 22,
+                          "value": "C"
+                        },
+                        {
+                          "id": 23,
+                          "value": "C"
+                        },
+                        {
+                          "id": 24,
+                          "value": "Ta"
+                        },
+                        {
+                          "id": 25,
+                          "value": "Ta"
+                        },
+                        {
+                          "id": 26,
+                          "value": "Ta"
+                        },
+                        {
+                          "id": 27,
+                          "value": "Ta"
+                        },
+                        {
+                          "id": 28,
+                          "value": "C"
+                        },
+                        {
+                          "id": 29,
+                          "value": "C"
+                        },
+                        {
+                          "id": 30,
+                          "value": "C"
+                        },
+                        {
+                          "id": 31,
+                          "value": "C"
+                        }
+                      ],
+                      "coordinates": [
+                        {
+                          "id": 0,
+                          "value": [
+                            0,
+                            0,
+                            0.000001
+                          ]
+                        },
+                        {
+                          "id": 1,
+                          "value": [
+                            0.5,
+                            0.5,
+                            0.000001
+                          ]
+                        },
+                        {
+                          "id": 2,
+                          "value": [
+                            0,
+                            0.5,
+                            0.000001
+                          ]
+                        },
+                        {
+                          "id": 3,
+                          "value": [
+                            0.5,
+                            0,
+                            0.000001
+                          ]
+                        },
+                        {
+                          "id": 4,
+                          "value": [
+                            0,
+                            0,
+                            0.125001
+                          ]
+                        },
+                        {
+                          "id": 5,
+                          "value": [
+                            0.5,
+                            0.5,
+                            0.125001
+                          ]
+                        },
+                        {
+                          "id": 6,
+                          "value": [
+                            0,
+                            0.5,
+                            0.125001
+                          ]
+                        },
+                        {
+                          "id": 7,
+                          "value": [
+                            0.5,
+                            0,
+                            0.125001
+                          ]
+                        },
+                        {
+                          "id": 8,
+                          "value": [
+                            0,
+                            0,
+                            0.250001
+                          ]
+                        },
+                        {
+                          "id": 9,
+                          "value": [
+                            0.5,
+                            0.5,
+                            0.250001
+                          ]
+                        },
+                        {
+                          "id": 10,
+                          "value": [
+                            0,
+                            0.5,
+                            0.250001
+                          ]
+                        },
+                        {
+                          "id": 11,
+                          "value": [
+                            0.5,
+                            0,
+                            0.250001
+                          ]
+                        },
+                        {
+                          "id": 12,
+                          "value": [
+                            0,
+                            0,
+                            0.375001
+                          ]
+                        },
+                        {
+                          "id": 13,
+                          "value": [
+                            0.5,
+                            0.5,
+                            0.375001
+                          ]
+                        },
+                        {
+                          "id": 14,
+                          "value": [
+                            0,
+                            0.5,
+                            0.375001
+                          ]
+                        },
+                        {
+                          "id": 15,
+                          "value": [
+                            0.5,
+                            0,
+                            0.375001
+                          ]
+                        },
+                        {
+                          "id": 16,
+                          "value": [
+                            0,
+                            0,
+                            0.500001
+                          ]
+                        },
+                        {
+                          "id": 17,
+                          "value": [
+                            0.5,
+                            0.5,
+                            0.500001
+                          ]
+                        },
+                        {
+                          "id": 18,
+                          "value": [
+                            0,
+                            0.5,
+                            0.500001
+                          ]
+                        },
+                        {
+                          "id": 19,
+                          "value": [
+                            0.5,
+                            0,
+                            0.500001
+                          ]
+                        },
+                        {
+                          "id": 20,
+                          "value": [
+                            0,
+                            0,
+                            0.625001
+                          ]
+                        },
+                        {
+                          "id": 21,
+                          "value": [
+                            0.5,
+                            0.5,
+                            0.625001
+                          ]
+                        },
+                        {
+                          "id": 22,
+                          "value": [
+                            0,
+                            0.5,
+                            0.625001
+                          ]
+                        },
+                        {
+                          "id": 23,
+                          "value": [
+                            0.5,
+                            0,
+                            0.625001
+                          ]
+                        },
+                        {
+                          "id": 24,
+                          "value": [
+                            0,
+                            0,
+                            0.750001
+                          ]
+                        },
+                        {
+                          "id": 25,
+                          "value": [
+                            0.5,
+                            0.5,
+                            0.750001
+                          ]
+                        },
+                        {
+                          "id": 26,
+                          "value": [
+                            0,
+                            0.5,
+                            0.750001
+                          ]
+                        },
+                        {
+                          "id": 27,
+                          "value": [
+                            0.5,
+                            0,
+                            0.750001
+                          ]
+                        },
+                        {
+                          "id": 28,
+                          "value": [
+                            0,
+                            0,
+                            0.875001
+                          ]
+                        },
+                        {
+                          "id": 29,
+                          "value": [
+                            0.5,
+                            0.5,
+                            0.875001
+                          ]
+                        },
+                        {
+                          "id": 30,
+                          "value": [
+                            0,
+                            0.5,
+                            0.875001
+                          ]
+                        },
+                        {
+                          "id": 31,
+                          "value": [
+                            0.5,
+                            0,
+                            0.875001
+                          ]
+                        }
+                      ],
+                      "units": "crystal",
+                      "labels": [],
+                      "constraints": []
+                    },
+                    "lattice": {
+                      "a": 6.318416832,
+                      "b": 6.318416832,
+                      "c": 17.871181552,
+                      "alpha": 135,
+                      "beta": 135,
+                      "gamma": 60,
+                      "units": {
+                        "length": "angstrom",
+                        "angle": "degree"
+                      },
+                      "type": "TRI"
+                    },
+                    "isNonPeriodic": false,
+                    "schemaVersion": "2022.8.16"
+                  },
+                  "type": "VacuumConfiguration"
+                }
+              ],
+              "direction": "z",
+              "gaps": [],
+              "type": "SlabConfiguration"
+            },
+            {
+              "direction": "z",
+              "size": 10,
+              "crystal": {
+                "metadata": {
+                  "build": [
+                    {
+                      "configuration": {
+                        "termination_top": {
+                          "chemical_elements": "C",
+                          "space_group_symmetry_label": "R-3m_4"
+                        },
+                        "number_of_repetitions": 4,
+                        "miller_indices": [
+                          1,
+                          1,
+                          1
+                        ],
+                        "crystal": {
+                          "metadata": {
+                            "build": [],
+                            "boundaryConditions": {
+                              "type": "pbc",
+                              "offset": 0
+                            }
+                          },
+                          "name": "Ti4 C4",
+                          "isDefault": false,
+                          "basis": {
+                            "elements": [
+                              {
+                                "id": 0,
+                                "value": "Ti"
+                              },
+                              {
+                                "id": 1,
+                                "value": "Ti"
+                              },
+                              {
+                                "id": 2,
+                                "value": "Ti"
+                              },
+                              {
+                                "id": 3,
+                                "value": "Ti"
+                              },
+                              {
+                                "id": 4,
+                                "value": "C"
+                              },
+                              {
+                                "id": 5,
+                                "value": "C"
+                              },
+                              {
+                                "id": 6,
+                                "value": "C"
+                              },
+                              {
+                                "id": 7,
+                                "value": "C"
+                              }
+                            ],
+                            "coordinates": [
+                              {
+                                "id": 0,
+                                "value": [
+                                  0,
+                                  0,
+                                  0
+                                ]
+                              },
+                              {
+                                "id": 1,
+                                "value": [
+                                  0,
+                                  0.5,
+                                  0.5
+                                ]
+                              },
+                              {
+                                "id": 2,
+                                "value": [
+                                  0.5,
+                                  0,
+                                  0.5
+                                ]
+                              },
+                              {
+                                "id": 3,
+                                "value": [
+                                  0.5,
+                                  0.5,
+                                  0
+                                ]
+                              },
+                              {
+                                "id": 4,
+                                "value": [
+                                  0.5,
+                                  0,
+                                  0
+                                ]
+                              },
+                              {
+                                "id": 5,
+                                "value": [
+                                  0.5,
+                                  0.5,
+                                  0.5
+                                ]
+                              },
+                              {
+                                "id": 6,
+                                "value": [
+                                  0,
+                                  0,
+                                  0.5
+                                ]
+                              },
+                              {
+                                "id": 7,
+                                "value": [
+                                  0,
+                                  0.5,
+                                  0
+                                ]
+                              }
+                            ],
+                            "units": "crystal",
+                            "labels": [],
+                            "constraints": []
+                          },
+                          "lattice": {
+                            "a": 4.331437687,
+                            "b": 4.331437687,
+                            "c": 4.331437687,
+                            "alpha": 90,
+                            "beta": 90,
+                            "gamma": 90,
+                            "units": {
+                              "length": "angstrom",
+                              "angle": "degree"
+                            },
+                            "type": "TRI"
+                          },
+                          "isNonPeriodic": false,
+                          "schemaVersion": "2022.8.16"
+                        },
+                        "use_conventional_cell": true,
+                        "termination_bottom": {
+                          "chemical_elements": "C",
+                          "space_group_symmetry_label": "R-3m_4"
+                        }
+                      },
+                      "build_parameters": {}
+                    },
+                    {
+                      "configuration": {
+                        "xy_supercell_matrix": [
+                          [
+                            1,
+                            0
+                          ],
+                          [
+                            0,
+                            1
+                          ]
+                        ],
+                        "strain_matrix": [
+                          [
+                            1,
+                            0,
+                            0
+                          ],
+                          [
+                            0,
+                            1,
+                            0
+                          ],
+                          [
+                            0,
+                            0,
+                            1
+                          ]
+                        ],
+                        "stack_components": [
+                          {
+                            "termination_top": {
+                              "chemical_elements": "C",
+                              "space_group_symmetry_label": "R-3m_4"
+                            },
+                            "number_of_repetitions": 4,
+                            "miller_indices": [
+                              1,
+                              1,
+                              1
+                            ],
+                            "crystal": {
+                              "metadata": {
+                                "build": [],
+                                "boundaryConditions": {
+                                  "type": "pbc",
+                                  "offset": 0
+                                }
+                              },
+                              "name": "Ti4 C4",
+                              "isDefault": false,
+                              "basis": {
+                                "elements": [
+                                  {
+                                    "id": 0,
+                                    "value": "Ti"
+                                  },
+                                  {
+                                    "id": 1,
+                                    "value": "Ti"
+                                  },
+                                  {
+                                    "id": 2,
+                                    "value": "Ti"
+                                  },
+                                  {
+                                    "id": 3,
+                                    "value": "Ti"
+                                  },
+                                  {
+                                    "id": 4,
+                                    "value": "C"
+                                  },
+                                  {
+                                    "id": 5,
+                                    "value": "C"
+                                  },
+                                  {
+                                    "id": 6,
+                                    "value": "C"
+                                  },
+                                  {
+                                    "id": 7,
+                                    "value": "C"
+                                  }
+                                ],
+                                "coordinates": [
+                                  {
+                                    "id": 0,
+                                    "value": [
+                                      0,
+                                      0,
+                                      0
+                                    ]
+                                  },
+                                  {
+                                    "id": 1,
+                                    "value": [
+                                      0,
+                                      0.5,
+                                      0.5
+                                    ]
+                                  },
+                                  {
+                                    "id": 2,
+                                    "value": [
+                                      0.5,
+                                      0,
+                                      0.5
+                                    ]
+                                  },
+                                  {
+                                    "id": 3,
+                                    "value": [
+                                      0.5,
+                                      0.5,
+                                      0
+                                    ]
+                                  },
+                                  {
+                                    "id": 4,
+                                    "value": [
+                                      0.5,
+                                      0,
+                                      0
+                                    ]
+                                  },
+                                  {
+                                    "id": 5,
+                                    "value": [
+                                      0.5,
+                                      0.5,
+                                      0.5
+                                    ]
+                                  },
+                                  {
+                                    "id": 6,
+                                    "value": [
+                                      0,
+                                      0,
+                                      0.5
+                                    ]
+                                  },
+                                  {
+                                    "id": 7,
+                                    "value": [
+                                      0,
+                                      0.5,
+                                      0
+                                    ]
+                                  }
+                                ],
+                                "units": "crystal",
+                                "labels": [],
+                                "constraints": []
+                              },
+                              "lattice": {
+                                "a": 4.331437687,
+                                "b": 4.331437687,
+                                "c": 4.331437687,
+                                "alpha": 90,
+                                "beta": 90,
+                                "gamma": 90,
+                                "units": {
+                                  "length": "angstrom",
+                                  "angle": "degree"
+                                },
+                                "type": "TRI"
+                              },
+                              "isNonPeriodic": false,
+                              "schemaVersion": "2022.8.16"
+                            },
+                            "use_conventional_cell": true,
+                            "termination_bottom": {
+                              "chemical_elements": "C",
+                              "space_group_symmetry_label": "R-3m_4"
+                            }
+                          },
+                          {
+                            "direction": "z",
+                            "size": 0,
+                            "crystal": {
+                              "metadata": {
+                                "build": [
+                                  {
+                                    "configuration": {
+                                      "termination_top": {
+                                        "chemical_elements": "C",
+                                        "space_group_symmetry_label": "R-3m_4"
+                                      },
+                                      "number_of_repetitions": 4,
+                                      "miller_indices": [
+                                        1,
+                                        1,
+                                        1
+                                      ],
+                                      "crystal": {
+                                        "metadata": {
+                                          "build": [],
+                                          "boundaryConditions": {
+                                            "type": "pbc",
+                                            "offset": 0
+                                          }
+                                        },
+                                        "name": "Ti4 C4",
+                                        "isDefault": false,
+                                        "basis": {
+                                          "elements": [
+                                            {
+                                              "id": 0,
+                                              "value": "Ti"
+                                            },
+                                            {
+                                              "id": 1,
+                                              "value": "Ti"
+                                            },
+                                            {
+                                              "id": 2,
+                                              "value": "Ti"
+                                            },
+                                            {
+                                              "id": 3,
+                                              "value": "Ti"
+                                            },
+                                            {
+                                              "id": 4,
+                                              "value": "C"
+                                            },
+                                            {
+                                              "id": 5,
+                                              "value": "C"
+                                            },
+                                            {
+                                              "id": 6,
+                                              "value": "C"
+                                            },
+                                            {
+                                              "id": 7,
+                                              "value": "C"
+                                            }
+                                          ],
+                                          "coordinates": [
+                                            {
+                                              "id": 0,
+                                              "value": [
+                                                0,
+                                                0,
+                                                0
+                                              ]
+                                            },
+                                            {
+                                              "id": 1,
+                                              "value": [
+                                                0,
+                                                0.5,
+                                                0.5
+                                              ]
+                                            },
+                                            {
+                                              "id": 2,
+                                              "value": [
+                                                0.5,
+                                                0,
+                                                0.5
+                                              ]
+                                            },
+                                            {
+                                              "id": 3,
+                                              "value": [
+                                                0.5,
+                                                0.5,
+                                                0
+                                              ]
+                                            },
+                                            {
+                                              "id": 4,
+                                              "value": [
+                                                0.5,
+                                                0,
+                                                0
+                                              ]
+                                            },
+                                            {
+                                              "id": 5,
+                                              "value": [
+                                                0.5,
+                                                0.5,
+                                                0.5
+                                              ]
+                                            },
+                                            {
+                                              "id": 6,
+                                              "value": [
+                                                0,
+                                                0,
+                                                0.5
+                                              ]
+                                            },
+                                            {
+                                              "id": 7,
+                                              "value": [
+                                                0,
+                                                0.5,
+                                                0
+                                              ]
+                                            }
+                                          ],
+                                          "units": "crystal",
+                                          "labels": [],
+                                          "constraints": []
+                                        },
+                                        "lattice": {
+                                          "a": 4.331437687,
+                                          "b": 4.331437687,
+                                          "c": 4.331437687,
+                                          "alpha": 90,
+                                          "beta": 90,
+                                          "gamma": 90,
+                                          "units": {
+                                            "length": "angstrom",
+                                            "angle": "degree"
+                                          },
+                                          "type": "TRI"
+                                        },
+                                        "isNonPeriodic": false,
+                                        "schemaVersion": "2022.8.16"
+                                      },
+                                      "use_conventional_cell": true,
+                                      "termination_bottom": {
+                                        "chemical_elements": "C",
+                                        "space_group_symmetry_label": "R-3m_4"
+                                      }
+                                    },
+                                    "build_parameters": {}
+                                  }
+                                ],
+                                "boundaryConditions": {
+                                  "type": "pbc",
+                                  "offset": 0
+                                }
+                              },
+                              "name": "CTi(111), termination C_R-3m_4",
+                              "isDefault": false,
+                              "formula": "CTi",
+                              "basis": {
+                                "elements": [
+                                  {
+                                    "id": 0,
+                                    "value": "Ti"
+                                  },
+                                  {
+                                    "id": 1,
+                                    "value": "Ti"
+                                  },
+                                  {
+                                    "id": 2,
+                                    "value": "Ti"
+                                  },
+                                  {
+                                    "id": 3,
+                                    "value": "Ti"
+                                  },
+                                  {
+                                    "id": 4,
+                                    "value": "C"
+                                  },
+                                  {
+                                    "id": 5,
+                                    "value": "C"
+                                  },
+                                  {
+                                    "id": 6,
+                                    "value": "C"
+                                  },
+                                  {
+                                    "id": 7,
+                                    "value": "C"
+                                  },
+                                  {
+                                    "id": 8,
+                                    "value": "Ti"
+                                  },
+                                  {
+                                    "id": 9,
+                                    "value": "Ti"
+                                  },
+                                  {
+                                    "id": 10,
+                                    "value": "Ti"
+                                  },
+                                  {
+                                    "id": 11,
+                                    "value": "Ti"
+                                  },
+                                  {
+                                    "id": 12,
+                                    "value": "C"
+                                  },
+                                  {
+                                    "id": 13,
+                                    "value": "C"
+                                  },
+                                  {
+                                    "id": 14,
+                                    "value": "C"
+                                  },
+                                  {
+                                    "id": 15,
+                                    "value": "C"
+                                  },
+                                  {
+                                    "id": 16,
+                                    "value": "Ti"
+                                  },
+                                  {
+                                    "id": 17,
+                                    "value": "Ti"
+                                  },
+                                  {
+                                    "id": 18,
+                                    "value": "Ti"
+                                  },
+                                  {
+                                    "id": 19,
+                                    "value": "Ti"
+                                  },
+                                  {
+                                    "id": 20,
+                                    "value": "C"
+                                  },
+                                  {
+                                    "id": 21,
+                                    "value": "C"
+                                  },
+                                  {
+                                    "id": 22,
+                                    "value": "C"
+                                  },
+                                  {
+                                    "id": 23,
+                                    "value": "C"
+                                  },
+                                  {
+                                    "id": 24,
+                                    "value": "Ti"
+                                  },
+                                  {
+                                    "id": 25,
+                                    "value": "Ti"
+                                  },
+                                  {
+                                    "id": 26,
+                                    "value": "Ti"
+                                  },
+                                  {
+                                    "id": 27,
+                                    "value": "Ti"
+                                  },
+                                  {
+                                    "id": 28,
+                                    "value": "C"
+                                  },
+                                  {
+                                    "id": 29,
+                                    "value": "C"
+                                  },
+                                  {
+                                    "id": 30,
+                                    "value": "C"
+                                  },
+                                  {
+                                    "id": 31,
+                                    "value": "C"
+                                  }
+                                ],
+                                "coordinates": [
+                                  {
+                                    "id": 0,
+                                    "value": [
+                                      0,
+                                      0,
+                                      0.000001
+                                    ]
+                                  },
+                                  {
+                                    "id": 1,
+                                    "value": [
+                                      0.5,
+                                      0.5,
+                                      0.000001
+                                    ]
+                                  },
+                                  {
+                                    "id": 2,
+                                    "value": [
+                                      0,
+                                      0.5,
+                                      0.000001
+                                    ]
+                                  },
+                                  {
+                                    "id": 3,
+                                    "value": [
+                                      0.5,
+                                      0,
+                                      0.000001
+                                    ]
+                                  },
+                                  {
+                                    "id": 4,
+                                    "value": [
+                                      0.5,
+                                      0,
+                                      0.125001
+                                    ]
+                                  },
+                                  {
+                                    "id": 5,
+                                    "value": [
+                                      0,
+                                      0.5,
+                                      0.125001
+                                    ]
+                                  },
+                                  {
+                                    "id": 6,
+                                    "value": [
+                                      0.5,
+                                      0.5,
+                                      0.125001
+                                    ]
+                                  },
+                                  {
+                                    "id": 7,
+                                    "value": [
+                                      0,
+                                      0,
+                                      0.125001
+                                    ]
+                                  },
+                                  {
+                                    "id": 8,
+                                    "value": [
+                                      0,
+                                      0,
+                                      0.250001
+                                    ]
+                                  },
+                                  {
+                                    "id": 9,
+                                    "value": [
+                                      0.5,
+                                      0.5,
+                                      0.250001
+                                    ]
+                                  },
+                                  {
+                                    "id": 10,
+                                    "value": [
+                                      0,
+                                      0.5,
+                                      0.250001
+                                    ]
+                                  },
+                                  {
+                                    "id": 11,
+                                    "value": [
+                                      0.5,
+                                      0,
+                                      0.250001
+                                    ]
+                                  },
+                                  {
+                                    "id": 12,
+                                    "value": [
+                                      0.5,
+                                      0,
+                                      0.375001
+                                    ]
+                                  },
+                                  {
+                                    "id": 13,
+                                    "value": [
+                                      0,
+                                      0.5,
+                                      0.375001
+                                    ]
+                                  },
+                                  {
+                                    "id": 14,
+                                    "value": [
+                                      0.5,
+                                      0.5,
+                                      0.375001
+                                    ]
+                                  },
+                                  {
+                                    "id": 15,
+                                    "value": [
+                                      0,
+                                      0,
+                                      0.375001
+                                    ]
+                                  },
+                                  {
+                                    "id": 16,
+                                    "value": [
+                                      0,
+                                      0,
+                                      0.500001
+                                    ]
+                                  },
+                                  {
+                                    "id": 17,
+                                    "value": [
+                                      0.5,
+                                      0.5,
+                                      0.500001
+                                    ]
+                                  },
+                                  {
+                                    "id": 18,
+                                    "value": [
+                                      0,
+                                      0.5,
+                                      0.500001
+                                    ]
+                                  },
+                                  {
+                                    "id": 19,
+                                    "value": [
+                                      0.5,
+                                      0,
+                                      0.500001
+                                    ]
+                                  },
+                                  {
+                                    "id": 20,
+                                    "value": [
+                                      0.5,
+                                      0,
+                                      0.625001
+                                    ]
+                                  },
+                                  {
+                                    "id": 21,
+                                    "value": [
+                                      0,
+                                      0.5,
+                                      0.625001
+                                    ]
+                                  },
+                                  {
+                                    "id": 22,
+                                    "value": [
+                                      0.5,
+                                      0.5,
+                                      0.625001
+                                    ]
+                                  },
+                                  {
+                                    "id": 23,
+                                    "value": [
+                                      0,
+                                      0,
+                                      0.625001
+                                    ]
+                                  },
+                                  {
+                                    "id": 24,
+                                    "value": [
+                                      0,
+                                      0,
+                                      0.750001
+                                    ]
+                                  },
+                                  {
+                                    "id": 25,
+                                    "value": [
+                                      0.5,
+                                      0.5,
+                                      0.750001
+                                    ]
+                                  },
+                                  {
+                                    "id": 26,
+                                    "value": [
+                                      0,
+                                      0.5,
+                                      0.750001
+                                    ]
+                                  },
+                                  {
+                                    "id": 27,
+                                    "value": [
+                                      0.5,
+                                      0,
+                                      0.750001
+                                    ]
+                                  },
+                                  {
+                                    "id": 28,
+                                    "value": [
+                                      0.5,
+                                      0,
+                                      0.875001
+                                    ]
+                                  },
+                                  {
+                                    "id": 29,
+                                    "value": [
+                                      0,
+                                      0.5,
+                                      0.875001
+                                    ]
+                                  },
+                                  {
+                                    "id": 30,
+                                    "value": [
+                                      0.5,
+                                      0.5,
+                                      0.875001
+                                    ]
+                                  },
+                                  {
+                                    "id": 31,
+                                    "value": [
+                                      0,
+                                      0,
+                                      0.875001
+                                    ]
+                                  }
+                                ],
+                                "units": "crystal",
+                                "labels": [],
+                                "constraints": []
+                              },
+                              "lattice": {
+                                "a": 6.125577922,
+                                "b": 6.125577922,
+                                "c": 17.325750748,
+                                "alpha": 90,
+                                "beta": 45,
+                                "gamma": 60,
+                                "units": {
+                                  "length": "angstrom",
+                                  "angle": "degree"
+                                },
+                                "type": "TRI"
+                              },
+                              "isNonPeriodic": false,
+                              "schemaVersion": "2022.8.16"
+                            },
+                            "type": "VacuumConfiguration"
+                          }
+                        ],
+                        "direction": "z",
+                        "gaps": [],
+                        "type": "SlabConfiguration"
+                      },
+                      "build_parameters": {
+                        "use_orthogonal_c": true,
+                        "xy_supercell_matrix": [
+                          [
+                            1,
+                            0
+                          ],
+                          [
+                            0,
+                            1
+                          ]
+                        ]
+                      }
+                    }
+                  ],
+                  "boundaryConditions": {
+                    "type": "pbc",
+                    "offset": 0
+                  }
+                },
+                "name": "CTi(111), termination C_R-3m_4, Slab",
+                "isDefault": false,
+                "formula": "CTi",
+                "basis": {
+                  "elements": [
+                    {
+                      "id": 0,
+                      "value": "Ti"
+                    },
+                    {
+                      "id": 1,
+                      "value": "Ti"
+                    },
+                    {
+                      "id": 2,
+                      "value": "Ti"
+                    },
+                    {
+                      "id": 3,
+                      "value": "Ti"
+                    },
+                    {
+                      "id": 4,
+                      "value": "C"
+                    },
+                    {
+                      "id": 5,
+                      "value": "C"
+                    },
+                    {
+                      "id": 6,
+                      "value": "C"
+                    },
+                    {
+                      "id": 7,
+                      "value": "C"
+                    },
+                    {
+                      "id": 8,
+                      "value": "Ti"
+                    },
+                    {
+                      "id": 9,
+                      "value": "Ti"
+                    },
+                    {
+                      "id": 10,
+                      "value": "Ti"
+                    },
+                    {
+                      "id": 11,
+                      "value": "Ti"
+                    },
+                    {
+                      "id": 12,
+                      "value": "C"
+                    },
+                    {
+                      "id": 13,
+                      "value": "C"
+                    },
+                    {
+                      "id": 14,
+                      "value": "C"
+                    },
+                    {
+                      "id": 15,
+                      "value": "C"
+                    },
+                    {
+                      "id": 16,
+                      "value": "Ti"
+                    },
+                    {
+                      "id": 17,
+                      "value": "Ti"
+                    },
+                    {
+                      "id": 18,
+                      "value": "Ti"
+                    },
+                    {
+                      "id": 19,
+                      "value": "Ti"
+                    },
+                    {
+                      "id": 20,
+                      "value": "C"
+                    },
+                    {
+                      "id": 21,
+                      "value": "C"
+                    },
+                    {
+                      "id": 22,
+                      "value": "C"
+                    },
+                    {
+                      "id": 23,
+                      "value": "C"
+                    },
+                    {
+                      "id": 24,
+                      "value": "Ti"
+                    },
+                    {
+                      "id": 25,
+                      "value": "Ti"
+                    },
+                    {
+                      "id": 26,
+                      "value": "Ti"
+                    },
+                    {
+                      "id": 27,
+                      "value": "Ti"
+                    },
+                    {
+                      "id": 28,
+                      "value": "C"
+                    },
+                    {
+                      "id": 29,
+                      "value": "C"
+                    },
+                    {
+                      "id": 30,
+                      "value": "C"
+                    },
+                    {
+                      "id": 31,
+                      "value": "C"
+                    }
+                  ],
+                  "coordinates": [
+                    {
+                      "id": 0,
+                      "value": [
+                        0.000002667,
+                        -0.000001333,
+                        0.000001
+                      ]
+                    },
+                    {
+                      "id": 1,
+                      "value": [
+                        0.500002667,
+                        0.499998667,
+                        0.000001
+                      ]
+                    },
+                    {
+                      "id": 2,
+                      "value": [
+                        0.000002667,
+                        0.499998667,
+                        0.000001
+                      ]
+                    },
+                    {
+                      "id": 3,
+                      "value": [
+                        0.500002667,
+                        -0.000001333,
+                        0.000001
+                      ]
+                    },
+                    {
+                      "id": 4,
+                      "value": [
+                        0.833336,
+                        0.833332,
+                        0.125001
+                      ]
+                    },
+                    {
+                      "id": 5,
+                      "value": [
+                        0.333336,
+                        0.333332,
+                        0.125001
+                      ]
+                    },
+                    {
+                      "id": 6,
+                      "value": [
+                        0.833336,
+                        0.333332,
+                        0.125001
+                      ]
+                    },
+                    {
+                      "id": 7,
+                      "value": [
+                        0.333336,
+                        0.833332,
+                        0.125001
+                      ]
+                    },
+                    {
+                      "id": 8,
+                      "value": [
+                        0.666669333,
+                        0.666665333,
+                        0.250001
+                      ]
+                    },
+                    {
+                      "id": 9,
+                      "value": [
+                        0.166669333,
+                        0.166665333,
+                        0.250001
+                      ]
+                    },
+                    {
+                      "id": 10,
+                      "value": [
+                        0.666669333,
+                        0.166665333,
+                        0.250001
+                      ]
+                    },
+                    {
+                      "id": 11,
+                      "value": [
+                        0.166669333,
+                        0.666665333,
+                        0.250001
+                      ]
+                    },
+                    {
+                      "id": 12,
+                      "value": [
+                        0.500002667,
+                        0.499998667,
+                        0.375001
+                      ]
+                    },
+                    {
+                      "id": 13,
+                      "value": [
+                        0.000002667,
+                        -0.000001333,
+                        0.375001
+                      ]
+                    },
+                    {
+                      "id": 14,
+                      "value": [
+                        0.500002667,
+                        -0.000001333,
+                        0.375001
+                      ]
+                    },
+                    {
+                      "id": 15,
+                      "value": [
+                        0.000002667,
+                        0.499998667,
+                        0.375001
+                      ]
+                    },
+                    {
+                      "id": 16,
+                      "value": [
+                        0.333336,
+                        0.333332,
+                        0.500001
+                      ]
+                    },
+                    {
+                      "id": 17,
+                      "value": [
+                        0.833336,
+                        0.833332,
+                        0.500001
+                      ]
+                    },
+                    {
+                      "id": 18,
+                      "value": [
+                        0.333336,
+                        0.833332,
+                        0.500001
+                      ]
+                    },
+                    {
+                      "id": 19,
+                      "value": [
+                        0.833336,
+                        0.333332,
+                        0.500001
+                      ]
+                    },
+                    {
+                      "id": 20,
+                      "value": [
+                        0.166669333,
+                        0.166665333,
+                        0.625001
+                      ]
+                    },
+                    {
+                      "id": 21,
+                      "value": [
+                        0.666669333,
+                        0.666665333,
+                        0.625001
+                      ]
+                    },
+                    {
+                      "id": 22,
+                      "value": [
+                        0.166669333,
+                        0.666665333,
+                        0.625001
+                      ]
+                    },
+                    {
+                      "id": 23,
+                      "value": [
+                        0.666669333,
+                        0.166665333,
+                        0.625001
+                      ]
+                    },
+                    {
+                      "id": 24,
+                      "value": [
+                        0.000002667,
+                        -0.000001333,
+                        0.750001
+                      ]
+                    },
+                    {
+                      "id": 25,
+                      "value": [
+                        0.500002667,
+                        0.499998667,
+                        0.750001
+                      ]
+                    },
+                    {
+                      "id": 26,
+                      "value": [
+                        0.000002667,
+                        0.499998667,
+                        0.750001
+                      ]
+                    },
+                    {
+                      "id": 27,
+                      "value": [
+                        0.500002667,
+                        -0.000001333,
+                        0.750001
+                      ]
+                    },
+                    {
+                      "id": 28,
+                      "value": [
+                        0.833336,
+                        0.833332,
+                        0.875001
+                      ]
+                    },
+                    {
+                      "id": 29,
+                      "value": [
+                        0.333336,
+                        0.333332,
+                        0.875001
+                      ]
+                    },
+                    {
+                      "id": 30,
+                      "value": [
+                        0.833336,
+                        0.333332,
+                        0.875001
+                      ]
+                    },
+                    {
+                      "id": 31,
+                      "value": [
+                        0.333336,
+                        0.833332,
+                        0.875001
+                      ]
+                    }
+                  ],
+                  "units": "crystal",
+                  "labels": [
+                    {
+                      "id": 0,
+                      "value": 0
+                    },
+                    {
+                      "id": 1,
+                      "value": 0
+                    },
+                    {
+                      "id": 2,
+                      "value": 0
+                    },
+                    {
+                      "id": 3,
+                      "value": 0
+                    },
+                    {
+                      "id": 4,
+                      "value": 0
+                    },
+                    {
+                      "id": 5,
+                      "value": 0
+                    },
+                    {
+                      "id": 6,
+                      "value": 0
+                    },
+                    {
+                      "id": 7,
+                      "value": 0
+                    },
+                    {
+                      "id": 8,
+                      "value": 0
+                    },
+                    {
+                      "id": 9,
+                      "value": 0
+                    },
+                    {
+                      "id": 10,
+                      "value": 0
+                    },
+                    {
+                      "id": 11,
+                      "value": 0
+                    },
+                    {
+                      "id": 12,
+                      "value": 0
+                    },
+                    {
+                      "id": 13,
+                      "value": 0
+                    },
+                    {
+                      "id": 14,
+                      "value": 0
+                    },
+                    {
+                      "id": 15,
+                      "value": 0
+                    },
+                    {
+                      "id": 16,
+                      "value": 0
+                    },
+                    {
+                      "id": 17,
+                      "value": 0
+                    },
+                    {
+                      "id": 18,
+                      "value": 0
+                    },
+                    {
+                      "id": 19,
+                      "value": 0
+                    },
+                    {
+                      "id": 20,
+                      "value": 0
+                    },
+                    {
+                      "id": 21,
+                      "value": 0
+                    },
+                    {
+                      "id": 22,
+                      "value": 0
+                    },
+                    {
+                      "id": 23,
+                      "value": 0
+                    },
+                    {
+                      "id": 24,
+                      "value": 0
+                    },
+                    {
+                      "id": 25,
+                      "value": 0
+                    },
+                    {
+                      "id": 26,
+                      "value": 0
+                    },
+                    {
+                      "id": 27,
+                      "value": 0
+                    },
+                    {
+                      "id": 28,
+                      "value": 0
+                    },
+                    {
+                      "id": 29,
+                      "value": 0
+                    },
+                    {
+                      "id": 30,
+                      "value": 0
+                    },
+                    {
+                      "id": 31,
+                      "value": 0
+                    }
+                  ],
+                  "constraints": []
+                },
+                "lattice": {
+                  "a": 6.125577922,
+                  "b": 6.125577922000001,
+                  "c": 10.003026858,
+                  "alpha": 90,
+                  "beta": 90,
+                  "gamma": 59.999999999999986,
+                  "units": {
+                    "length": "angstrom",
+                    "angle": "degree"
+                  },
+                  "type": "TRI"
+                },
+                "isNonPeriodic": false,
+                "schemaVersion": "2022.8.16"
+              },
+              "type": "VacuumConfiguration"
+            }
+          ],
+          "direction": "z",
+          "xy_shift": [
+            0,
+            0
+          ],
+          "gaps": [
+            {
+              "id": 0,
+              "value": 2.2
+            },
+            {
+              "id": 1,
+              "value": 2.2
+            }
+          ],
+          "type": "InterfaceConfiguration"
+        },
+        "build_parameters": {
+          "make_primitive": true
+        }
+      }
+    ],
+    "boundaryConditions": {
+      "type": "pbc",
+      "offset": 0
+    }
+  },
+  "name": "CTa(111)-CTi(111), Interface",
+  "isDefault": false,
+  "basis": {
+    "units": "crystal",
+    "elements": [
+      {
+        "id": 0,
+        "value": "Ta"
+      },
+      {
+        "id": 1,
+        "value": "Ta"
+      },
+      {
+        "id": 2,
+        "value": "Ta"
+      },
+      {
+        "id": 3,
+        "value": "Ta"
+      },
+      {
+        "id": 4,
+        "value": "Ti"
+      },
+      {
+        "id": 5,
+        "value": "Ti"
+      },
+      {
+        "id": 6,
+        "value": "Ti"
+      },
+      {
+        "id": 7,
+        "value": "Ti"
+      },
+      {
+        "id": 8,
+        "value": "C"
+      },
+      {
+        "id": 9,
+        "value": "C"
+      },
+      {
+        "id": 10,
+        "value": "C"
+      },
+      {
+        "id": 11,
+        "value": "C"
+      },
+      {
+        "id": 12,
+        "value": "C"
+      },
+      {
+        "id": 13,
+        "value": "C"
+      },
+      {
+        "id": 14,
+        "value": "C"
+      },
+      {
+        "id": 15,
+        "value": "C"
+      }
+    ],
+    "coordinates": [
+      {
+        "id": 0,
+        "value": [
+          0.6666667,
+          0.3333333,
+          0.3403473
+        ]
+      },
+      {
+        "id": 1,
+        "value": [
+          0,
+          0,
+          0.4205031
+        ]
+      },
+      {
+        "id": 2,
+        "value": [
+          0.3333333,
+          0.6666667,
+          0.5006589
+        ]
+      },
+      {
+        "id": 3,
+        "value": [
+          0.6666667,
+          0.3333333,
+          0.5808147
+        ]
+      },
+      {
+        "id": 4,
+        "value": [
+          0.6666667,
+          0.3333333,
+          0
+        ]
+      },
+      {
+        "id": 5,
+        "value": [
+          0,
+          0,
+          0.07770976
+        ]
+      },
+      {
+        "id": 6,
+        "value": [
+          0.3333333,
+          0.6666667,
+          0.1554192
+        ]
+      },
+      {
+        "id": 7,
+        "value": [
+          0.6666667,
+          0.3333333,
+          0.2331286
+        ]
+      },
+      {
+        "id": 8,
+        "value": [
+          0.3333333,
+          0.6666667,
+          0.03885503
+        ]
+      },
+      {
+        "id": 9,
+        "value": [
+          0.6666667,
+          0.3333333,
+          0.1165645
+        ]
+      },
+      {
+        "id": 10,
+        "value": [
+          0,
+          0,
+          0.1942739
+        ]
+      },
+      {
+        "id": 11,
+        "value": [
+          0.3333333,
+          0.6666667,
+          0.2719834
+        ]
+      },
+      {
+        "id": 12,
+        "value": [
+          0.3333333,
+          0.6666667,
+          0.3804252
+        ]
+      },
+      {
+        "id": 13,
+        "value": [
+          0.6666667,
+          0.3333333,
+          0.460581
+        ]
+      },
+      {
+        "id": 14,
+        "value": [
+          0,
+          0,
+          0.5407368
+        ]
+      },
+      {
+        "id": 15,
+        "value": [
+          0.3333333,
+          0.6666667,
+          0.6208927
+        ]
+      }
+    ],
+    "labels": [
+      {
+        "id": 0,
+        "value": 1
+      },
+        {
+            "id": 1,
+            "value": 1
+        },
+        {
+            "id": 2,
+            "value": 1
+        },
+        {
+            "id": 3,
+            "value": 1
+        },
+        {
+            "id": 4,
+            "value": 0
+        },
+        {
+            "id": 5,
+            "value": 0
+        },
+        {
+            "id": 6,
+            "value": 0
+        },
+        {
+            "id": 7,
+            "value": 0
+        },
+        {
+            "id": 8,
+            "value": 0
+        },
+        {
+            "id": 9,
+            "value": 0
+        },
+        {
+            "id": 10,
+            "value": 0
+        },
+        {
+            "id": 11,
+            "value": 0
+        },
+        {
+            "id": 12,
+            "value": 1
+        },
+        {
+            "id": 13,
+            "value": 1
+        },
+        {
+            "id": 14,
+            "value": 1
+        },
+        {
+            "id": 15,
+            "value": 1
+        }
+      ],
+    "constraints": []
+  },
+  "lattice": {
+    "type": "TRI",
+    "a": 3.062789,
+    "b": 3.062789,
+    "c": 32.18086,
+    "alpha": 90,
+    "beta": 90,
+    "gamma": 120,
+    "units": {
+      "length": "angstrom",
+      "angle": "degree"
+    },
+    "vectors": {
+      "a": [
+        3.0628,
+        0,
+        0
+      ],
+      "b": [
+        -1.5314,
+        2.6525,
+        0
+      ],
+      "c": [
+        0,
+        0,
+        32.1809
+      ],
+      "alat": 1,
+      "units": "angstrom"
+    }
+  },
+  "schemaVersion": "2022.8.16",
+  "tags": [
+    "CTa(111)-CTi(111),"
+  ],
+  "systemTags": [
+    "isRefined"
+  ],
+  "exabyteId": "7fxBFBxCEqeGge9rE",
+  "inSet": [
+    {
+      "_id": "fFGL6BgvwCXekKxCh",
+      "slug": "admin",
+      "cls": "Team"
+    },
+    {
+      "_id": "K9KNjoaKCLK85rtYd",
+      "slug": "owner",
+      "cls": "Team"
+    },
+    {
+      "_id": "q7nygYxzx9SMDoQRW",
+      "slug": "read",
+      "cls": "Team"
+    },
+    {
+      "_id": "e6eSghbYPFxMua2cX",
+      "slug": "comment",
+      "cls": "Team"
+    },
+    {
+      "_id": "25kqB4trDkiDKPg4K",
+      "slug": "execute",
+      "cls": "Team"
+    },
+    {
+      "_id": "ReJitok2ijHkZBGsN",
+      "slug": "edit",
+      "cls": "Team"
+    },
+    {
+      "_id": "jJxJwH7oHF8T3EiXN",
+      "slug": "read",
+      "cls": "Team"
+    }
+  ],
+  "owner": {
+    "_id": "RZ9fXkuQEXx3EPJFq",
+    "cls": "Account",
+    "slug": "exadmin"
+  },
+  "creator": {
+    "_id": "cpsbA7YYPCLK9hPg5",
+    "cls": "User",
+    "slug": "exadmin"
+  },
+  "hash": "d725858dcc2f3517f4d3aa3042743a97",
+  "isEntitySet": false,
+  "createdAt": "2026-04-10T19:14:54.326Z",
+  "createdBy": "0",
+  "derivedProperties": [
+    {
+      "name": "density",
+      "units": "g/cm^3",
+      "value": 6.423711968506947
+    },
+    {
+      "name": "elemental_ratio",
+      "value": 0.25,
+      "element": "Ta"
+    },
+    {
+      "name": "elemental_ratio",
+      "value": 0.25,
+      "element": "Ti"
+    },
+    {
+      "name": "elemental_ratio",
+      "value": 0.5,
+      "element": "C"
+    },
+    {
+      "name": "p-norm",
+      "value": 3,
+      "degree": 0
+    },
+    {
+      "name": "p-norm",
+      "value": 0.6123724356957945,
+      "degree": 2
+    },
+    {
+      "name": "p-norm",
+      "value": 0.538608672507971,
+      "degree": 3
+    },
+    {
+      "name": "p-norm",
+      "value": 0.5060993646249713,
+      "degree": 5
+    },
+    {
+      "name": "p-norm",
+      "value": 0.5011086692289443,
+      "degree": 7
+    },
+    {
+      "name": "p-norm",
+      "value": 0.5000975705253322,
+      "degree": 10
+    },
+    {
+      "spaceGroupSymbol": "P3m1",
+      "tolerance": {
+        "value": 0.3,
+        "units": "angstrom"
+      },
+      "name": "symmetry"
+    },
+    {
+      "name": "volume",
+      "units": "angstrom^3",
+      "value": 261.4342131395285
+    }
+  ],
+  "formula": "TaTiC2",
+  "scaledHash": "280d25468dd3adf662cc476978e5ad2f",
+  "unitCellFormula": "Ta4 Ti4 C8",
+  "updatedAt": "2026-04-10T19:15:00.447Z",
+  "updatedBy": "0"
+}
