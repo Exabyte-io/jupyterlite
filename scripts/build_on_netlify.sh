@@ -8,13 +8,11 @@
 
 THIS_SCRIPT_DIR_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 PACKAGE_ROOT_PATH="$(realpath "${THIS_SCRIPT_DIR_PATH}/../")"
-PYTHON_VERSION="${PYTHON_VERSION:-3.10.12}"
-NODE_VERSION="${NODE_VERSION:-18}"
 
 source "${THIS_SCRIPT_DIR_PATH}"/functions.sh
 
-echo "Python version: $(python --version), and $PYTHON_VERSION"
-echo "Node.js version: $(node --version), and $NODE_VERSION"
+echo "Python version: $(python --version)"
+echo "Node.js version: $(node --version)"
 echo "Creating virtual environment"
 
 create_virtualenv "${PACKAGE_ROOT_PATH}/.venv-${PYTHON_VERSION}"

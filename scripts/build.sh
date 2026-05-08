@@ -9,14 +9,15 @@ CONTENT_DIR="content"
 AX_REPO_NAME="api-examples"
 AX_BRANCH_NAME="feature/SOF-7894"
 AX_SOURCE_DIR="${PACKAGE_ROOT_PATH}/../api-examples"
-PYODIDE_VERSION="0.24.1"
 PYODIDE_LOCAL_DIR="dist/pyodide"
 PYODIDE_LOCAL_URL="./pyodide/pyodide.js"
-IPYTHON_PINNED_VERSION="8.31.0"
 
 source "${THIS_SCRIPT_DIR_PATH}/functions.sh"
 
 cd "${PACKAGE_ROOT_PATH}" || exit 1
+
+# Activate virtualenv
+source "${PACKAGE_ROOT_PATH}/.venv-${PYTHON_VERSION}/bin/activate"
 
 run_jupyterlite_build() {
     if command -v jupyter >/dev/null 2>&1; then
@@ -82,14 +83,9 @@ if ! ${RUN_BUILD}; then
     exit 0
 fi
 
-PYODIDE_VERSION="${PYODIDE_VERSION}" \
-PYODIDE_LOCAL_DIR="${PYODIDE_LOCAL_DIR}" \
 bash "${THIS_SCRIPT_DIR_PATH}/download_pyodide.sh" || exit 1
 
 if ${RUN_DOWNLOAD_PACKAGES}; then
-    CONTENT_DIR="${CONTENT_DIR}" \
-    PYODIDE_LOCAL_DIR="${PYODIDE_LOCAL_DIR}" \
-    IPYTHON_PINNED_VERSION="${IPYTHON_PINNED_VERSION}" \
     bash "${THIS_SCRIPT_DIR_PATH}/download_packages.sh" || exit 1
 fi
 

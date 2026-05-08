@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Configuration
+PYTHON_VERSION="3.10.12"
+NODE_VERSION="18"
+PYODIDE_VERSION="0.24.1"
+IPYTHON_PINNED_VERSION="8.31.0"
+
 ensure_python_version_installed() {
     local PYTHON_VERSION=$1
     if ! pyenv versions | grep -q $PYTHON_VERSION; then
@@ -98,9 +104,7 @@ collect_config_dependency_wheels() {
         return
     fi
 
-    local PYTHON_BIN="${VIRTUAL_ENV}/bin/python"
-
-    "${PYTHON_BIN}" "${COLLECTOR_SCRIPT}" \
+    "${VIRTUAL_ENV}/bin/python" "${COLLECTOR_SCRIPT}" \
       --config-file "${CONFIG_FILE}" \
       --packages-dir "${PACKAGES_DIR}" \
       --pyodide-lock-file "${PYODIDE_LOCK_FILE}" \
