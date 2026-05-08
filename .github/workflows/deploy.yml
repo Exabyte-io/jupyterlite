@@ -31,6 +31,7 @@ jobs:
       - name: Build the JupyterLite with Extension(s)
         shell: bash
         run: |
+          npm run install
           npm run build
       - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v3

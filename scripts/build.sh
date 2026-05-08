@@ -70,10 +70,6 @@ if ${RUN_UPDATE_CONTENT}; then
     cp -R "${RESOLVED_CONTENT_DIR}/other/experiments/jupyterlite" "${CONTENT_DIR}/experiments"
     cp -R "${RESOLVED_CONTENT_DIR}"/{packages,utils,config.yml,README*} "${CONTENT_DIR}/"
 
-    if [[ -L "${CONTENT_DIR}/made/uploads/C(001)-Ni(111)-Interface.json" ]]; then
-        rm -f "${CONTENT_DIR}/made/uploads/C(001)-Ni(111)-Interface.json"
-    fi
-
     for readme_file in ${CONTENT_DIR}/README.*; do
         [[ -f "${readme_file}" ]] || continue
         perl -i.bak -pe "s{examples/}{api/}g; s{examples\\\\/}{api\\\\/}g" "${readme_file}"
