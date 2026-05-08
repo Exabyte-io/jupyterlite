@@ -130,3 +130,6 @@ tmp
 
 # Local Netlify folder
 .netlify
+
+# Content packages are copied from assets during build
+content/packages/

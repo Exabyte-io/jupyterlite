@@ -62,7 +62,14 @@ if ${RUN_UPDATE_CONTENT}; then
     cp -R "${RESOLVED_CONTENT_DIR}/other/materials_designer" "${CONTENT_DIR}/made"
     mkdir -p "${CONTENT_DIR}/experiments"
     cp -R "${RESOLVED_CONTENT_DIR}/other/experiments/jupyterlite" "${CONTENT_DIR}/experiments/jupyterlite"
-    cp -R "${RESOLVED_CONTENT_DIR}"/{packages,utils,config.yml,README*} "${CONTENT_DIR}/"
+    cp -R "${RESOLVED_CONTENT_DIR}"/{utils,config.yml,README*} "${CONTENT_DIR}/"
+
+    # Copy packages: first from api-examples (Pyodide-compiled), then from assets (PyPI)
+    mkdir -p "${CONTENT_DIR}/packages"
+    if [[ -d "${RESOLVED_CONTENT_DIR}/packages" ]]; then
+        cp "${RESOLVED_CONTENT_DIR}/packages"/*.whl "${CONTENT_DIR}/packages/" 2>/dev/null || true
+    fi
+    cp assets/packages/*.whl "${CONTENT_DIR}/packages/" 2>/dev/null || true
 
     for readme_file in ${CONTENT_DIR}/README.*; do
         [[ -f "${readme_file}" ]] || continue

@@ -70,7 +70,11 @@ npm run start            # Serve dist on localhost:8000
 ### Initial Setup Workflow
 
 1. `npm run install` - set up environment
-2. `npm run setup:pyodide` - download Pyodide assets
-3. `npm run setup:packages` - download Python wheels
-4. Commit `assets/pyodide/` and `content/packages/` to repo
-5. CI/local builds just use `npm run build` (no downloads needed)
+2. `npm run setup:pyodide` - download Pyodide assets to `assets/pyodide/`
+3. Edit `assets/packages/requirements.txt` to specify PyPI packages needed
+4. `npm run setup:packages` - download PyPI wheels to `assets/packages/`
+5. Pre-compiled Pyodide wheels are stored in `api-examples/packages/` (committed separately)
+6. Update `api-examples/config.yml` to reference wheels as `emfs:/drive/packages/<wheel>.whl`
+7. Commit `assets/pyodide/` and `assets/packages/` to jupyterlite repo
+8. Commit pre-compiled wheels to `api-examples/packages/`
+9. CI/local builds use `npm run build` (copies from both sources, no downloads)
