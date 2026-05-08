@@ -39,3 +39,31 @@ npm start
 ```
 
 See [github workflow](.github/workflows/deploy.yml) and [package.json](package.json) for more information.
+
+### Build Approach (Current)
+
+Build logic is split by responsibility:
+
+- `scripts/install.sh`: local/CI dev environment setup (Python, Node, venv, python deps)
+- `scripts/build.sh`: content sync, pyodide download, wheel collection, and `jupyter lite build`
+- `scripts/download_pyodide.sh`: download fixed Pyodide version (`0.24.1`) into `dist/pyodide`
+- `scripts/download_packages.sh`: populate `content/packages` from `content/config.yml`
+
+### Package Loading Strategy
+
+`content/config.yml` can include:
+
+- `emfs:/drive/packages/<wheel>.whl` for explicit local wheel installs from `dist/files/packages`
+- named packages (for example `scipy==1.11.2`, `plotly>=5.18`) resolved by micropip/piplite flow
+
+Pyodide startup packages (for example `numpy`, `scipy`, `pandas`) are patched into `dist/jupyter-lite.json` during build.
+
+### Build Commands
+
+```bash
+npm run setup                 # install.sh only
+npm run build                 # refresh content + download packages + build
+npm run build:refresh-content # refresh content + download packages + build
+npm run build:fast            # build only (no content refresh, no package download)
+npm run start                 # serve dist on localhost:8000
+```

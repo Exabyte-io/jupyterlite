@@ -67,7 +67,8 @@ if ${RUN_UPDATE_CONTENT}; then
     rm -rf "${CONTENT_DIR}" && mkdir -p "${CONTENT_DIR}"
     cp -R "${RESOLVED_CONTENT_DIR}/examples" "${CONTENT_DIR}/api"
     cp -R "${RESOLVED_CONTENT_DIR}/other/materials_designer" "${CONTENT_DIR}/made"
-    cp -R "${RESOLVED_CONTENT_DIR}/other/experiments/jupyterlite" "${CONTENT_DIR}/experiments"
+    mkdir -p "${CONTENT_DIR}/experiments"
+    cp -R "${RESOLVED_CONTENT_DIR}/other/experiments/jupyterlite" "${CONTENT_DIR}/experiments/jupyterlite"
     cp -R "${RESOLVED_CONTENT_DIR}"/{packages,utils,config.yml,README*} "${CONTENT_DIR}/"
 
     for readme_file in ${CONTENT_DIR}/README.*; do

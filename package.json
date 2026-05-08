@@ -1,7 +1,6 @@
 {
   "scripts": {
     "install": "bash scripts/install.sh",
-    "setup": "bash scripts/install.sh",
     "build": "INSTALL=0 UPDATE_CONTENT=1 BUILD=1 DOWNLOAD_PACKAGES=1 bash scripts/build.sh",
     "build:refresh-content": "INSTALL=0 UPDATE_CONTENT=1 BUILD=1 DOWNLOAD_PACKAGES=1 bash scripts/build.sh",
     "build:fast": "INSTALL=0 UPDATE_CONTENT=0 BUILD=1 DOWNLOAD_PACKAGES=0 bash scripts/build.sh",
