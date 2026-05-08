@@ -87,122 +87,22 @@ build_extension() {
 collect_config_dependency_wheels() {
     local CONFIG_FILE=$1
     local PACKAGES_DIR=$2
+    local PYODIDE_LOCK_FILE=$3
+    local RUNTIME_PINNED_SPECS=$4
+    local SCRIPT_DIR
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+    local COLLECTOR_SCRIPT="${SCRIPT_DIR}/collect_dependency_wheels.py"
 
     if [[ ! -f "${CONFIG_FILE}" ]]; then
         echo "Config file not found at ${CONFIG_FILE}, skipping dependency wheel collection."
         return
     fi
 
-    mkdir -p "${PACKAGES_DIR}"
-
-    python3 - "${CONFIG_FILE}" "${PACKAGES_DIR}" <<'PYEOF'
-import os
-import re
-import shutil
-import subprocess
-import sys
-import tempfile
-
-import yaml
-
-SKIP_PREFIXES = ("emfs:", "nodeps:", "http://", "https://")
-PYODIDE_BUILTINS = {"lzma", "sqlite3", "ssl", "h5py", "lmdb"}
-PYODIDE_RUNTIME_PACKAGES = {
-    "numpy",
-    "pandas",
-    "scipy",
-    "pyyaml",
-    "jsonschema",
-    "typing-extensions",
-    "pydantic",
-}
-ALLOWED_WHEEL_SUFFIXES = ("-py3-none-any.whl", "-py2.py3-none-any.whl")
-RUNTIME_PINNED_SPECS = (
-    "ipython==8.31.0",
-)
-
-
-def normalize_name(package_name):
-    return re.sub(r"[-_.]+", "-", package_name).lower()
-
-
-def package_name_from_spec(package_spec):
-    package_spec = package_spec.split("[", 1)[0]
-    package_spec = re.split(r"[<>=!~]", package_spec, maxsplit=1)[0]
-    return normalize_name(package_spec.strip())
-
-
-def is_skippable(package_spec):
-    if not package_spec or any(package_spec.startswith(prefix) for prefix in SKIP_PREFIXES):
-        return True
-    package_name = package_name_from_spec(package_spec)
-    return package_name in PYODIDE_BUILTINS or package_name in PYODIDE_RUNTIME_PACKAGES
-
-
-def preserve_existing_wheel(filename):
-    return "emscripten" in filename
-
-
-config_file, packages_dir = sys.argv[1], sys.argv[2]
-with open(config_file) as stream:
-    config = yaml.safe_load(stream)
-
-package_specs = []
-seen = set()
-for section in ("packages_pyodide", "packages_common"):
-    for package_spec in config.get("default", {}).get(section) or []:
-        if not is_skippable(package_spec) and package_spec not in seen:
-            seen.add(package_spec)
-            package_specs.append(package_spec)
-for notebook in config.get("notebooks", []) or []:
-    for section in ("packages_pyodide", "packages_common"):
-        for package_spec in notebook.get(section) or []:
-            if not is_skippable(package_spec) and package_spec not in seen:
-                seen.add(package_spec)
-                package_specs.append(package_spec)
-
-print(f"Collecting local dependency wheels for {len(package_specs)} packages...")
-
-for pinned_spec in RUNTIME_PINNED_SPECS:
-    if pinned_spec not in seen:
-        package_specs.append(pinned_spec)
-
-for filename in sorted(os.listdir(packages_dir)):
-    if not filename.endswith(".whl"):
-        continue
-    if preserve_existing_wheel(filename):
-        continue
-    os.remove(os.path.join(packages_dir, filename))
-
-tmp_dir = tempfile.mkdtemp(prefix="jupyterlite-wheel-collect-")
-try:
-    for package_spec in sorted(package_specs):
-        result = subprocess.run(
-            [sys.executable, "-m", "pip", "download", "--only-binary=:all:", "-d", tmp_dir, package_spec],
-            capture_output=True,
-            text=True,
-        )
-        if result.returncode != 0:
-            print(f"  Skipped (download failed): {package_spec}")
-
-    copied = 0
-    for filename in sorted(os.listdir(tmp_dir)):
-        source_path = os.path.join(tmp_dir, filename)
-        if not os.path.isfile(source_path):
-            continue
-        is_wheel = filename.endswith(".whl")
-        is_allowed_wheel = is_wheel and (
-            filename.endswith(ALLOWED_WHEEL_SUFFIXES) or "emscripten" in filename
-        )
-        if not is_allowed_wheel:
-            continue
-        shutil.copy2(source_path, os.path.join(packages_dir, filename))
-        copied += 1
-
-    print(f"Collected {copied} compatible wheels into {packages_dir}.")
-finally:
-    shutil.rmtree(tmp_dir, ignore_errors=True)
-PYEOF
+    python3 "${COLLECTOR_SCRIPT}" \
+      --config-file "${CONFIG_FILE}" \
+      --packages-dir "${PACKAGES_DIR}" \
+      --pyodide-lock-file "${PYODIDE_LOCK_FILE}" \
+      --runtime-pinned-specs "${RUNTIME_PINNED_SPECS}"
 }
 
 

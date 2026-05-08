@@ -1,10 +1,15 @@
 {
   "scripts": {
     "install": "bash scripts/install.sh",
+    "stage:setup": "bash scripts/stage_setup_repo.sh",
+    "stage:runtime": "bash scripts/stage_runtime.sh",
+    "stage:content": "bash scripts/stage_update_content.sh",
+    "stage:build": "bash scripts/stage_build_dist.sh",
+    "stage:serve": "bash scripts/stage_serve.sh",
     "setup": "INSTALL=1 UPDATE_CONTENT=1 BUILD=1 bash scripts/build.sh",
     "build": "INSTALL=0 UPDATE_CONTENT=0 BUILD=1 bash scripts/build.sh",
     "build:refresh-content": "INSTALL=0 UPDATE_CONTENT=1 BUILD=1 bash scripts/build.sh",
-    "start": "python scripts/serve.py 8000 ./dist"
+    "start": "bash scripts/stage_serve.sh"
   },
   "engines": {
     "node": ">=18"

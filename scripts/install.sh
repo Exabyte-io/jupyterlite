@@ -1,4 +1,6 @@
 #!/bin/bash
+# Bootstraps local dev toolchain versions (Python, Node, and venv).
+# This prepares the base environment before running stage scripts.
 
 PYTHON_VERSION="3.10.12"
 NODE_VERSION="18"

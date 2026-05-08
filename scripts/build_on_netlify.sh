@@ -1,4 +1,6 @@
 #!/bin/bash
+# Netlify-focused entrypoint that prepares venv and runs full staged build.
+# Keeps CI behavior aligned with local INSTALL=1 UPDATE_CONTENT=1 BUILD=1 flow.
 
 # NOTE: a separate script is required for the "data_bridge" extension
 # to be properly linked into the JupyterLite build process on Netlify.
