@@ -9,6 +9,9 @@ CONTENT_DIR="content"
 PYODIDE_VERSION="0.24.1"
 PYODIDE_LOCAL_DIR="dist/pyodide"
 PYODIDE_LOCAL_URL="./pyodide/pyodide.js"
+PYODIDE_LOCK_FILE="${PYODIDE_LOCAL_DIR}/pyodide-lock.json"
+IPYTHON_PINNED_VERSION="8.31.0"
+RUNTIME_PINNED_SPECS="ipython==${IPYTHON_PINNED_VERSION}"
 
 source "${THIS_SCRIPT_DIR_PATH}"/functions.sh
 
@@ -36,7 +39,7 @@ fi
 if [[ "${UPDATE_CONTENT}" == "1" ]]; then
     mkdir -p ${TMP_DIR} && cd ${TMP_DIR} || exit 1
     REPO_NAME="api-examples"
-    BRANCH_NAME="main"
+    BRANCH_NAME="feature/SOF-7894"
 
     # Clone repository if it doesn't exist
     if [[ ! -e "${REPO_NAME}" ]]; then
@@ -67,18 +70,12 @@ if [[ "${UPDATE_CONTENT}" == "1" ]]; then
     cp -r ${RESOLVED_CONTENT_DIR}/other/experiments/jupyterlite ${CONTENT_DIR}/experiments
     # Copy other required files
     cp -r ${RESOLVED_CONTENT_DIR}/{packages,utils,config.yml,README*} ${CONTENT_DIR}/
-    # Update path references in text README files.
-    python3 - "${CONTENT_DIR}" <<'PYEOF'
-from pathlib import Path
-import sys
-
-content_dir = Path(sys.argv[1])
-for readme_path in content_dir.glob("README*"):
-    if readme_path.suffix.lower() not in {".md", ".rst", ".txt"}:
-        continue
-    text = readme_path.read_text()
-    readme_path.write_text(text.replace("examples/", "api/"))
-PYEOF
+    # Update path references in README*
+    for readme_file in ${CONTENT_DIR}/README.*; do
+        [[ -f "${readme_file}" ]] || continue
+        perl -i.bak -pe "s{examples/}{api/}g; s{examples\\\\/}{api\\\\/}g" "${readme_file}"
+        rm -f "${readme_file}.bak"
+    done
 fi
 
 
