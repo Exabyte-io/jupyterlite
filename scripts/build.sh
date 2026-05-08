@@ -6,9 +6,7 @@ PACKAGE_ROOT_PATH="$(realpath "${THIS_SCRIPT_DIR_PATH}/../")"
 REQUIREMENTS_FILENAME="dependencies/requirements.txt"
 TMP_DIR="tmp"
 CONTENT_DIR="content"
-PYODIDE_VERSION="0.24.1"
-PYODIDE_LOCAL_DIR="dist/pyodide"
-PYODIDE_LOCAL_URL="./pyodide/pyodide.js"
+WHEELS_DIR="tmp/piplite-wheels"
 
 source "${THIS_SCRIPT_DIR_PATH}"/functions.sh
 
@@ -26,9 +24,11 @@ pip install --upgrade \
   setuptools==$SETUPTOOLS_VERSION \
   wheel==$WHEEL_VERSION \
   build==$BUILD_VERSION \
-  twine==$TWINE_VERSION
+  twine==$TWINE_VERSION || exit 1
 
-[[ -n ${INSTALL} ]] && python -m pip install -r ${REQUIREMENTS_FILENAME}
+if [[ -n ${INSTALL} ]]; then
+    python -m pip install -r ${REQUIREMENTS_FILENAME} || exit 1
+fi
 pip list
 
 # Update the content dir to latest commit
@@ -72,13 +72,16 @@ fi
 
 
 if [[ -n ${BUILD} ]]; then
-    jupyter lite build --contents ${CONTENT_DIR} --output-dir dist
-    # Pin the IPython version to 8.31.0 -- otherwise it resolves to the latest version requiring Python 3.12+
-    find dist/extensions/@jupyterlite/pyodide-kernel-extension/static -name "*.js" \
-        | xargs grep -l "install(\['ipython'\]" \
-        | xargs perl -i -pe "s/install\(\['ipython'\]/install(\['ipython==8.31.0'\]/g"
-    download_pyodide "${PYODIDE_VERSION}" "${PYODIDE_LOCAL_DIR}"
-    patch_pyodide_url "dist/jupyter-lite.json" "${PYODIDE_LOCAL_URL}"
+    download_config_packages "${CONTENT_DIR}/config.yml" "${WHEELS_DIR}"
+
+    PIPLITE_ARGS=()
+    for whl in "${WHEELS_DIR}"/*.whl "${CONTENT_DIR}/packages"/*.whl; do
+        [[ -f "$whl" ]] && PIPLITE_ARGS+=(--piplite-wheels "$whl")
+    done
+    unpack_preinstalled_wheels "${CONTENT_DIR}/preinstalled" "${WHEELS_DIR}"/*.whl "${CONTENT_DIR}/packages"/*.whl
+
+    jupyter lite build --contents ${CONTENT_DIR} --output-dir dist "${PIPLITE_ARGS[@]}"
+    patch_pyodide_startup_packages "${CONTENT_DIR}/config.yml" "dist/pypi/all.json" "dist/jupyter-lite.json"
 fi
 
 # Exit with zero (for GH workflow)
