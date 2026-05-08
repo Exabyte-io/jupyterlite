@@ -33,8 +33,31 @@ def is_skippable(package_spec, pyodide_runtime_packages):
     return package_name in PYODIDE_BUILTINS or package_name in pyodide_runtime_packages
 
 
-def preserve_existing_wheel(filename):
-    return "emscripten" in filename
+def emfs_wheel_name(package_spec):
+    if not package_spec.startswith("emfs:/drive/packages/"):
+        return None
+    return package_spec.rsplit("/", maxsplit=1)[-1].strip()
+
+
+def collect_emfs_wheels(config):
+    emfs_wheels = set()
+    sections = ("packages_pyodide", "packages_common")
+    for section in sections:
+        for package_spec in config.get("default", {}).get(section) or []:
+            wheel_name = emfs_wheel_name(package_spec)
+            if wheel_name:
+                emfs_wheels.add(wheel_name)
+    for notebook in config.get("notebooks", []) or []:
+        for section in sections:
+            for package_spec in notebook.get(section) or []:
+                wheel_name = emfs_wheel_name(package_spec)
+                if wheel_name:
+                    emfs_wheels.add(wheel_name)
+    return emfs_wheels
+
+
+def preserve_existing_wheel(filename, emfs_wheels):
+    return "emscripten" in filename or filename in emfs_wheels
 
 
 def collect_package_specs(config, pyodide_runtime_packages):
@@ -69,6 +92,7 @@ def collect_dependency_wheels(config_file, packages_dir, pyodide_lock_file, runt
 
     pyodide_runtime_packages = load_pyodide_runtime_packages(pyodide_lock_file)
     package_specs, seen = collect_package_specs(config, pyodide_runtime_packages)
+    emfs_wheels = collect_emfs_wheels(config)
 
     print(
         "Collecting local dependency wheels for "
@@ -83,7 +107,7 @@ def collect_dependency_wheels(config_file, packages_dir, pyodide_lock_file, runt
     for filename in sorted(os.listdir(packages_dir)):
         if not filename.endswith(".whl"):
             continue
-        if preserve_existing_wheel(filename):
+        if preserve_existing_wheel(filename, emfs_wheels):
             continue
         os.remove(os.path.join(packages_dir, filename))
 
