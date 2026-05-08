@@ -98,7 +98,9 @@ collect_config_dependency_wheels() {
         return
     fi
 
-    python3 "${COLLECTOR_SCRIPT}" \
+    local PYTHON_BIN="${VIRTUAL_ENV}/bin/python"
+
+    "${PYTHON_BIN}" "${COLLECTOR_SCRIPT}" \
       --config-file "${CONFIG_FILE}" \
       --packages-dir "${PACKAGES_DIR}" \
       --pyodide-lock-file "${PYODIDE_LOCK_FILE}" \
