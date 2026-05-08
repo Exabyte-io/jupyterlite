@@ -120,14 +120,17 @@ _output
 
 # mat3ra-specific
 content-resolved/
+content/
 
 # not using package.json to install, just to use scripts
 package-lock.json
 
 # Tmp files
 requirements-tmp.txt
-content/*
 tmp
 
 # Local Netlify folder
 .netlify
+
+# Content packages are copied from assets during build
+content/packages/

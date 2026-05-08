@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Configuration
+PYTHON_VERSION="3.10.12"
+NODE_VERSION="18"
+PYODIDE_VERSION="0.24.1"
+IPYTHON_PINNED_VERSION="8.31.0"
+PYODIDE_ASSETS_DIR="assets/pyodide"
+
 ensure_python_version_installed() {
     local PYTHON_VERSION=$1
     if ! pyenv versions | grep -q $PYTHON_VERSION; then
@@ -81,6 +88,93 @@ build_extension() {
     # Build the extension
     jlpm run build
     cd - || exit 1
+}
+
+# For distribution of the whole package from our repo
+collect_config_dependency_wheels() {
+    local CONFIG_FILE=$1
+    local PACKAGES_DIR=$2
+    local PYODIDE_LOCK_FILE=$3
+    local RUNTIME_PINNED_SPECS=$4
+    local SCRIPT_DIR
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+    local COLLECTOR_SCRIPT="${SCRIPT_DIR}/collect_dependency_wheels.py"
+
+    if [[ ! -f "${CONFIG_FILE}" ]]; then
+        echo "Config file not found at ${CONFIG_FILE}, skipping dependency wheel collection."
+        return
+    fi
+
+    "${VIRTUAL_ENV}/bin/python" "${COLLECTOR_SCRIPT}" \
+      --config-file "${CONFIG_FILE}" \
+      --packages-dir "${PACKAGES_DIR}" \
+      --pyodide-lock-file "${PYODIDE_LOCK_FILE}" \
+      --runtime-pinned-specs "${RUNTIME_PINNED_SPECS}"
+}
+
+
+download_pyodide() {
+    local VERSION=$1
+    local DEST_DIR=$2
+    local TARBALL="pyodide-${VERSION}.tar.bz2"
+    local URL="https://github.com/pyodide/pyodide/releases/download/${VERSION}/${TARBALL}"
+    local TMP_TARBALL="/tmp/${TARBALL}"
+
+    if [[ -f "${DEST_DIR}/pyodide.js" ]]; then
+        echo "Pyodide ${VERSION} already present at ${DEST_DIR}, skipping download."
+        return
+    fi
+    rm -rf "${DEST_DIR}"
+
+    echo "Downloading pyodide ${VERSION} from ${URL}..."
+    mkdir -p "$(dirname "${DEST_DIR}")"
+    curl -L "${URL}" -o "${TMP_TARBALL}"
+    tar -xjf "${TMP_TARBALL}" -C "$(dirname "${DEST_DIR}")"
+    rm "${TMP_TARBALL}"
+    echo "Pyodide ${VERSION} downloaded to ${DEST_DIR}."
+}
+
+patch_pyodide_url() {
+    local JUPYTER_LITE_JSON=$1
+    local PYODIDE_URL=$2
+    python3 - <<EOF
+import json
+with open('${JUPYTER_LITE_JSON}', 'r') as f:
+    config = json.load(f)
+settings = config['jupyter-config-data'].setdefault('litePluginSettings', {})
+kernel = settings.setdefault('@jupyterlite/pyodide-kernel-extension:kernel', {})
+kernel['pyodideUrl'] = '${PYODIDE_URL}'
+with open('${JUPYTER_LITE_JSON}', 'w') as f:
+    json.dump(config, f, indent=2)
+EOF
+    echo "Set pyodideUrl to '${PYODIDE_URL}' in ${JUPYTER_LITE_JSON}."
+}
+
+patch_pyodide_startup_packages() {
+    local JUPYTER_LITE_JSON=$1
+    python3 - <<EOF
+import json
+with open('${JUPYTER_LITE_JSON}', 'r') as f:
+    config = json.load(f)
+settings = config['jupyter-config-data'].setdefault('litePluginSettings', {})
+kernel = settings.setdefault('@jupyterlite/pyodide-kernel-extension:kernel', {})
+kernel['disablePyPIFallback'] = False
+load_options = kernel.setdefault('loadPyodideOptions', {})
+load_options['packages'] = [
+    'lzma',
+    'sqlite3',
+    'pyyaml',
+    'numpy',
+    'scipy',
+    'jsonschema',
+    'pandas',
+    'matplotlib',
+    'pillow',
+]
+with open('${JUPYTER_LITE_JSON}', 'w') as f:
+    json.dump(config, f, indent=2)
+EOF
+    echo "Set loadPyodideOptions.packages in ${JUPYTER_LITE_JSON}."
 }
 
 add_line_to_file_if_not_present() {

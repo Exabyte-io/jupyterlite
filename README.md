@@ -26,16 +26,55 @@ The content is based on the [api-examples](https://github.com/Exabyte-io/api-exa
 
 ### Build
 
-As below:
-
 To build and run the environment locally:
 
 1. check that `npm` is installed
 2. run:
 ```bash
-npm install
+npm run install
 npm run build
 npm start
 ```
 
 See [github workflow](.github/workflows/deploy.yml) and [package.json](package.json) for more information.
+
+### Build Approach (Current)
+
+Build logic is split by responsibility:
+
+- `scripts/install.sh`: local/CI dev environment setup (Python, Node, venv, python deps)
+- `scripts/build.sh`: content sync from api-examples and `jupyter lite build`
+- `scripts/download_pyodide.sh`: one-time download of fixed Pyodide version into `assets/pyodide` (commit to repo)
+- `scripts/download_packages.sh`: one-time population of `content/packages` from `content/config.yml` (commit to repo)
+
+### Package Loading Strategy
+
+`content/config.yml` can include:
+
+- `emfs:/drive/packages/<wheel>.whl` for explicit local wheel installs from `dist/files/packages`
+- named packages (for example `scipy==1.11.2`, `plotly>=5.18`) resolved by micropip/piplite flow
+
+Pyodide startup packages (for example `numpy`, `scipy`, `pandas`) are patched into `dist/jupyter-lite.json` during build.
+
+### Build Commands
+
+```bash
+npm run install          # Set up dev environment (venv, dependencies)
+npm run setup:pyodide    # One-time: download Pyodide to assets/pyodide (commit after)
+npm run setup:packages   # One-time: download wheels to content/packages (commit after)
+npm run build            # Build JupyterLite (syncs content from api-examples)
+npm run build:fast       # Build without syncing content
+npm run start            # Serve dist on localhost:8000
+```
+
+### Initial Setup Workflow
+
+1. `npm run install` - set up environment
+2. `npm run setup:pyodide` - download Pyodide assets to `assets/pyodide/`
+3. Edit `assets/packages/requirements.txt` to specify PyPI packages needed
+4. `npm run setup:packages` - download PyPI wheels to `assets/packages/`
+5. Pre-compiled Pyodide wheels are stored in `api-examples/packages/` (committed separately)
+6. Update `api-examples/config.yml` to reference wheels as `emfs:/drive/packages/<wheel>.whl`
+7. Commit `assets/pyodide/` and `assets/packages/` to jupyterlite repo
+8. Commit pre-compiled wheels to `api-examples/packages/`
+9. CI/local builds use `npm run build` (copies from both sources, no downloads)
