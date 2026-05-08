@@ -14,9 +14,6 @@ source "${THIS_SCRIPT_DIR_PATH}/functions.sh"
 
 cd "${PACKAGE_ROOT_PATH}" || exit 1
 
-# Activate virtualenv
-source "${PACKAGE_ROOT_PATH}/.venv-${PYTHON_VERSION}/bin/activate"
-
 run_jupyterlite_build() {
     if command -v jupyter >/dev/null 2>&1; then
         jupyter lite build "$@"
@@ -34,6 +31,13 @@ RUN_BUILD=false
 
 if ${RUN_INSTALL}; then
     bash "${THIS_SCRIPT_DIR_PATH}/install.sh" || exit 1
+fi
+
+# Activate virtualenv if it exists
+VENV_PATH="${PACKAGE_ROOT_PATH}/.venv-${PYTHON_VERSION}/bin/activate"
+if [[ -f "${VENV_PATH}" ]]; then
+    source "${VENV_PATH}"
+    echo "Activated virtualenv: ${VENV_PATH}"
 fi
 
 if ${RUN_UPDATE_CONTENT}; then

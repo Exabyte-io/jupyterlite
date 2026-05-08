@@ -27,7 +27,7 @@ echo "Keeping only pure-python and emscripten wheels..."
 cd "${PACKAGES_DIR}" || exit 1
 kept=0
 removed=0
-for whl in *.whl 2>/dev/null; do
+for whl in *.whl; do
     [[ -f "$whl" ]] || continue
     if [[ "$whl" == *"-py3-none-any.whl" ]] || [[ "$whl" == *"-py2.py3-none-any.whl" ]] || [[ "$whl" == *"emscripten"* ]]; then
         echo "  Kept: $whl"

@@ -28,6 +28,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
+      - name: Install dependencies
+        shell: bash
+        run: |
+          npm run install
       - name: Build the JupyterLite with Extension(s)
         shell: bash
         run: |
