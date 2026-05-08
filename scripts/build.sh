@@ -79,6 +79,7 @@ if [[ -n ${BUILD} ]]; then
         | xargs perl -i -pe "s/install\(\['ipython'\]/install(\['ipython==8.31.0'\]/g"
     download_pyodide "${PYODIDE_VERSION}" "${PYODIDE_LOCAL_DIR}"
     patch_pyodide_url "dist/jupyter-lite.json" "${PYODIDE_LOCAL_URL}"
+    patch_pyodide_startup_packages "dist/jupyter-lite.json"
 fi
 
 # Exit with zero (for GH workflow)

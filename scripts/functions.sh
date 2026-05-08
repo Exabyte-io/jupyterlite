@@ -91,10 +91,11 @@ download_pyodide() {
     local URL="https://github.com/pyodide/pyodide/releases/download/${VERSION}/${TARBALL}"
     local TMP_TARBALL="/tmp/${TARBALL}"
 
-    if [[ -d "${DEST_DIR}" ]]; then
+    if [[ -f "${DEST_DIR}/pyodide.js" ]]; then
         echo "Pyodide ${VERSION} already present at ${DEST_DIR}, skipping download."
         return
     fi
+    rm -rf "${DEST_DIR}"
 
     echo "Downloading pyodide ${VERSION} from ${URL}..."
     mkdir -p "$(dirname "${DEST_DIR}")"
@@ -118,6 +119,30 @@ with open('${JUPYTER_LITE_JSON}', 'w') as f:
     json.dump(config, f, indent=2)
 EOF
     echo "Set pyodideUrl to '${PYODIDE_URL}' in ${JUPYTER_LITE_JSON}."
+}
+
+patch_pyodide_startup_packages() {
+    local JUPYTER_LITE_JSON=$1
+    python3 - <<EOF
+import json
+with open('${JUPYTER_LITE_JSON}', 'r') as f:
+    config = json.load(f)
+settings = config['jupyter-config-data'].setdefault('litePluginSettings', {})
+kernel = settings.setdefault('@jupyterlite/pyodide-kernel-extension:kernel', {})
+load_options = kernel.setdefault('loadPyodideOptions', {})
+load_options['packages'] = [
+    'lzma',
+    'sqlite3',
+    'pyyaml',
+    'numpy',
+    'scipy',
+    'jsonschema',
+    'pandas',
+]
+with open('${JUPYTER_LITE_JSON}', 'w') as f:
+    json.dump(config, f, indent=2)
+EOF
+    echo "Set loadPyodideOptions.packages in ${JUPYTER_LITE_JSON}."
 }
 
 add_line_to_file_if_not_present() {
