@@ -21,18 +21,19 @@ export WHEEL_VERSION=0.37.1
 export BUILD_VERSION=0.7.0
 export TWINE_VERSION=3.7.1
 
-pip install --upgrade \
-  pip==$PIP_VERSION \
-  setuptools==$SETUPTOOLS_VERSION \
-  wheel==$WHEEL_VERSION \
-  build==$BUILD_VERSION \
-  twine==$TWINE_VERSION
-
-[[ -n ${INSTALL} ]] && python -m pip install -r ${REQUIREMENTS_FILENAME}
-pip list
+if [[ "${INSTALL}" == "1" ]]; then
+    pip install --upgrade \
+      pip==$PIP_VERSION \
+      setuptools==$SETUPTOOLS_VERSION \
+      wheel==$WHEEL_VERSION \
+      build==$BUILD_VERSION \
+      twine==$TWINE_VERSION
+    python -m pip install -r ${REQUIREMENTS_FILENAME}
+    pip list
+fi
 
 # Update the content dir to latest commit
-if [[ -n ${UPDATE_CONTENT} ]]; then
+if [[ "${UPDATE_CONTENT}" == "1" ]]; then
     mkdir -p ${TMP_DIR} && cd ${TMP_DIR} || exit 1
     REPO_NAME="api-examples"
     BRANCH_NAME="main"
@@ -66,13 +67,30 @@ if [[ -n ${UPDATE_CONTENT} ]]; then
     cp -r ${RESOLVED_CONTENT_DIR}/other/experiments/jupyterlite ${CONTENT_DIR}/experiments
     # Copy other required files
     cp -r ${RESOLVED_CONTENT_DIR}/{packages,utils,config.yml,README*} ${CONTENT_DIR}/
-    # Update path references in README*
-    sed -i "s/examples\//api\//g" ${CONTENT_DIR}/README.*
+    # Update path references in text README files.
+    python3 - "${CONTENT_DIR}" <<'PYEOF'
+from pathlib import Path
+import sys
+
+content_dir = Path(sys.argv[1])
+for readme_path in content_dir.glob("README*"):
+    if readme_path.suffix.lower() not in {".md", ".rst", ".txt"}:
+        continue
+    text = readme_path.read_text()
+    readme_path.write_text(text.replace("examples/", "api/"))
+PYEOF
 fi
 
 
-if [[ -n ${BUILD} ]]; then
-    jupyter lite build --contents ${CONTENT_DIR} --output-dir dist
+if [[ "${BUILD}" == "1" ]]; then
+    if [[ "${INSTALL}" == "1" ]]; then
+        collect_config_dependency_wheels "${CONTENT_DIR}/config.yml" "${CONTENT_DIR}/packages"
+    fi
+    PIPLITE_ARGS=()
+    for whl in "${CONTENT_DIR}/packages"/*.whl; do
+        [[ -f "${whl}" ]] && PIPLITE_ARGS+=(--piplite-wheels "${whl}")
+    done
+    jupyter lite build --contents ${CONTENT_DIR} --output-dir dist "${PIPLITE_ARGS[@]}"
     # Pin the IPython version to 8.31.0 -- otherwise it resolves to the latest version requiring Python 3.12+
     find dist/extensions/@jupyterlite/pyodide-kernel-extension/static -name "*.js" \
         | xargs grep -l "install(\['ipython'\]" \
