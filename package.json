@@ -2,9 +2,10 @@
   "scripts": {
     "install": "bash scripts/install.sh",
     "stage": "bash scripts/stages.sh",
-    "setup": "INSTALL=1 UPDATE_CONTENT=1 BUILD=1 bash scripts/build.sh",
-    "build": "INSTALL=0 UPDATE_CONTENT=0 BUILD=1 bash scripts/build.sh",
+    "setup": "INSTALL=1 UPDATE_CONTENT=0 BUILD=0 bash scripts/build.sh",
+    "build": "INSTALL=1 UPDATE_CONTENT=1 BUILD=1 bash scripts/build.sh",
     "build:refresh-content": "INSTALL=0 UPDATE_CONTENT=1 BUILD=1 bash scripts/build.sh",
+    "build:fast": "INSTALL=0 UPDATE_CONTENT=0 BUILD=1 bash scripts/build.sh",
     "start": "bash scripts/stages.sh serve"
   },
   "engines": {

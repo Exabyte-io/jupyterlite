@@ -5,6 +5,14 @@
 THIS_SCRIPT_DIR_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 PACKAGE_ROOT_PATH="$(realpath "${THIS_SCRIPT_DIR_PATH}/../")"
 
+run_jupyterlite_build() {
+    if command -v jupyter >/dev/null 2>&1; then
+        jupyter lite build "$@"
+        return
+    fi
+    python -m jupyterlite build "$@"
+}
+
 run_setup() {
     local REQUIREMENTS_FILENAME="${PACKAGE_ROOT_PATH}/dependencies/requirements.txt"
     local PIP_VERSION="${PIP_VERSION:-24.3.1}"
@@ -108,7 +116,7 @@ run_build() {
         [[ -f "${whl}" ]] && PIPLITE_ARGS+=(--piplite-wheels "${whl}")
     done
 
-    jupyter lite build --contents "${CONTENT_DIR}" --output-dir dist "${PIPLITE_ARGS[@]}" || exit 1
+    run_jupyterlite_build --contents "${CONTENT_DIR}" --output-dir dist "${PIPLITE_ARGS[@]}" || exit 1
     find dist/extensions/@jupyterlite/pyodide-kernel-extension/static -name "*.js" \
         | xargs rg -l "install\(\['ipython'\]" \
         | xargs perl -i -pe "s/install\(\['ipython'\]/install(\['ipython==${IPYTHON_PINNED_VERSION}'\]/g"
