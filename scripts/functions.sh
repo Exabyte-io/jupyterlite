@@ -168,6 +168,8 @@ load_options['packages'] = [
     'scipy',
     'jsonschema',
     'pandas',
+    'matplotlib',
+    'pillow',
 ]
 with open('${JUPYTER_LITE_JSON}', 'w') as f:
     json.dump(config, f, indent=2)

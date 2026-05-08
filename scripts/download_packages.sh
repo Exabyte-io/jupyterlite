@@ -23,15 +23,24 @@ fi
 echo "Downloading wheels from ${REQUIREMENTS_FILE} to ${PACKAGES_DIR}..."
 pip download --only-binary=:all: --dest "${PACKAGES_DIR}" -r "${REQUIREMENTS_FILE}"
 
-echo "Cleaning up non-pure-python wheels..."
+echo "Keeping only pure-python and emscripten wheels..."
 cd "${PACKAGES_DIR}" || exit 1
-for whl in *.whl; do
-    if [[ "$whl" != *"-py3-none-any.whl" ]] && [[ "$whl" != *"-py2.py3-none-any.whl" ]] && [[ "$whl" != *"emscripten"* ]]; then
-        echo "  Removing: $whl (not pure python)"
+kept=0
+removed=0
+for whl in *.whl 2>/dev/null; do
+    [[ -f "$whl" ]] || continue
+    if [[ "$whl" == *"-py3-none-any.whl" ]] || [[ "$whl" == *"-py2.py3-none-any.whl" ]] || [[ "$whl" == *"emscripten"* ]]; then
+        echo "  Kept: $whl"
+        ((kept++))
+    else
+        echo "  Removed: $whl (platform-specific)"
         rm "$whl"
+        ((removed++))
     fi
 done
 
-echo "Done. Wheels are in ${PACKAGES_DIR}/"
-ls -lh "${PACKAGES_DIR}"/*.whl | wc -l
-echo "wheels downloaded."
+echo ""
+echo "Summary: kept $kept wheels, removed $removed platform-specific wheels."
+echo "Pure-python wheels in ${PACKAGES_DIR}:"
+ls -1 *.whl 2>/dev/null | wc -l
+echo "wheels ready."
