@@ -158,7 +158,7 @@ with open('${JUPYTER_LITE_JSON}', 'r') as f:
     config = json.load(f)
 settings = config['jupyter-config-data'].setdefault('litePluginSettings', {})
 kernel = settings.setdefault('@jupyterlite/pyodide-kernel-extension:kernel', {})
-kernel['disablePyPIFallback'] = True
+kernel['disablePyPIFallback'] = False
 load_options = kernel.setdefault('loadPyodideOptions', {})
 load_options['packages'] = [
     'lzma',
