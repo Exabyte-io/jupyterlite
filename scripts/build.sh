@@ -4,11 +4,13 @@
 THIS_SCRIPT_DIR_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 PACKAGE_ROOT_PATH="$(realpath "${THIS_SCRIPT_DIR_PATH}/../")"
 REQUIREMENTS_FILENAME="dependencies/requirements.txt"
+PACKAGE_MANIFEST_FILENAME="dependencies/pyodide-packages.json"
 TMP_DIR="tmp"
 CONTENT_DIR="content"
-PYODIDE_VERSION="0.24.1"
+PYODIDE_VERSION="$(python3 -c 'import json; print(json.load(open("dependencies/pyodide-packages.json"))["pyodide"]["version"])')"
 PYODIDE_LOCAL_DIR="dist/pyodide"
 PYODIDE_LOCAL_URL="./pyodide/pyodide.js"
+VENDORED_WHEEL_DIR="vendor/wheels"
 
 source "${THIS_SCRIPT_DIR_PATH}"/functions.sh
 
@@ -72,13 +74,25 @@ fi
 
 
 if [[ -n ${BUILD} ]]; then
-    jupyter lite build --contents ${CONTENT_DIR} --output-dir dist
+    python3 scripts/prepare_pyodide_packages.py \
+        --manifest "${PACKAGE_MANIFEST_FILENAME}" \
+        --wheel-dir "${VENDORED_WHEEL_DIR}" \
+        --content-dir "${CONTENT_DIR}" || exit 1
+
+    PIPLITE_ARGS=()
+    while IFS= read -r WHEEL_PATH; do
+        PIPLITE_ARGS+=("--piplite-wheels" "${WHEEL_PATH}")
+    done < <(find "${CONTENT_DIR}/pypi" -maxdepth 1 -type f -name "*.whl" | sort)
+
+    jupyter lite build --contents ${CONTENT_DIR} --output-dir dist "${PIPLITE_ARGS[@]}"
     # Pin the IPython version to 8.31.0 -- otherwise it resolves to the latest version requiring Python 3.12+
     find dist/extensions/@jupyterlite/pyodide-kernel-extension/static -name "*.js" \
         | xargs grep -l "install(\['ipython'\]" \
         | xargs perl -i -pe "s/install\(\['ipython'\]/install(\['ipython==8.31.0'\]/g"
     download_pyodide "${PYODIDE_VERSION}" "${PYODIDE_LOCAL_DIR}"
     patch_pyodide_url "dist/jupyter-lite.json" "${PYODIDE_LOCAL_URL}"
+    STARTUP_PACKAGES_JSON="$(python3 -c 'import json; print(json.dumps(json.load(open("dependencies/pyodide-packages.json"))["pyodide"]["startup_packages"]))')"
+    patch_pyodide_kernel_config "dist/jupyter-lite.json" "${STARTUP_PACKAGES_JSON}"
 fi
 
 # Exit with zero (for GH workflow)

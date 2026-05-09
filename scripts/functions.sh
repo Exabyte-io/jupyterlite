@@ -120,6 +120,35 @@ EOF
     echo "Set pyodideUrl to '${PYODIDE_URL}' in ${JUPYTER_LITE_JSON}."
 }
 
+patch_pyodide_kernel_config() {
+    local JUPYTER_LITE_JSON=$1
+    local STARTUP_PACKAGES_JSON=$2
+    python3 - "${JUPYTER_LITE_JSON}" "${STARTUP_PACKAGES_JSON}" <<'EOF'
+import json
+import sys
+
+config_path = sys.argv[1]
+startup_packages = json.loads(sys.argv[2])
+
+with open(config_path, "r", encoding="utf-8") as handle:
+    config = json.load(handle)
+
+settings = config["jupyter-config-data"].setdefault("litePluginSettings", {})
+kernel = settings.setdefault("@jupyterlite/pyodide-kernel-extension:kernel", {})
+kernel["loadPyodideOptions"] = kernel.get("loadPyodideOptions", {})
+kernel["loadPyodideOptions"]["packages"] = startup_packages
+kernel["pipliteUrls"] = ["./pypi/all.json"]
+kernel["disablePyPIFallback"] = True
+kernel["pyodideKernel"] = kernel.get("pyodideKernel", {})
+kernel["pyodideKernel"]["env"] = kernel["pyodideKernel"].get("env", {})
+kernel["pyodideKernel"]["env"]["PYTHONPATH"] = "/drive/preinstalled"
+
+with open(config_path, "w", encoding="utf-8") as handle:
+    json.dump(config, handle, indent=2)
+EOF
+    echo "Patched kernel startup packages and local wheel index in ${JUPYTER_LITE_JSON}."
+}
+
 add_line_to_file_if_not_present() {
     local LINE=$1
     local FILE=$2
