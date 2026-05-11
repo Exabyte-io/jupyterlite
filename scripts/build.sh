@@ -3,14 +3,11 @@
 # NODE_VERSION="18"
 THIS_SCRIPT_DIR_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 PACKAGE_ROOT_PATH="$(realpath "${THIS_SCRIPT_DIR_PATH}/../")"
-REQUIREMENTS_FILENAME="dependencies/requirements.txt"
-PACKAGE_MANIFEST_FILENAME="dependencies/pyodide-packages.json"
 TMP_DIR="tmp"
 CONTENT_DIR="content"
 PYODIDE_VERSION="$(python3 -c 'import json; print(json.load(open("dependencies/pyodide-packages.json"))["pyodide"]["version"])')"
 PYODIDE_LOCAL_DIR="dist/pyodide"
 PYODIDE_LOCAL_URL="./pyodide/pyodide.js"
-VENDORED_WHEEL_DIR="vendor/wheels"
 
 source "${THIS_SCRIPT_DIR_PATH}"/functions.sh
 
@@ -69,22 +66,14 @@ if [[ -n ${UPDATE_CONTENT} ]]; then
     # Copy other required files
     cp -r ${RESOLVED_CONTENT_DIR}/{packages,utils,config.yml,README*} ${CONTENT_DIR}/
     # Update path references in README*
-    sed -i "s/examples\//api\//g" ${CONTENT_DIR}/README.*
+    for readme_file in ${CONTENT_DIR}/README.*; do
+        [[ -f "$readme_file" ]] && sed -i.bak "s/examples\//api\//g" "$readme_file" && rm -f "${readme_file}.bak"
+    done
 fi
 
 
 if [[ -n ${BUILD} ]]; then
-    python3 scripts/prepare_pyodide_packages.py \
-        --manifest "${PACKAGE_MANIFEST_FILENAME}" \
-        --wheel-dir "${VENDORED_WHEEL_DIR}" \
-        --content-dir "${CONTENT_DIR}" || exit 1
-
-    PIPLITE_ARGS=()
-    while IFS= read -r WHEEL_PATH; do
-        PIPLITE_ARGS+=("--piplite-wheels" "${WHEEL_PATH}")
-    done < <(find "${CONTENT_DIR}/pypi" -maxdepth 1 -type f -name "*.whl" | sort)
-
-    jupyter lite build --contents ${CONTENT_DIR} --output-dir dist "${PIPLITE_ARGS[@]}"
+    jupyter lite build --contents ${CONTENT_DIR} --output-dir dist
     # Pin the IPython version to 8.31.0 -- otherwise it resolves to the latest version requiring Python 3.12+
     find dist/extensions/@jupyterlite/pyodide-kernel-extension/static -name "*.js" \
         | xargs grep -l "install(\['ipython'\]" \

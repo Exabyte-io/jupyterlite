@@ -137,16 +137,13 @@ settings = config["jupyter-config-data"].setdefault("litePluginSettings", {})
 kernel = settings.setdefault("@jupyterlite/pyodide-kernel-extension:kernel", {})
 kernel["loadPyodideOptions"] = kernel.get("loadPyodideOptions", {})
 kernel["loadPyodideOptions"]["packages"] = startup_packages
-kernel["pipliteUrls"] = ["./pypi/all.json"]
-kernel["disablePyPIFallback"] = True
-kernel["pyodideKernel"] = kernel.get("pyodideKernel", {})
-kernel["pyodideKernel"]["env"] = kernel["pyodideKernel"].get("env", {})
-kernel["pyodideKernel"]["env"]["PYTHONPATH"] = "/drive/preinstalled"
+kernel["loadPyodideOptions"]["lockFileURL"] = "./pyodide/pyodide-lock.json"
+kernel["disablePyPIFallback"] = False
 
 with open(config_path, "w", encoding="utf-8") as handle:
     json.dump(config, handle, indent=2)
 EOF
-    echo "Patched kernel startup packages and local wheel index in ${JUPYTER_LITE_JSON}."
+    echo "Patched kernel config: set loadPyodideOptions.packages in ${JUPYTER_LITE_JSON}."
 }
 
 add_line_to_file_if_not_present() {

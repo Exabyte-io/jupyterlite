@@ -5,53 +5,17 @@
       "numpy",
       "pandas",
       "scipy",
+      "matplotlib",
+      "pillow",
+      "jinja2",
+      "markupsafe",
       "sqlite3",
-      "lzma"
+      "lzma",
+      "pyyaml",
+      "jsonschema",
+      "networkx",
+      "sympy",
+      "uncertainties"
     ]
-  },
-  "preinstall": {
-    "requirements": [
-      "ase==3.28.0",
-      "ipywidgets==8.1.8",
-      "plotly==6.7.0",
-      "annotated_types==0.7.0",
-      "networkx==3.4.2",
-      "monty==2025.3.3",
-      "tabulate==0.10.0",
-      "sympy==1.14.0",
-      "uncertainties==3.2.3",
-      "jinja2==3.1.6",
-      "pymatgen-analysis-defects==2024.4.23",
-      "mat3ra-periodic-table==2026.2.6.post0",
-      "mat3ra-made==2026.5.7.post0"
-    ],
-    "wheels": [
-      "pymatgen-2024.4.13-py3-none-any.whl",
-      "spglib-2.0.2-py3-none-any.whl",
-      "ruamel.yaml-0.17.32-py3-none-any.whl",
-      "pydantic_core-2.18.2-py3-none-any.whl",
-      "pydantic-2.7.1-py3-none-any.whl"
-    ]
-  },
-  "notebooks": [
-    {
-      "name": "create_interface_with_min_strain_zsl.ipynb",
-      "requirements": [],
-      "wheels": []
-    },
-    {
-      "name": "specific_examples",
-      "requirements": [
-        "mat3ra-standata==2026.5.7.post1"
-      ],
-      "wheels": []
-    },
-    {
-      "name": "torch",
-      "requirements": [],
-      "wheels": [
-        "torch-2.1.0a0-cp311-cp311-emscripten_3_1_45_wasm32.whl"
-      ]
-    }
-  ]
+  }
 }
