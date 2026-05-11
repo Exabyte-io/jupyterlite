@@ -24,6 +24,13 @@ The environment using the [data-bridge extension](https://github.com/Exabyte-io/
 
 The content is based on the [api-examples](https://github.com/Exabyte-io/api-examples.git). And is being populated during build.
 
+### Runtime Python wheels (same-origin)
+
+Package policy is defined in [`dependencies/pyodide-packages.json`](dependencies/pyodide-packages.json): `pyodide.version`, `pyodide.startup_packages`, and `runtime_vendor_requirements` (pip specifiers for same-origin wheels). 
+During `BUILD`, [`scripts/vendor_runtime_wheels.py`](scripts/vendor_runtime_wheels.py) downloads wheels into **`tmp/runtime-pypi/`**.
+`jupyter lite build` receives each wheel via `--piplite-wheels`; the **published site** serves them under **`dist/pypi/`** together with the index 
+Only universal wheels (`py3-none-any`) are saved.
+
 ### Build
 
 As below:
