@@ -1,0 +1,29 @@
+{
+  "pyodide": {
+    "version": "0.24.1",
+    "startup_packages": [
+      "numpy",
+      "pandas",
+      "scipy",
+      "matplotlib",
+      "pillow",
+      "jinja2",
+      "markupsafe",
+      "sqlite3",
+      "lzma",
+      "pyyaml",
+      "jsonschema",
+      "networkx",
+      "sympy",
+      "uncertainties"
+    ]
+  },
+  "runtime_vendor_requirements": [
+    "ipython==8.31.0",
+    "annotated-types>=0.6.0",
+    "monty",
+    "tabulate",
+    "ipywidgets>=8.1.1,<9",
+    "plotly>=5.18,<6"
+  ]
+}

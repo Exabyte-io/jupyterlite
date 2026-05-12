@@ -4,9 +4,11 @@
 THIS_SCRIPT_DIR_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 PACKAGE_ROOT_PATH="$(realpath "${THIS_SCRIPT_DIR_PATH}/../")"
 REQUIREMENTS_FILENAME="dependencies/requirements.txt"
+PACKAGE_MANIFEST="dependencies/pyodide-packages.json"
 TMP_DIR="tmp"
+RUNTIME_WHEEL_STAGING="${TMP_DIR}/runtime-pypi"
 CONTENT_DIR="content"
-PYODIDE_VERSION="0.24.1"
+PYODIDE_VERSION="$(python3 -c 'import json; print(json.load(open("'"${PACKAGE_MANIFEST}"'"))["pyodide"]["version"])')"
 PYODIDE_LOCAL_DIR="dist/pyodide"
 PYODIDE_LOCAL_URL="./pyodide/pyodide.js"
 
@@ -67,18 +69,30 @@ if [[ -n ${UPDATE_CONTENT} ]]; then
     # Copy other required files
     cp -r ${RESOLVED_CONTENT_DIR}/{packages,utils,config.yml,README*} ${CONTENT_DIR}/
     # Update path references in README*
-    sed -i "s/examples\//api\//g" ${CONTENT_DIR}/README.*
+    for readme_file in ${CONTENT_DIR}/README.*; do
+        [[ -f "$readme_file" ]] && sed -i.bak "s/examples\//api\//g" "$readme_file" && rm -f "${readme_file}.bak"
+    done
 fi
 
 
 if [[ -n ${BUILD} ]]; then
-    jupyter lite build --contents ${CONTENT_DIR} --output-dir dist
+    mkdir -p "${PACKAGE_ROOT_PATH}/${RUNTIME_WHEEL_STAGING}"
+    python3 "${THIS_SCRIPT_DIR_PATH}/vendor_runtime_wheels.py" \
+        --manifest "${PACKAGE_ROOT_PATH}/${PACKAGE_MANIFEST}" \
+        --wheel-dir "${PACKAGE_ROOT_PATH}/${RUNTIME_WHEEL_STAGING}"
+    PIPLITE_ARGS=()
+    while IFS= read -r whl; do
+        [[ -n "${whl}" ]] && PIPLITE_ARGS+=(--piplite-wheels "${whl}")
+    done < <(find "${PACKAGE_ROOT_PATH}/${RUNTIME_WHEEL_STAGING}" -maxdepth 1 -type f -name '*.whl' 2>/dev/null | sort)
+    jupyter lite build --contents "${CONTENT_DIR}" --output-dir dist "${PIPLITE_ARGS[@]}"
     # Pin the IPython version to 8.31.0 -- otherwise it resolves to the latest version requiring Python 3.12+
     find dist/extensions/@jupyterlite/pyodide-kernel-extension/static -name "*.js" \
         | xargs grep -l "install(\['ipython'\]" \
         | xargs perl -i -pe "s/install\(\['ipython'\]/install(\['ipython==8.31.0'\]/g"
     download_pyodide "${PYODIDE_VERSION}" "${PYODIDE_LOCAL_DIR}"
     patch_pyodide_url "dist/jupyter-lite.json" "${PYODIDE_LOCAL_URL}"
+    STARTUP_PACKAGES_JSON="$(python3 -c 'import json; print(json.dumps(json.load(open("'"${PACKAGE_MANIFEST}"'"))["pyodide"]["startup_packages"]))')"
+    patch_pyodide_kernel_config "dist/jupyter-lite.json" "${STARTUP_PACKAGES_JSON}"
 fi
 
 # Exit with zero (for GH workflow)
