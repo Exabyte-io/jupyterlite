@@ -23,7 +23,6 @@
     "annotated-types>=0.6.0",
     "monty",
     "tabulate",
-    "ase",
     "ipywidgets>=8.1.1,<9",
     "plotly>=5.18,<6"
   ]
