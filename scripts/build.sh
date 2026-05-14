@@ -35,7 +35,7 @@ pip list
 if [[ -n ${UPDATE_CONTENT} ]]; then
     mkdir -p ${TMP_DIR} && cd ${TMP_DIR} || exit 1
     REPO_NAME="api-examples"
-    BRANCH_NAME="feature/SOF-7894"
+    BRANCH_NAME="feature/SOF-7894-1"
 
     # Clone repository if it doesn't exist
     if [[ ! -e "${REPO_NAME}" ]]; then
