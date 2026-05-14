@@ -37,16 +37,13 @@ if [[ -n ${UPDATE_CONTENT} ]]; then
     REPO_NAME="api-examples"
     BRANCH_NAME="feature/SOF-7894-1"
 
-    # Clone repository if it doesn't exist
-    if [[ ! -e "${REPO_NAME}" ]]; then
-        echo "Attempting checkout and exiting if unsuccessful"
-        git clone https://github.com/Exabyte-io/${REPO_NAME}.git || exit 1
-    fi
+    # Always clone fresh to avoid stale cached state
+    rm -rf "${REPO_NAME}"
+    echo "Cloning ${REPO_NAME} on branch ${BRANCH_NAME}"
+    git clone --branch ${BRANCH_NAME} --single-branch https://github.com/Exabyte-io/${REPO_NAME}.git || exit 1
 
     # Pull all required files
     cd ${REPO_NAME} || exit 1
-    git checkout ${BRANCH_NAME}
-    git pull
     # Install git-lfs and pull LFS files
     git lfs install && git lfs pull
     git --no-pager log --decorate=short --pretty=oneline -n1
