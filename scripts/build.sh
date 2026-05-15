@@ -35,7 +35,7 @@ pip list
 if [[ -n ${UPDATE_CONTENT} ]]; then
     mkdir -p ${TMP_DIR} && cd ${TMP_DIR} || exit 1
     REPO_NAME="api-examples"
-    BRANCH_NAME="feature/SOF-7894-1"
+    BRANCH_NAME="feature/SOF-7894-notebooks-utils"
 
     # Always clone fresh to avoid stale cached state
     rm -rf "${REPO_NAME}"
@@ -76,6 +76,9 @@ if [[ -n ${BUILD} ]]; then
         | xargs perl -i -pe "s/install\(\['ipython'\]/install(\['ipython==8.31.0'\]/g"
     download_pyodide "${PYODIDE_VERSION}" "${PYODIDE_LOCAL_DIR}"
     patch_pyodide_url "dist/jupyter-lite.json" "${PYODIDE_LOCAL_URL}"
+    WHEEL_PATH=$(build_and_copy_mat3ra_wheel "tmp/api-examples" "${PYODIDE_LOCAL_DIR}")
+    patch_pyodide_lock "${PYODIDE_LOCAL_DIR}/pyodide-lock.json" "${WHEEL_PATH}"
+    patch_jupyter_lite_packages "dist/jupyter-lite.json"
 fi
 
 # Exit with zero (for GH workflow)
