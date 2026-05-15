@@ -120,6 +120,65 @@ EOF
     echo "Set pyodideUrl to '${PYODIDE_URL}' in ${JUPYTER_LITE_JSON}."
 }
 
+build_and_copy_mat3ra_wheel() {
+    local REPO_DIR=$1
+    local DEST_DIR=$2
+    local WHEEL_OUT_DIR="${REPO_DIR}/dist"
+
+    python -m build --wheel --outdir "${WHEEL_OUT_DIR}" "${REPO_DIR}" >&2
+    local WHEEL_FILE
+    WHEEL_FILE=$(ls "${WHEEL_OUT_DIR}"/mat3ra_notebooks_utils-*.whl | tail -1)
+    cp "${WHEEL_FILE}" "${DEST_DIR}/"
+    echo "${DEST_DIR}/$(basename "${WHEEL_FILE}")"
+}
+
+patch_pyodide_lock() {
+    local LOCK_FILE=$1
+    local WHEEL_PATH=$2
+    local WHEEL_FILE
+    WHEEL_FILE=$(basename "${WHEEL_PATH}")
+    local SHA256
+    SHA256=$(shasum -a 256 "${WHEEL_PATH}" | awk '{print $1}')
+    python3 - <<EOF
+import json
+with open('${LOCK_FILE}', 'r') as f:
+    lock = json.load(f)
+lock['packages']['mat3ra'] = {
+    "name": "mat3ra",
+    "version": "1.0.0",
+    "file_name": "${WHEEL_FILE}",
+    "install_dir": "site",
+    "sha256": "${SHA256}",
+    "package_type": "package",
+    "imports": ["mat3ra"],
+    "depends": [],
+    "unvendored_tests": True,
+    "shared_library": False,
+}
+with open('${LOCK_FILE}', 'w') as f:
+    json.dump(lock, f, indent=2)
+EOF
+    echo "Patched ${LOCK_FILE} with mat3ra entry (sha256: ${SHA256})."
+}
+
+patch_jupyter_lite_packages() {
+    local JUPYTER_LITE_JSON=$1
+    python3 - <<EOF
+import json
+with open('${JUPYTER_LITE_JSON}', 'r') as f:
+    config = json.load(f)
+settings = config['jupyter-config-data'].setdefault('litePluginSettings', {})
+kernel = settings.setdefault('@jupyterlite/pyodide-kernel-extension:kernel', {})
+options = kernel.setdefault('loadPyodideOptions', {})
+packages = options.setdefault('packages', [])
+if 'mat3ra' not in packages:
+    packages.append('mat3ra')
+with open('${JUPYTER_LITE_JSON}', 'w') as f:
+    json.dump(config, f, indent=2)
+EOF
+    echo "Patched ${JUPYTER_LITE_JSON} with mat3ra in loadPyodideOptions.packages."
+}
+
 add_line_to_file_if_not_present() {
     local LINE=$1
     local FILE=$2
