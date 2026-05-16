@@ -134,9 +134,10 @@ build_and_copy_mat3ra_wheel() {
     echo "${DEST_DIR}/$(basename "${WHEEL_FILE}")"
 }
 
-# Registers the mat3ra wheel in pyodide-lock.json so Pyodide can resolve and load it
-# by name. The "imports" field maps the top-level "mat3ra" namespace to this package,
+# Registers the mat3ra wheel in pyodide-lock.json so Pyodide can resolve and load it by name.
+# The "imports" field maps the top-level "mat3ra" namespace to this package,
 # which is what triggers loading when "import mat3ra.*" is called.
+# The "depends" field declares the runtime dependency on pyyaml, which is required by mat3ra at runtime
 patch_pyodide_lock() {
     local LOCK_FILE=$1
     local WHEEL_PATH=$2
@@ -186,7 +187,7 @@ EOF
     echo "Added '${DEPENDENCY}' to ${PACKAGE_NAME}.depends in ${LOCK_FILE}."
 }
 
-# Adds "mat3ra", "pyyaml" to the list of packages to load in JupyterLite's pyodide-kernel-extension config,
+# Adds "mat3ra" to the list of packages to load in JupyterLite's pyodide-kernel-extension config,
 # so that "import mat3ra.*" works in notebooks without an explicit micropip.install call.
 patch_jupyter_lite_packages() {
     local JUPYTER_LITE_JSON=$1
