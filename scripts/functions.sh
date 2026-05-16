@@ -186,7 +186,7 @@ EOF
     echo "Added '${DEPENDENCY}' to ${PACKAGE_NAME}.depends in ${LOCK_FILE}."
 }
 
-# Adds "mat3ra", "pyyaml" to the list of packages to load in JupyterLite's pyodide-kernel-extension config,
+# Adds "mat3ra" to the list of packages to load in JupyterLite's pyodide-kernel-extension config,
 # so that "import mat3ra.*" works in notebooks without an explicit micropip.install call.
 patch_jupyter_lite_packages() {
     local JUPYTER_LITE_JSON=$1
