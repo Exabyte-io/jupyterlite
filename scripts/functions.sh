@@ -161,6 +161,23 @@ EOF
     echo "Patched ${LOCK_FILE} with mat3ra entry (sha256: ${SHA256})."
 }
 
+patch_pyodide_lock_depends() {
+    local LOCK_FILE=$1
+    local PACKAGE_NAME=$2
+    local DEPENDENCY=$3
+    python3 - <<EOF
+import json
+with open('${LOCK_FILE}', 'r') as f:
+    lock = json.load(f)
+depends = lock['packages']['${PACKAGE_NAME}']['depends']
+if '${DEPENDENCY}' not in depends:
+    depends.append('${DEPENDENCY}')
+with open('${LOCK_FILE}', 'w') as f:
+    json.dump(lock, f, indent=2)
+EOF
+    echo "Added '${DEPENDENCY}' to ${PACKAGE_NAME}.depends in ${LOCK_FILE}."
+}
+
 patch_jupyter_lite_packages() {
     local JUPYTER_LITE_JSON=$1
     python3 - <<EOF
