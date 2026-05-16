@@ -37,16 +37,13 @@ if [[ -n ${UPDATE_CONTENT} ]]; then
     REPO_NAME="api-examples"
     BRANCH_NAME="main"
 
-    # Clone repository if it doesn't exist
-    if [[ ! -e "${REPO_NAME}" ]]; then
-        echo "Attempting checkout and exiting if unsuccessful"
-        git clone https://github.com/Exabyte-io/${REPO_NAME}.git || exit 1
-    fi
+    # Always clone fresh to avoid stale cached state
+    rm -rf "${REPO_NAME}"
+    echo "Cloning ${REPO_NAME} on branch ${BRANCH_NAME}"
+    git clone --branch ${BRANCH_NAME} --single-branch https://github.com/Exabyte-io/${REPO_NAME}.git || exit 1
 
     # Pull all required files
     cd ${REPO_NAME} || exit 1
-    git checkout ${BRANCH_NAME}
-    git pull
     # Install git-lfs and pull LFS files
     git lfs install && git lfs pull
     git --no-pager log --decorate=short --pretty=oneline -n1
@@ -79,6 +76,11 @@ if [[ -n ${BUILD} ]]; then
         | xargs perl -i -pe "s/install\(\['ipython'\]/install(\['ipython==8.31.0'\]/g"
     download_pyodide "${PYODIDE_VERSION}" "${PYODIDE_LOCAL_DIR}"
     patch_pyodide_url "dist/jupyter-lite.json" "${PYODIDE_LOCAL_URL}"
+    WHEEL_PATH=$(build_and_copy_mat3ra_wheel "tmp/api-examples" "${PYODIDE_LOCAL_DIR}")
+    patch_pyodide_lock "${PYODIDE_LOCAL_DIR}/pyodide-lock.json" "${WHEEL_PATH}"
+#     Example how to patch the pyodide-lock.json file to add a dependency:
+#    patch_pyodide_lock_depends "${PYODIDE_LOCAL_DIR}/pyodide-lock.json" "micropip" "pyyaml"
+    patch_jupyter_lite_packages "dist/jupyter-lite.json"
 fi
 
 # Exit with zero (for GH workflow)
