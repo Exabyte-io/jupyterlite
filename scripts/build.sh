@@ -78,7 +78,8 @@ if [[ -n ${BUILD} ]]; then
     patch_pyodide_url "dist/jupyter-lite.json" "${PYODIDE_LOCAL_URL}"
     WHEEL_PATH=$(build_and_copy_mat3ra_wheel "tmp/api-examples" "${PYODIDE_LOCAL_DIR}")
     patch_pyodide_lock "${PYODIDE_LOCAL_DIR}/pyodide-lock.json" "${WHEEL_PATH}"
-    patch_pyodide_lock_depends "${PYODIDE_LOCAL_DIR}/pyodide-lock.json" "micropip" "pyyaml"
+#     Example how to patch the pyodide-lock.json file to add a dependency:
+#    patch_pyodide_lock_depends "${PYODIDE_LOCAL_DIR}/pyodide-lock.json" "micropip" "pyyaml"
     patch_jupyter_lite_packages "dist/jupyter-lite.json"
 fi
 

@@ -120,6 +120,8 @@ EOF
     echo "Set pyodideUrl to '${PYODIDE_URL}' in ${JUPYTER_LITE_JSON}."
 }
 
+# Builds the mat3ra-notebooks-utils wheel from the cloned api-examples repo and copies it
+# into the pyodide distribution directory so it can be served as a local package.
 build_and_copy_mat3ra_wheel() {
     local REPO_DIR=$1
     local DEST_DIR=$2
@@ -132,6 +134,9 @@ build_and_copy_mat3ra_wheel() {
     echo "${DEST_DIR}/$(basename "${WHEEL_FILE}")"
 }
 
+# Registers the mat3ra wheel in pyodide-lock.json so Pyodide can resolve and load it
+# by name. The "imports" field maps the top-level "mat3ra" namespace to this package,
+# which is what triggers loading when "import mat3ra.*" is called.
 patch_pyodide_lock() {
     local LOCK_FILE=$1
     local WHEEL_PATH=$2
@@ -151,7 +156,7 @@ lock['packages']['mat3ra'] = {
     "sha256": "${SHA256}",
     "package_type": "package",
     "imports": ["mat3ra"],
-    "depends": [],
+    "depends": ["pyyaml"],
     "unvendored_tests": True,
     "shared_library": False,
 }
@@ -161,6 +166,9 @@ EOF
     echo "Patched ${LOCK_FILE} with mat3ra entry (sha256: ${SHA256})."
 }
 
+# Adds a missing dependency to an existing package entry in pyodide-lock.json.
+# Needed when the upstream lock file omits a dependency that is required at runtime
+# but not declared (e.g. pyyaml missing from micropip.depends).
 patch_pyodide_lock_depends() {
     local LOCK_FILE=$1
     local PACKAGE_NAME=$2
@@ -178,6 +186,8 @@ EOF
     echo "Added '${DEPENDENCY}' to ${PACKAGE_NAME}.depends in ${LOCK_FILE}."
 }
 
+# Adds "mat3ra", "pyyaml" to the list of packages to load in JupyterLite's pyodide-kernel-extension config,
+# so that "import mat3ra.*" works in notebooks without an explicit micropip.install call.
 patch_jupyter_lite_packages() {
     local JUPYTER_LITE_JSON=$1
     python3 - <<EOF
