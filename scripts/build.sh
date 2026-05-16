@@ -20,6 +20,7 @@ export SETUPTOOLS_VERSION=75.8.0
 export WHEEL_VERSION=0.37.1
 export BUILD_VERSION=0.7.0
 export TWINE_VERSION=3.7.1
+export DEV_MODE=${DEV_MODE:-0}
 
 pip install --upgrade \
   pip==$PIP_VERSION \
@@ -76,7 +77,11 @@ if [[ -n ${BUILD} ]]; then
         | xargs perl -i -pe "s/install\(\['ipython'\]/install(\['ipython==8.31.0'\]/g"
     download_pyodide "${PYODIDE_VERSION}" "${PYODIDE_LOCAL_DIR}"
     patch_pyodide_url "dist/jupyter-lite.json" "${PYODIDE_LOCAL_URL}"
-    WHEEL_PATH=$(build_and_copy_mat3ra_wheel "tmp/api-examples" "${PYODIDE_LOCAL_DIR}")
+    if [[ ${DEV_MODE} == 1 ]]; then
+        WHEEL_PATH=$(build_and_copy_mat3ra_wheel "tmp/api-examples" "${PYODIDE_LOCAL_DIR}")
+    else
+        WHEEL_PATH=$(download_mat3ra_wheel "${PYODIDE_LOCAL_DIR}")
+    fi
     patch_pyodide_lock "${PYODIDE_LOCAL_DIR}/pyodide-lock.json" "${WHEEL_PATH}"
     # Example how to patch the pyodide-lock.json file to add a dependency:
     # patch_pyodide_lock_depends "${PYODIDE_LOCAL_DIR}/pyodide-lock.json" "micropip" "pyyaml"
