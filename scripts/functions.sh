@@ -120,8 +120,20 @@ EOF
     echo "Set pyodideUrl to '${PYODIDE_URL}' in ${JUPYTER_LITE_JSON}."
 }
 
-# Builds the mat3ra-notebooks-utils wheel from the cloned api-examples repo and copies it
-# into the pyodide distribution directory so it can be served as a local package.
+# Downloads the published mat3ra-notebooks-utils wheel from PyPI into the pyodide
+# distribution directory. Used in production to ensure the sha256 is stable and matches
+# exactly what is registered in pyodide-lock.json.
+download_mat3ra_wheel() {
+    local DEST_DIR=$1
+    pip download mat3ra-notebooks-utils --no-deps --only-binary=:all: -d "${DEST_DIR}" >&2
+    local WHEEL_FILE
+    WHEEL_FILE=$(ls "${DEST_DIR}"/mat3ra_notebooks_utils-*.whl | tail -1)
+    echo "${WHEEL_FILE}"
+}
+
+# Builds the mat3ra-notebooks-utils wheel from a local repo checkout and copies it
+# into the pyodide distribution directory. Used in dev to test unreleased changes
+# before they are published to PyPI.
 build_and_copy_mat3ra_wheel() {
     local REPO_DIR=$1
     local DEST_DIR=$2
