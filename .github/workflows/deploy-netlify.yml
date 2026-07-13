@@ -1,0 +1,19 @@
+name: Deploy Netlify
+
+on:
+  workflow_dispatch:
+
+jobs:
+  trigger-netlify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Netlify build hook
+        env:
+          NETLIFY_BUILD_HOOK: ${{ secrets.NETLIFY_BUILD_HOOK }}
+        run: |
+          if [ -z "${NETLIFY_BUILD_HOOK}" ]; then
+            echo "Missing NETLIFY_BUILD_HOOK secret. Create a Build hook in Netlify (Site settings → Build & deploy → Build hooks) and add it as a repository secret."
+            exit 1
+          fi
+          curl --fail --silent --show-error -X POST -d {} "${NETLIFY_BUILD_HOOK}"
+          echo "Netlify build triggered."
