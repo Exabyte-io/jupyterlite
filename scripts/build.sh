@@ -36,7 +36,9 @@ pip list
 if [[ -n ${UPDATE_CONTENT} ]]; then
     mkdir -p ${TMP_DIR} && cd ${TMP_DIR} || exit 1
     REPO_NAME="api-examples"
-    BRANCH_NAME="main"
+    # TEMPORARY [SOF-8034]: build content from the api-examples branch carrying the made WIP
+    # wheel in config.yml. Revert to "main" once api-examples#361 merges.
+    BRANCH_NAME="feature/SOF-8034"
 
     # Always clone fresh to avoid stale cached state
     rm -rf "${REPO_NAME}"
