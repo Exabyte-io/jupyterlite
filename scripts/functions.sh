@@ -161,9 +161,10 @@ patch_pyodide_lock() {
 import json
 with open('${LOCK_FILE}', 'r') as f:
     lock = json.load(f)
-lock['packages']['mat3ra'] = {
-    "name": "mat3ra",
-    "version": "1.0.0",
+version = "${WHEEL_FILE}".split("-")[1].split("+")[0]
+lock['packages']['mat3ra-notebooks-utils'] = {
+    "name": "mat3ra-notebooks-utils",
+    "version": version,
     "file_name": "${WHEEL_FILE}",
     "install_dir": "site",
     "sha256": "${SHA256}",
