@@ -36,7 +36,9 @@ pip list
 if [[ -n ${UPDATE_CONTENT} ]]; then
     mkdir -p ${TMP_DIR} && cd ${TMP_DIR} || exit 1
     REPO_NAME="api-examples"
-    BRANCH_NAME="main"
+    # TEMPORARY (SOF-8004): build the preview from the branch carrying the custom calculation
+    # notebooks. Back to "main" once api-examples#360 merges.
+    BRANCH_NAME="feature/SOF-8004"
 
     # Always clone fresh to avoid stale cached state
     rm -rf "${REPO_NAME}"
